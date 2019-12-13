@@ -1,0 +1,38 @@
+//Component wrappers
+@mixin makeSection
+	max-width: $content-max-width
+	margin: auto auto	
+//Grid mixins
+@mixin makeGrid($cols: $base-cols, $break-at: $small, $nested: false)
+	display: grid
+	grid-column-gap: $gutter	
+	
+	@include contentContainer
+	grid-template: auto / repeat(1, 100%)
+	@if $cols > 1
+		@media screen and (min-width: $break-at) 
+			grid-template: auto / repeat(2, 1fr)
+		@media screen and (min-width: $large)
+			grid-template: auto / repeat($cols, 1fr)
+	@if $nested
+		margin-left: 	-$gutter/2
+		margin-right: -$gutter/2
+	
+@mixin contentContainer($nested: false)
+	padding-left: 	$gutter/2
+	padding-right: 	$gutter/2
+	@if $nested
+		margin-left: 	-$gutter/2
+		margin-right: -$gutter/2
+	@media screen and (min-width: 1480px)
+		max-width: 		88%
+		margin-left: 	auto
+		margin-right: auto
+		@if $nested
+			max-width: 		90% + $gutter
+	
+@mixin absoluteCentre
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)

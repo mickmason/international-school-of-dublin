@@ -1,25 +1,24 @@
 $vunit: 1.45rem
+
+//Globals
+@import 'framework/globals' 
+@import 'framework/mixins'
+/* Normalize overrides and resets */
 *
 	box-sizing: border-box
-html
-	font-size: 14px
 body
 	margin: 0 
 	padding: 0
-	font-family: "Quattrocento", serif
-	font-size: 100% 
-	line-height: 1.45  
-h1, h2, h3, h4, h5
-	font-family: "Quattrocento Sans", sans-serif 
-	line-height: 1.35 
-h1
-	font-size: 2.0581rem
-h2
-	font-size: 1.618rem
-h3
-	font-size: 1.272rem
+picture
+	display: block
+img
+	display: block
+	max-width: 100% 
 
-@media screen and (min-width: 600px) 
+html
+	font-size: 15px
+	font-family: $base-font-family
+@media screen and (min-width: 600px)
 	html
 		font-size: 16px
 @media screen and (min-width: 1200px)
@@ -27,7 +26,95 @@ h3
 		font-size: 18px
 @media screen and (min-width: 1400px) 
 	html
-		font-size: 20px
+		font-size: 20px 
 
-@import 'partials/grid';
-@import 'partials/hero';
+body
+	font-size: 100% 
+	line-height: $text-line-height  
+h1, h2, h3, h4, h5
+	color: 					$text-colour
+	font-family: 		$heading-font-family 
+	line-height: 		$heading-line-height 
+	margin-top: 		$gutter*3
+	margin-bottom: 	$gutter
+h1
+	font-size: 	$text-10
+	color: 			$heading-colour
+h2
+	font-size: $text-04
+h3
+	font-size: $text-03
+h4
+	font-size: $text-02
+h5
+	font-size: $text-01
+ 
+p
+	color: 					$text-colour
+	line-height: 		$line-height
+	margin-top: 		auto
+	margin-bottom: 	$gutter
+
+@import 'framework/grid' 
+@import 'framework/hero'
+
+/* bc-cards */
+.bc-card
+	display: 				flex
+	flex-direction: column
+	align-self: stretch
+	justify-content: flex-start 
+	margin-bottom: $gutter
+	&__heading
+		flex: 1 1 100%
+		display: flex
+		align-items: flex-end
+		margin-top: $gutter
+	&__media
+		display: 		block 
+	img
+		width: 100% 
+	p 
+		flex: 1 1 100%
+	&__cta
+		flex: 1 1 100%
+		display: flex
+		justify-content: stretch
+		align-items: flex-end 
+	
+/* Utilities */
+.media-overlay 
+	position: absolute 
+	top: 0
+	left: 0
+	width: 	100%
+	height: 100%
+	z-index: 10 
+	background-color: rgba($black, 0.36) 
+
+@import 'framework/components/bc-4-col-feature'
+@import 'framework/components/bc-one-col-feature'
+@import 'framework/components/bc-2-col-media-feature'
+
+/* Proejct specific */
+
+.bc-4-col-feature, .bc-one-col-feature
+	padding-top: 		$gutter * 2
+	padding-bottom: $gutter * 2
+ 
+.bc-4-col-feature
+	.bc-card:nth-child(1)
+		.bc-card__heading 
+			color: $mid-green
+	.bc-card:nth-child(2)
+		.bc-card__heading
+			color: $red
+	.bc-card:nth-child(3)
+		.bc-card__heading
+			color: $brand-primary
+	.bc-card:nth-child(4)
+		.bc-card__heading
+			color: $purple
+	
+.bc-one-col-feature
+	max-width: 1440px
