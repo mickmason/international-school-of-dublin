@@ -15,9 +15,11 @@
 	@if $nested
 		margin-left: 	-$gutter/2
 		margin-right: -$gutter/2
+	
 @mixin makeContentGrid($cols: $base-cols, $break-at: $small, $nested: false)
 	@include makeGrid($cols,$break-at, $nested)
 	@include contentContainer
+
 @mixin contentContainer($nested: false)
 	padding-left: 	$gutter/2
 	padding-right: 	$gutter/2
@@ -29,7 +31,7 @@
 		margin-left: 	auto
 		margin-right: auto
 		@if $nested
-			max-width: 		90% + $gutter
+			max-width: 		88% + $gutter
 	
 @mixin absoluteCentre
 	position: absolute
