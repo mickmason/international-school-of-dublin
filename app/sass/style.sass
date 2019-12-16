@@ -3,6 +3,8 @@ $vunit: 1.45rem
 //Globals
 @import 'framework/globals' 
 @import 'framework/mixins'
+@import 'framework/utilities'
+
 /* Normalize overrides and resets */
 *
 	box-sizing: border-box
@@ -53,14 +55,15 @@ p
 	color: 					$text-colour
 	line-height: 		$line-height
 	margin-top: 		auto
-	margin-bottom: 	$gutter
+	margin-bottom: 	$gutter 
 
+@import 'framework/navigation-schemes' 
 @import 'framework/grid' 
-@import 'framework/hero'
+@import 'framework/hero' 
 
 /* bc-cards */
 .bc-card
-	display: 				flex
+	display: 				flex  
 	flex-direction: column
 	align-self: stretch
 	justify-content: flex-start 
@@ -68,39 +71,28 @@ p
 	&__heading
 		flex: 1 1 100%
 		display: flex
-		align-items: flex-end
-		margin-top: $gutter
+		align-items: flex-end 
+		margin-top: $gutter 
 	&__media
 		display: 		block 
 	img
-		width: 100% 
+		width: 100%
 	p 
-		flex: 1 1 100%
-	&__cta
-		flex: 1 1 100%
+		flex: 1 1 100% 
+	&__cta  
+		flex: 1 1 100%  
 		display: flex
 		justify-content: stretch
-		align-items: flex-end 
+		align-items: flex-end  
 	
-/* Utilities */
-.media-overlay 
-	position: absolute 
-	top: 0
-	left: 0
-	width: 	100%
-	height: 100%
-	z-index: 10 
-	background-color: rgba($black, 0.36) 
-
+@import 'framework/site-header'
 @import 'framework/components/bc-4-col-feature'
 @import 'framework/components/bc-one-col-feature'
-@import 'framework/components/bc-2-col-media-feature'
-
+@import 'framework/components/bc-2-col-media-feature' 
 /* Proejct specific */
-
 .bc-4-col-feature, .bc-one-col-feature
 	padding-top: 		$gutter * 2
-	padding-bottom: $gutter * 2
+	padding-bottom: $gutter * 2 
  
 .bc-4-col-feature
 	.bc-card:nth-child(1)

@@ -2,16 +2,16 @@
 	@include makeSection
 	padding-top: 		$gutter
 	padding-bottom: $gutter
-	&__header
+	&__header, &__content, &__cta
 		@include contentContainer
+	&__header
 		padding-bottom: $gutter
 		&__heading
 			margin-top: auto
 	&__content
-		@include makeGrid
+		@include makeContentGrid
 		padding-bottom: $gutter
 	&__cta
 		padding-bottom: $gutter
-		@include contentContainer
 	
 		

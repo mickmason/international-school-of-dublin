@@ -5,9 +5,7 @@
 //Grid mixins
 @mixin makeGrid($cols: $base-cols, $break-at: $small, $nested: false)
 	display: grid
-	grid-column-gap: $gutter	
-	
-	@include contentContainer
+	grid-column-gap: $gutter
 	grid-template: auto / repeat(1, 100%)
 	@if $cols > 1
 		@media screen and (min-width: $break-at) 
@@ -17,7 +15,9 @@
 	@if $nested
 		margin-left: 	-$gutter/2
 		margin-right: -$gutter/2
-	
+@mixin makeContentGrid($cols: $base-cols, $break-at: $small, $nested: false)
+	@include makeGrid($cols,$break-at, $nested)
+	@include contentContainer
 @mixin contentContainer($nested: false)
 	padding-left: 	$gutter/2
 	padding-right: 	$gutter/2
