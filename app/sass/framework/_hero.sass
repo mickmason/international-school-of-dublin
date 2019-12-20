@@ -1,11 +1,10 @@
-.bc-hero, .feature-section
+/* Hero component */
+.bc-hero, .bc-hero--inpage
 	position: relative
 	display: flex
 	flex-direction: column
 	justify-content: stretch
 	height: calc(100vh)
-/* Hero component */
-.bc-hero
 	color: #f0f0f0
 	background-image: url(../media/happy-kid.jpg)
 	background-repeat: no-repeat
@@ -14,15 +13,19 @@
 	background-color: transparent
 	&__heading
 		font-size: $text-12
-	h1, p
+	h1, p, a
 		color: $white
 		margin-top: 0
 		margin-bottom: 0
+	.bc-icon-link 
+		fill: $white
+		color: $white
 	&__content
 		@include contentContainer
 		position: relative
 		z-index: 10
 		flex: 1 1 100%
+		width: 100%
 		display: flex
 		flex-direction: column
 		justify-content: stretch
@@ -32,7 +35,12 @@
 		justify-content: center
 		align-items: flex-start
 	&__body
-		flex: 1 0 80%
+		flex: 1 0 100%
+		@include contentContainer
+		position: absolute
+		left: 0
+		bottom: 33.333%	
+		transform: translateY(50%)
 	&__header, &__footer
 		flex: 0 1 10%
 	&__image-overlay
@@ -51,22 +59,53 @@
 		&__logo
 			position: relative
 			z-index: 10
-		&__navigation
-			position: absolute
-			top: 0
-			left: -$gutter/2
-			right: 0
-			z-index: 0
-			width: calc(100% + #{$gutter})
-			height: 100%
-			padding-left: 	$gutter/2
-			padding-right: 	$gutter/2
-			display: flex
-			align-items: center
-			a 
-				color: $white
-				text-decoration: none
-			svg
-				fill: white
+	& &__heading
+		font-size: $text-10
+.bc-hero
+	&.bc-hero--inpage
+		.bc-hero__body
+			bottom: $vertical-unit
+			transform: translateY(0)
+		.bc-hero__image-overlay 
+		  background-image: linear-gradient(to bottom, rgba($brand-primary, 0) 10%, rgba($brand-primary, 0.96) 72%)
+
+@media screen and (min-width: 720px)
+	.bc-hero
+		&__body
+			left: 5%
+			&__text
+				padding-left:  	$gutter
+				padding-right:  $gutter
+	
+@media screen and (min-width: $med) and (orientation: portrait)
+	.bc-hero
+		&.bc-hero--inpage
+			.bc-hero__body
+				left: 0
+				bottom: 20%
+				transform: translate(0, 50%)
+		
+@media screen and (min-width: $large)
+	.bc-hero
+		&.bc-hero--inpage
+			.bc-hero__body
+				max-width: 800px
+				.bc-hero__body__text
+					padding-left: 	0
+					padding-right: 	0
+
+@media screen and (min-width: $x-large)
+	.bc-hero
+		&.bc-hero--inpage
+			.bc-hero__body
+				left: 0
+	.bc-hero
+		&.bc-hero--inpage
+			.bc-hero__body
+				bottom: $vertical-unit * 3
+				max-width: #{(800px / 18px)}rem
+
+
+	
 		
 			

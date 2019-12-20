@@ -5,14 +5,14 @@
 	&__content
 		@include contentContainer
 		@include makeGrid(2, 880px)
-		&__heading
-			> h1 
-				margin-top: 0
-		&__media
-			position: relative
-			grid-row-start: 1
-			align-self: start
-			margin-bottom: $gutter
+	&__heading
+		> h1 
+			margin-top: 0
+	&__media
+		position: relative
+		grid-row-start: 1
+		align-self: start
+		margin-bottom: $gutter
 		.play-icon
 			@include absoluteCentre
 			z-index: 20

@@ -7,6 +7,36 @@
 	height: 100%
 	z-index: 10 
 	background-color: rgba($black, 0.36)
+.bc-icon-link 
+	display: flex
+	align-items: center
+	.bc-svg-icon
+		max-height: 1.4rem
+		fill: inherit
+	a
+		@include linkHover
+			+ .bc-svg-icon
+				fill: $link-active-color
 .bc-svg-icon
-	max-width: $spacing-unit * 2
-	max-height: $spacing-unit * 2
+	max-width: $vertical-unit * 2 
+	max-height: $vertical-unit * 2
+	
+
+//Embeds an iframe, makes it responsive
+.bc-responsive-embed
+	width: 100%
+	position: relative
+	padding-top: 100%
+	iframe
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		
+	transition: opacity 480ms ease-out
+	&.is-not-loaded
+		opacity: 0
+@media screen and (min-width: 600px)
+	.bc-responsive-embed
+		padding-top: (9/16 * 100%)

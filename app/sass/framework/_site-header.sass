@@ -1,33 +1,53 @@
+$desktop-break: 880px
 .bc-site-header 
+	&__content
+		@include contentContainer
+		display: flex
+		justify-content: flex-start
+		align-items: center
+	&__logo
+		position: relative
+		z-index: 30
+		flex: 0 1 11.8%
+		max-width: #{(75px/14px)}rem
 	&.is-overlay
 		position: absolute
 		top: 0
 		left: 0
 		width: 100%
 		z-index: 30
-	&__content
-		@include contentContainer
-		display: flex
-		justify-content: flex-start
-		align-items: stretch
-	&__logo
-		position: relative
-		z-index: 30
-		flex: 0 1 11.8%
-		max-width: #{(55px/14px)}rem
+		.bc-main-navigation-toggle
+			&__show, &__hide
+				fill: white
+		.bc-main-navigation-toggle
+			.bc-main-navigation-toggle__hide
+				fill: black
+	&.has-active-navigation
+		position: fixed 
+		top: 0
+		left: 0
+		width: 100%
+		height: 100vh
+		overflow: scroll
+	@media screen and (min-width: $desktop-break)
+		a 
+			color: $white
+			@include linkHover
+				color: $white
 .bc-main-navigation
 	flex: 0 1 auto 
 	display: flex
 	flex: 1 1 90% 
 	align-items: center
 	margin-left: $gutter
+	.bc-site-header__heading, .bc-site-header__sub-heading, .bc-site-header__sub-sub-heading 
+		display: none
 	ul, li
 		padding: 0	
 		margin-right: 0
 		margin-top: 0
 		margin-bottom: 0
 		list-style: none
-	
 	&__header
 		display: none
 	&__links
@@ -39,16 +59,17 @@
 		justify-content: center
 		align-items: center
 		&__link
-			padding: $spacing-unit/2 $gutter
+			padding: $vertical-unit/2 $gutter
 			border-radius: 1.25rem
 			text-align: center
 			transition: background-color 320ms ease-out 
 			&:active, &:hover, &:focus
 				text-decoration: underline
 				background-color: rgba($white, 0.40)
-	
+	& &__sub-navigation
+		display: none
 .bc-main-navigation-toggle
-	flex: 0 1 8%
+	flex: 0 1 12%
 	display: none
 	justify-content: center 
 	align-items: center
@@ -60,33 +81,47 @@
 	> a 
 		display: flex
 		align-items: center
-	svg
-		max-width: 	2rem
-		max-height: 2rem
+	&__show, &__hide
+		transition: fill 480ms ease-out
 	&__show
 		display: inherit
+		max-width: 	2rem
+		max-height: 2rem
 	&__hide
 		display: none
+		max-width: 1.25rem
+		max-height: 1.25rem
 .bc-site-header__contact
 		display: none
-	
+		
 @media screen and (max-width: 879px)
 	.bc-site-header
 		&__content
 			justify-content: space-between
 		&__contact 
 			display: block
-			&__heading
-				margin-top: $gutter*2
-	
+			width: 100%
+		& &__heading, & &__sub-heading, & &__sub-sub-heading 
+			display: inherit
+		& &__heading	
+			padding-top: $vertical-unit
+			border-top: 1px solid $brand-secondary
+			font-size: $text-10
+			width: 100%
+			margin-top: 0
+		& &__sub-heading
+			font-size: $text-04
+			color: $shade-04
+		& &__sub-sub-heading
+			margin-top: $vertical-unit	
+			font-size: $text-03
+			color: $white
 	.bc-main-navigation
 		display: flex
 		flex-direction: column
 		align-items: flex-start
 		margin-left: 0
-		padding-top: 12vh
-		padding-left: 	$gutter/2
-		padding-right: 	$gutter/2
+		padding: 12vh $gutter/2 0 $gutter/2 
 		background-color: $white 
 		border-bottom: 2px solid $brand-primary 
 		position: absolute
@@ -94,36 +129,60 @@
 		left: 0
 		right: 0
 		width: 100%
-		z-index: 20 
-		& &__header
+		visibility: hidden
+		opacity: 0
+		z-index: -20
+		& &__sub-navigation
 			display: inherit
-			width: 100%
-			margin-top: 0
-			padding-top: $gutter
-			border-top: 1px solid $brand-secondary
+			min-width: calc(100% + #{$gutter})
+			margin-left: -$gutter/2
+			margin-right: -$gutter/2
+			padding-left: $gutter/2 
+			padding-right: $gutter/2
+			background-color: $brand-primary
+			color: $white
+			
+			.bc-main-navigation__item__link
+				padding-top: $vertical-unit/4
+				color: $white
 		& &__links
 			flex: 0 1 auto  
 			min-width: 100%
 			flex-direction: column
+			margin-bottom: $gutter
 		& &__item
 			flex: 0 1 auto 
 			min-width: calc(100% + #{$gutter})
 			justify-content: flex-start
 			margin-left: -$gutter/2
 			margin-right: -$gutter/2
+			padding-left: $gutter/2
+			padding-right: $gutter/2
 			&__link
 				min-width: 100%
-				padding: $gutter/2 $gutter/2
+				padding: $vertical-unit/2 0
 				display: inline-block
 				text-align: left
+				border-radius: 0
+				border-bottom: 1px solid $brand-primary
+				&:hover, &:active, &:focus
+					background-color: rgba($brand-primary, 0.2)
+			&:last-child
+				.bc-main-navigation__item__link
+					border-bottom: none
 		&-toggle
 			display: inherit
-		/* Active state */
-.bc-main-navigation 
-	&.is-active + .bc-main-navigation-toggle
+	
+.has-active-navigation 
+	.bc-main-navigation 
+		transition: opacity 400ms ease-out 120ms
+		visibility: inherit
+		opacity: 1
+		z-index: 20
+	.bc-main-navigation-toggle
 		.bc-main-navigation-toggle__hide
 			display: inherit
-	&.is-active + .bc-main-navigation-toggle
+	.bc-main-navigation-toggle
 		.bc-main-navigation-toggle__show
 			display: none
 	

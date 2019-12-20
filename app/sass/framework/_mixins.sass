@@ -17,7 +17,7 @@
 		margin-right: -$gutter/2
 	
 @mixin makeContentGrid($cols: $base-cols, $break-at: $small, $nested: false)
-	@include makeGrid($cols,$break-at, $nested)
+	@include makeGrid($cols, $break-at, $nested)
 	@include contentContainer
 
 @mixin contentContainer($nested: false)
@@ -26,15 +26,21 @@
 	@if $nested
 		margin-left: 	-$gutter/2
 		margin-right: -$gutter/2
-	@media screen and (min-width: 1480px)
+	@media screen and (min-width: $x-large)
 		max-width: 		88%
 		margin-left: 	auto
 		margin-right: auto
 		@if $nested
 			max-width: 		88% + $gutter
-	
+		
+@mixin doFeatureHeading($line-height: $heading-line-height, $font-size: $h1, $margin-top: $vertical-unit)	
+	margin-top: $margin-top - (($line-height * $font-size) - $font-size)
+
 @mixin absoluteCentre
 	position: absolute
 	top: 50%
 	left: 50%
 	transform: translate(-50%, -50%)
+@mixin linkHover
+	&:hover, &:active, &:focus
+		@content

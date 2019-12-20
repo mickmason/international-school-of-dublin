@@ -37,26 +37,33 @@ h1, h2, h3, h4, h5
 	color: 					$text-colour
 	font-family: 		$heading-font-family 
 	line-height: 		$heading-line-height 
-	margin-top: 		$gutter*3
-	margin-bottom: 	$gutter
+	margin-top: 		$vertical-unit
+	margin-bottom: 	$vertical-unit/2
 h1
-	font-size: 	$text-10
+	font-size: 	$h1-text
+	font-weight: 300
 	color: 			$heading-colour
 h2
-	font-size: $text-04
+	font-size: $h2-text
+	font-weight: 500
 h3
-	font-size: $text-03
+	font-size: $h3-text
 h4
-	font-size: $text-02
+	font-size: $h4-text
 h5
-	font-size: $text-01
- 
+	font-size: $h5-text
 p
 	color: 					$text-colour
 	line-height: 		$line-height
 	margin-top: 		auto
 	margin-bottom: 	$gutter 
 
+a 
+	color: $link-color
+	text-decoration: none
+	&:active, &:focus, &:hover
+		text-decoration: none
+		color: $link-active-color
 @import 'framework/navigation-schemes' 
 @import 'framework/grid' 
 @import 'framework/hero' 
@@ -72,7 +79,7 @@ p
 		flex: 1 1 100%
 		display: flex
 		align-items: flex-end 
-		margin-top: $gutter 
+		@include doFeatureHeading($font-size: $h2) 
 	&__media
 		display: 		block  
 	img
@@ -89,12 +96,149 @@ p
 @import 'framework/components/bc-4-col-feature'
 @import 'framework/components/bc-one-col-feature'
 @import 'framework/components/bc-2-col-media-feature' 
-/* Proejct specific */
-.bc-4-col-feature, .bc-one-col-feature
-	padding-top: 		$gutter * 2
-	padding-bottom: $gutter * 2 
- 
+
+/** * Project specific overrides * **/
+@mixin gradOverlay($type: 'main-hero', $direction: 'to bottom left', $start-colour: rgba($brand-primary, .618), $end-colour: $brand-darker, $stop: 61.8%)
+	@if $type == 'main-hero' 
+		background-image: linear-gradient(to bottom, rgba($brand-primary, 0.8) 0%, rgba($brand-primary, 0.618) 25%, rgba($brand-darker, 0.8) 100%)
+	@else if $type == 'high-chroma'
+		background-image: linear-gradient(#{$direction}, $start-colour 0%, $end-colour $stop)
+	@else if $type == 'grey-fill'
+		background-image: linear-gradient(#{$direction},  $shade-01, $shade-03)
+	
+/* Site header */
+.bc-site-header
+	&__logo
+		background-color: $white
+		border-bottom-left-radius: 	2.55rem
+		border-bottom-right-radius: 2.55rem
+		flex-basis: 14%
+.bc-main-navigation
+	&__item
+		&__link
+			padding-left: 	$gutter/2
+			padding-right: 	$gutter/2
+@media screen and (min-width: $small)
+	.bc-site-header
+		&__logo
+			flex-basis: 12%
+	.bc-main-navigation-toggle
+		&__show
+			max-width: 2.125rem
+			max-height: 2.125rem
+@media screen and (min-width: $large)
+	.bc-main-navigation
+		&__item
+			&__link
+				padding-left: 	$gutter/1.5
+				padding-right: 	$gutter/1.5
+	
+@media screen and (min-width: $small) and (orientation: landscape)
+	.bc-site-header
+		&__logo
+			flex-basis: 10%
+	.bc-main-navigation
+		padding-top: 25vh
+@media screen and (min-width: $med)
+	.bc-site-header
+		&__logo
+			flex-basis: 10%
+	.bc-main-navigation
+		padding-top: 0
+	.bc-main-navigation-toggle
+		&__show
+			max-width: 	2.5rem
+			max-height: 2.5rem
+		&__hide
+			max-width: 	1.75rem
+			max-height: 1.75rem
+@media screen and (min-width: $med) and (orientation: portrait)
+	.bc-main-navigation
+		padding-top: 11vh
+
+/* Hero feature */
+.bc-hero
+	&__image-overlay
+		background-color: transparent
+		@include gradOverlay('main-hero')
+	&__body
+		&__text
+			background-color: $brand-primary
+			padding: $vertical-unit $gutter/2
+			&__IB
+				display: flex
+				align-items: center
+				margin-bottom: $vertical-unit/2
+				img
+					flex: 0 1 10% 
+					max-width: 10%
+					margin-right: $gutter/2
+				p
+					flex: 0 1 auto
+	& &__heading
+		font-size: $text-10
+		color: $brand-secondary
+		border-bottom: 1px solid $brand-secondary
+		padding-bottom: $vertical-unit/1.5
+		margin-bottom: $vertical-unit/1.5
+	& &__tagline
+		font-size: $text-03
+	&.bc-hero--inpage
+		.bc-hero__body
+			&__text
+				background-color: transparent
+				p 
+					margin-bottom: $vertical-unit/2
+		.bc-hero__heading
+			padding-bottom: 0
+			margin-bottom: $vertical-unit/2
+			border-bottom: none
+		.bc-hero__tagline
+			margin-bottom: $vertical-unit/2
+
+@media screen and (min-width: 720px)
+	.bc-hero
+		&__body
+			&__text
+				padding-left:  	$gutter
+				padding-right:  $gutter
+
+@media screen and (min-width: $large)
+	.bc-hero
+		&__body
+			&__text
+				&__IB
+					img  
+						max-width: 8%
+	.bc-hero
+		&.bc-hero--inpage
+			.bc-hero__body
+				.bc-hero__body__text
+					padding-left: 	0
+					padding-right: 	0
+
+@media screen and (min-width: $xx-large)
+	.bc-hero
+		&__body
+			width: auto
+			left: 33%
+			transform: translate(-33%, 33%)	
+		& &__heading
+			font-size: $text-10 
+@media screen and (min-width: $xxx-large)
+	.bc-hero
+		&.bc-hero--inpage
+			.bc-hero__body
+				.bc-hero__body__text
+					padding-left: 	0
+					padding-right: 	0
+	
+/* 4-col feature */
 .bc-4-col-feature
+	&__header
+		margin-bottom: $vertical-unit * 2
+	&__heading
+		margin-bottom: $vertical-unit
 	.bc-card:nth-child(1)
 		.bc-card__heading 
 			color: $mid-green
@@ -108,5 +252,11 @@ p
 		.bc-card__heading
 			color: $purple
 	
+.bc-2-col-media-feature
+	@include gradOverlay('high-chroma', $start-colour: rgba($orange, 1), $end-colour: $dark-red)
+	&__heading, &__intro, p, .bc-buttom
+		color: $white
+	&__media
+		border: 2px solid $shade-01
 .bc-one-col-feature
-	max-width: 1440px
+	@include gradOverlay('grey-fill', 'to bottom right')
