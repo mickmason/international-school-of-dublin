@@ -1,39 +1,25 @@
-.bc-4-col-feature
-	@include makeSection
-	min-height: 100vh
-	padding-top: 		$vertical-unit * 2 
-	padding-bottom: $vertical-unit * 2 
-	&__content, &__cta
-		@include contentContainer
-	&__header
-		@include makeContentGrid(4)
-		margin-bottom: $vertical-unit * 2
-	&__heading
-		@include doFeatureHeading($heading-line-height, $h1)
-	&__intro
-		font-size: $text-02
-		margin-bottom: 0
-		max-width: 800px
-	&__content
-		@include makeContentGrid
-		padding-bottom: $gutter
-	.bc-card
-		&__heading
-			font-size: $h3
-			margin-top: $vertical-unit
-			@include doFeatureHeading($font-size: $h3) 
-	&__cta
-		padding-bottom: $gutter
+.bc-feature-component
+	&.bc-4-col-feature 
+		.bc-card
+			&__heading
+				font-size: $h3
+				@include doFeatureHeading
+		.bc-feature-component__intro
+			margin-bottom: 0
+		.bc-feature-component__cta
+			padding-bottom: $gutter
 	
 @media screen and (min-width: $small)
-	.bc-4-col-feature
-		&__heading, &__intro
-			grid-column: 1 / span 2
+	.bc-feature-component
+		&.bc-4-col-feature
+			.bc-feature-component__heading, .bc-feature-component__intro
+				grid-column: 1 / span 2
 @media screen and (min-width: $large)
-	.bc-4-col-feature
-		&__heading
-			grid-column: 1 / span 4
-		&__intro
-			max-width: 800px
-			grid-column: 1 / span 3
+	.bc-feature-component
+		&.bc-4-col-feature
+			.bc-feature-component__heading
+				grid-column: 1 / span 4
+			&__intro
+				max-width: 800px
+				grid-column: 1 / span 3
 		

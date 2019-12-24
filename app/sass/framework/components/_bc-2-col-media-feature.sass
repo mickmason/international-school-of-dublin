@@ -1,32 +1,35 @@
-.bc-2-col-media-feature
-	@include makeSection
-	padding-top: 		$gutter*4
-	padding-bottom: $gutter*4
-	&__content
-		@include contentContainer
-		@include makeGrid(2, 880px)
-	&__heading
-		> h1 
-			margin-top: 0
-	&__media
-		position: relative
-		grid-row-start: 1
-		align-self: start
-		margin-bottom: $gutter
-		.play-icon
-			@include absoluteCentre
-			z-index: 20
-			width: 	$text-10
-			height: $text-10
-			border-radius: 50%
-			background-color: $shade-01
-	@media screen and (min-width: 880px)
-		&__content
-			grid-template-rows: auto auto
-			&__heading
-				grid-column-start: span 2
-			&__media
-				grid-row-start: auto
+.bc-feature-component
+	&.bc-2-col-media-feature
+		.bc-feature-component__content
+			@include makeContentGrid(2, 880px)
+		.bc-feature-component__header
+			padding-left: 0	
+			padding-right: 0
+		.bc-feature-component__cta
+			padding-left: 0
+			padding-right: 0
+		&__heading
+			> h1 
+				margin-top: 0
+		&__media
+			position: relative
+			grid-row-start: 1
+			align-self: start
+			margin-bottom: $gutter
+			.play-icon
+				@include absoluteCentre
+				z-index: 20
+				width: 	$text-10
+				height: $text-10
+				border-radius: 50%
+				background-color: $shade-01
+		@media screen and (min-width: 880px)
+			&__content
+				grid-template-rows: auto auto
+				&__heading
+					grid-column-start: span 2
+				&__media
+					grid-row-start: auto
 
 		
 		

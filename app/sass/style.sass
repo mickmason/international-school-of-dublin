@@ -1,5 +1,28 @@
 $vunit: 1.45rem
 
+/** * Project specific mixins * **/
+@mixin gradOverlay($type: 'main-hero', $direction: 'to bottom left', $start-colour: rgba($brand-primary, .618), $end-colour: $brand-darker, $stop: 61.8%)
+	@if $type == 'main-hero'
+		background-image: linear-gradient(to bottom, rgba($brand-primary, 0.8) 0%, rgba($brand-primary, 0.618) 25%, rgba($brand-darker, 0.8) 100%)
+	@else if $type == 'high-chroma'
+		background-image: linear-gradient(#{$direction}, $start-colour 0%, $end-colour $stop) 
+	@else if $type == 'grey-fill'
+		background-image: linear-gradient(#{$direction},  $shade-01, $shade-03)
+
+@mixin makeHighChroma($start-colour: rgba($brand-primary, .618), $end-colour:  $brand-darker) 
+	@include gradOverlay('high-chroma', $start-colour: $start-colour, $end-colour: $end-colour)
+	color: $white	
+	.bc-button
+		border-color: $white
+		background-color: transparent
+		color: $white
+		.bc-svg-icon
+			fill: $white
+		@include linkHover
+			background-color: $white	
+			color: $brand-primary
+			.bc-svg-icon
+				fill: $brand-primary
 //Globals
 @import 'framework/globals' 
 @import 'framework/mixins'
@@ -64,12 +87,16 @@ a
 	&:active, &:focus, &:hover
 		text-decoration: none
 		color: $link-active-color
+
 @import 'framework/navigation-schemes' 
 @import 'framework/grid' 
 @import 'framework/hero' 
+@import 'framework/site-header'
+@import 'framework/components/bc-feature-component'  
+
 
 /* bc-cards */
-.bc-card
+.bc-card, .bc-two-col-card
 	display: 				flex  
 	flex-direction: column
 	align-self: stretch
@@ -90,22 +117,34 @@ a
 		flex: 1 1 100%  
 		display: flex
 		justify-content: stretch
-		align-items: flex-end  
+		align-items: flex-end 
 	
-@import 'framework/site-header'
-@import 'framework/components/bc-4-col-feature'
-@import 'framework/components/bc-one-col-feature'
-@import 'framework/components/bc-2-col-media-feature' 
+.bc-two-col-card
+	@media screen and (min-width: $med)
+		flex-direction: row
 
-/** * Project specific overrides * **/
-@mixin gradOverlay($type: 'main-hero', $direction: 'to bottom left', $start-colour: rgba($brand-primary, .618), $end-colour: $brand-darker, $stop: 61.8%)
-	@if $type == 'main-hero' 
-		background-image: linear-gradient(to bottom, rgba($brand-primary, 0.8) 0%, rgba($brand-primary, 0.618) 25%, rgba($brand-darker, 0.8) 100%)
-	@else if $type == 'high-chroma'
-		background-image: linear-gradient(#{$direction}, $start-colour 0%, $end-colour $stop)
-	@else if $type == 'grey-fill'
-		background-image: linear-gradient(#{$direction},  $shade-01, $shade-03)
-	
+/* Utilities */
+.bc-button
+	margin-top: $vertical-unit
+	font-weight: 500
+	padding-left: 	$gutter*1.25
+	padding-right: 	$gutter/1.5
+	border-radius: 	$gutter*1.5 
+	display: inline-flex
+	justify-content: space-between
+	align-items: center
+	background-color: transparent
+	color: $brand-primary
+	.bc-svg-icon
+		fill: $brand-primary
+		margin-left: 	$gutter/4
+		max-height: 	$vertical-unit*1.25
+	&:active, &:hover, &:focus
+		background-color: $brand-primary
+		color: $white
+		.bc-svg-icon
+			fill: $white
+
 /* Site header */
 .bc-site-header
 	&__logo
@@ -126,12 +165,13 @@ a
 		&__show
 			max-width: 2.125rem
 			max-height: 2.125rem
-@media screen and (min-width: $large)
+@media screen and (min-width: $large+1)
 	.bc-main-navigation
 		&__item
 			&__link
-				padding-left: 	$gutter/1.5
-				padding-right: 	$gutter/1.5
+				font-size: $text--1
+				padding-left: 	$gutter/2
+				padding-right: 	$gutter/2
 	
 @media screen and (min-width: $small) and (orientation: landscape)
 	.bc-site-header
@@ -139,12 +179,10 @@ a
 			flex-basis: 10%
 	.bc-main-navigation
 		padding-top: 25vh
-@media screen and (min-width: $med)
+@media screen and (min-width: $med) 
 	.bc-site-header
 		&__logo
 			flex-basis: 10%
-	.bc-main-navigation
-		padding-top: 0
 	.bc-main-navigation-toggle
 		&__show
 			max-width: 	2.5rem
@@ -152,9 +190,14 @@ a
 		&__hide
 			max-width: 	1.75rem
 			max-height: 1.75rem
-@media screen and (min-width: $med) and (orientation: portrait)
+
+@media screen and (min-width: $med) and (orientation: landscape) and (max-width: $large)
 	.bc-main-navigation
-		padding-top: 11vh
+		padding-top: 12vh
+
+@media screen and (min-width: $large+1) 
+	.bc-main-navigation
+		padding-top: 0 
 
 /* Hero feature */
 .bc-hero
@@ -231,32 +274,43 @@ a
 			.bc-hero__body
 				.bc-hero__body__text
 					padding-left: 	0
-					padding-right: 	0
+					padding-right: 	0 
+
+/* Feature component */
+.bc-feature-component
+	/* 4-col feature */
+	&.bc-4-col-feature
+		.bc-feature-component__header
+			margin-bottom: $vertical-unit * 2
+		.bc-feature-component__heading
+			margin-bottom: $vertical-unit
+		.bc-card:nth-child(1)
+			.bc-card__heading 
+				color: $mid-green 
+		.bc-card:nth-child(2)
+			.bc-card__heading
+				color: $red
+		.bc-card:nth-child(3)
+			.bc-card__heading
+				color: $brand-primary
+		.bc-card:nth-child(4)
+			.bc-card__heading
+				color: $purple
 	
-/* 4-col feature */
-.bc-4-col-feature
-	&__header
-		margin-bottom: $vertical-unit * 2
-	&__heading
-		margin-bottom: $vertical-unit
-	.bc-card:nth-child(1)
-		.bc-card__heading 
-			color: $mid-green
-	.bc-card:nth-child(2)
-		.bc-card__heading
-			color: $red
-	.bc-card:nth-child(3)
-		.bc-card__heading
-			color: $brand-primary
-	.bc-card:nth-child(4)
-		.bc-card__heading
-			color: $purple
+.bc-feature-component
+	&.bc-2-col-media-feature
+		@include makeHighChroma($start-colour: rgba($orange, 1), $end-colour: $dark-red)
+		.bc-2-col-media-feature__media
+			border: 2px solid $shade-01
+		
+.bc-feature-component
+	&.bc-one-col-feature
+		@include gradOverlay('grey-fill', 'to bottom right')
 	
-.bc-2-col-media-feature
-	@include gradOverlay('high-chroma', $start-colour: rgba($orange, 1), $end-colour: $dark-red)
-	&__heading, &__intro, p, .bc-buttom
-		color: $white
-	&__media
-		border: 2px solid $shade-01
-.bc-one-col-feature
-	@include gradOverlay('grey-fill', 'to bottom right')
+/* CTA feature
+.bc-feature-component
+	&.bc-cta-feature
+		@include makeHighChroma() 
+		
+		
+		
