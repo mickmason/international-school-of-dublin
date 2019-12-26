@@ -17,10 +17,8 @@
 	&__header
 		@include makeContentGrid(1)
 		margin-bottom: $vertical-unit * 2
-		
 	&__cta
-		padding-left: $gutter/2
-		padding-right: $gutter/2
+		@include makeContentGrid(1)
 	&__heading
 		@include doFeatureHeading($heading-line-height, $h1)
 		max-width: 860px
