@@ -1,0 +1,45 @@
+html
+	font-size: 15px
+	font-family: $base-font-family
+@media screen and (min-width: 600px)
+	html
+		font-size: 16px
+@media screen and (min-width: 1200px)
+	html
+		font-size: 18px
+@media screen and (min-width: 1400px) 
+	html
+		font-size: 20px 
+
+body
+	font-size: 100% 
+	line-height: $text-line-height  
+h1, h2, h3, h4, h5
+	color: 					$text-colour
+	font-family: 		$heading-font-family  
+	font-weight: 		$heading-font-weight
+	line-height: 		$heading-line-height 
+	margin-top: 		$vertical-unit
+	margin-bottom: 	$vertical-unit/2
+h1
+	font-size: 	$h1-text
+	color: 			$brand-primary
+h2
+	font-size: $h2-text
+h3
+	font-size: $h3-text
+h4
+	font-size: $h4-text
+h5
+	font-size: $h5-text
+p
+	color: 					$text-colour
+	line-height: 		$line-height
+	margin-top: 		auto
+	margin-bottom: 	$gutter 
+a 
+	color: $link-color
+	text-decoration: none
+	&:active, &:focus, &:hover
+		text-decoration: none
+		color: $link-active-color

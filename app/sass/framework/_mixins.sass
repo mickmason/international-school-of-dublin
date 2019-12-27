@@ -19,7 +19,11 @@
 @mixin makeContentGrid($cols: $base-cols, $break-at: $small, $nested: false)
 	@include makeGrid($cols, $break-at, $nested)
 	@include contentContainer
-
+@mixin makeContentFlexbox($direction: row)
+	@include contentContainer
+	display: flex
+	flex-direction: $direction
+	
 @mixin contentContainer($nested: false)
 	padding-left: 	$gutter/2
 	padding-right: 	$gutter/2
@@ -35,6 +39,7 @@
 		
 @mixin doFeatureHeading($line-height: $heading-line-height, $font-size: $h1, $margin-top: $vertical-unit)	
 	margin-top: $margin-top - (($line-height * $font-size) - $font-size)
+
 
 @mixin absoluteCentre
 	position: absolute

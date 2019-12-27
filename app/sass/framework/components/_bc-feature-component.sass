@@ -5,11 +5,10 @@
 
 
 .bc-feature-component 
+	position: relative
 	@include makeSection
 	padding-top: 		$vertical-unit * 2 
 	padding-bottom: $vertical-unit * 2 
-	h1, h2, h3, h4, h5, h6, p, ul, a, blockquote
-		color: inherit
 	&.is-full-vh
 		min-height: 100vh
 	&__content
@@ -18,10 +17,12 @@
 		@include makeContentGrid(1)
 		margin-bottom: $vertical-unit * 2
 	&__cta
-		@include makeContentGrid(1)
+		@include makeContentFlexbox()
+		margin-top: $vertical-unit/2
+		.bc-button
+			flex: 0 1 auto
 	&__heading
+		font-size: $text-11
 		@include doFeatureHeading($heading-line-height, $h1)
 		max-width: 860px
-	&__intro
-		font-size: $text-01
-		max-width: 800px
+		

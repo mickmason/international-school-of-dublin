@@ -12,10 +12,9 @@
 	align-items: center
 	.bc-svg-icon
 		max-height: 1.4rem
-		fill: inherit
-	a
-		@include linkHover
-			+ .bc-svg-icon
+		fill: $link-color
+	@include linkHover
+		.bc-svg-icon
 				fill: $link-active-color
 .bc-svg-icon
 	max-width: $vertical-unit * 2 
@@ -42,12 +41,18 @@
 	
 //Button
 .bc-button
-	font-size: $text-01
-	padding: $gutter/2.15 $gutter $gutter/2
+	padding: $gutter/4 $gutter/2 $gutter/4 $gutter
 	color: $brand-primary
 	background-color: $white
-	border: 1px solid $brand-primary
+	border: 1px solid $black
 	transition: background-color 360ms ease-out
+	.bc-svg-icon
+		fill: $black
+		max-height: 	$vertical-unit*1.25
 	&:active, &:focus, &:hover
-		background-color: $brand-primary
+		background-color: $black
 		color: $white
+		.bc-svg-icon
+			fill: $white
+		
+		
