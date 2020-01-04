@@ -214,7 +214,28 @@ img
 /* CTA feature
 .bc-feature-component
 	&.bc-cta-feature
+		min-height: 100vh
 		@include makeHighChroma() 
+		display: flex
+		flex-direction: column
+		justify-content: center
 		
+		.bc-feature-component__cta
+			align-self: flex-start
+			margin-left: 0
+		
+			
+		
+@media screen and (min-width: $large)
+	.bc-feature-component
+		&.bc-cta-feature
+			.bc-feature-component__cta
+				margin-left: auto
+		
+@media screen and (min-width: $large), (min-width: $med) and (orientation: portrait)
+	.bc-feature-component
+		&.bc-cta-feature
+			min-height: 0
+			
 		
 		
