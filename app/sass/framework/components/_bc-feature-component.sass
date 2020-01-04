@@ -1,7 +1,7 @@
 @import 'bc-4-col-feature' 
 @import 'bc-2-col-media-feature'
 @import 'bc-one-col-feature'
-@import 'bc-2col-cards-feature'
+@import 'bc-2-col-cards-feature'
 
 
 .bc-feature-component 
@@ -13,16 +13,23 @@
 		min-height: 100vh
 	&__content
 		@include makeContentGrid
+		margin-left: auto
+		margin-right: auto
 	&__header
-		@include makeContentGrid(1)
+		@include makeContentGrid(1, $max-width: $text-max-width)
 		margin-bottom: $vertical-unit * 2
+		width: 61.8%
+		margin-left: auto
+		margin-right: auto
 	&__cta
 		@include makeContentFlexbox()
 		margin-top: $vertical-unit/2
+		margin-left: auto
+		margin-right: auto
 		.bc-button
 			flex: 0 1 auto
 	&__heading
 		font-size: $text-11
 		@include doFeatureHeading($heading-line-height, $h1)
-		max-width: 860px
+		
 		

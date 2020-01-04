@@ -10,7 +10,6 @@
 	background-size: cover
 	background-position: center		
 	background-color: transparent
-	
 	h1, p, a
 		color: $white
 		margin-top: 0
@@ -27,6 +26,8 @@
 		display: flex
 		flex-direction: column
 		justify-content: stretch
+		margin-left: auto
+		margin-right: auto
 	&__body, &__footer
 		display: flex
 		flex-direction: column
@@ -71,8 +72,8 @@
 .bc-hero
 	&.bc-hero--inpage
 		.bc-hero__body
-			bottom: $vertical-unit
-			transform: translateY(0)
+		//	bottom: $vertical-unit
+		//	transform: translateY(0)
 		.bc-hero__image-overlay 
 		  background-image: linear-gradient(to bottom, rgba($brand-primary, 0) 10%, rgba($brand-primary, 0.96) 72%)
 
@@ -89,33 +90,24 @@
 		min-height: 200vh
 	
 @media screen and (min-width: $med) and (orientation: portrait)
-	.bc-hero
-		&.bc-hero--inpage
+	.bc-hero, .bc-hero--inpage
 			.bc-hero__body
 				left: 0
 				bottom: 20%
 				transform: translate(0, 50%)
 		
-@media screen and (min-width: $large)
+@media screen and (min-width: $large) 
+	.bc-hero, .bc-hero--inpage
+		.bc-hero__body
+			left: 0
 	.bc-hero
 		&.bc-hero--inpage
-			.bc-hero__body
-				left: 0
-				max-width: 800px
-				.bc-hero__body__text
-					padding-left: 	0
-					padding-right: 	0
+			
+			.bc-hero__body__text
+				padding-left: 	0
+				padding-right: 	0
 
-@media screen and (min-width: $x-large)
-	.bc-hero
-		&.bc-hero--inpage
-			.bc-hero__body
-				left: 0
-	.bc-hero
-		&.bc-hero--inpage
-			.bc-hero__body
-				bottom: $vertical-unit * 3
-				max-width: #{(800px / 18px)}rem
+
 
 
 	

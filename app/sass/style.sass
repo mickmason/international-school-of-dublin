@@ -11,7 +11,7 @@ $vunit: 1.45rem
 @import 'framework/grid' 
 @import 'framework/hero' 
 @import 'framework/site-header'
-@import 'framework/components/bc-feature-component'  
+@import 'framework/components/bc-feature-component'   
 
 /* Normalize overrides and resets */ 
 *
@@ -50,6 +50,16 @@ img
 		align-items: flex-end 
 	
 .bc-two-col-card
+	@include makeContentGrid(4)
+	&__body 
+		display: flex
+		flex-direction: column		
+		justify-content: center
+	
+	&__heading, p, .bc-icon-link
+		flex: 0 1 auto
+		margin-top: 0
+		margin-bottom: $vertical-unit/2
 	@media screen and (min-width: $med)
 		flex-direction: row
 
@@ -125,6 +135,7 @@ img
 		background-color: transparent
 		@include gradOverlay('main-hero', $start-colour: rgba($brand-primary, 0.618), $mid-colour: rgba($brand-primary, 0.382), $end-colour: $brand-darker)
 	&__body
+		
 		&__text
 			background-color: $brand-primary
 			
@@ -168,24 +179,7 @@ img
 	.bc-hero
 		&.bc-hero--inpage
 			.bc-hero__body
-				.bc-hero__body__text
-					padding-left: 	0
-					padding-right: 	0
-
-@media screen and (min-width: $xx-large)
-	.bc-hero
-		&__body
-			width: auto
-			left: 33%
-			transform: translate(-33%, 33%)
-@media screen and (min-width: $xxx-large)
-	.bc-hero
-		&.bc-hero--inpage
-			.bc-hero__body
-				.bc-hero__body__text
-					padding-left: 	0
-					padding-right: 	0 
-
+				max-width: $text-max-width
 /* Feature component */
 .bc-feature-component
 	/* 4-col feature */
