@@ -17,18 +17,18 @@
 		margin-right: -$gutter/2
 		
 
-@mixin makeContentGrid($cols: $base-cols, $break-at: $small, $nested: false, $max-width: $content-max-width)
+@mixin makeContentGrid($cols: $base-cols, $break-at: $small, $nested: false)
 	@include makeGrid($cols, $break-at, $nested)
-	@include contentContainer($nested, $max-width)
+	@include contentContainer($nested)
 	
-@mixin makeContentFlexbox($direction: row, $justify: flex-start, $align: flex-start, $nested: false, $max-width: $content-max-width)
-	@include contentContainer($nested, $max-width)
-	display: flex
+@mixin makeContentFlexbox($direction: row, $justify: flex-start, $align: flex-start, $nested: false)
+	@include contentContainer($nested)
+	display: flex 
 	flex-direction: 	$direction
 	justify-content: 	$justify
 	align-items: 			$align 
 	
-@mixin contentContainer($nested: false, $max-width: $content-max-width)
+@mixin contentContainer($nested: false)
 	padding-left: 	$gutter/2
 	padding-right: 	$gutter/2
 	@if $nested == true
@@ -36,11 +36,12 @@
 		margin-right: -$gutter/2
 		width: 			calc(100% + #{$gutter})
 		@media screen and (min-width: $x-large)
-			@if $max-width != none
-				max-width: calc(#{$max-width} + #{$gutter})
+			margin-left: 		4.444rem - $gutter/2
+			margin-right: 	4.444rem - $gutter/2
 	@else 
 		@media screen and (min-width: $x-large)
-			max-width: 		$max-width
+			margin-left: 		4.444rem
+			margin-right: 	4.444rem
 			
 			
 		

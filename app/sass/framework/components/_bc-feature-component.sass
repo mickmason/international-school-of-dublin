@@ -16,7 +16,7 @@
 		margin-left: auto
 		margin-right: auto
 	&__header
-		@include makeContentGrid(1, $max-width: $text-max-width)
+		@include makeContentGrid(1)
 		margin-bottom: $vertical-unit * 2
 	&__cta
 		@include makeContentFlexbox()
@@ -34,9 +34,5 @@
 		&__header
 			max-width: $text-max-width 
 
-@media screen and (min-width: $x-large)
-	.bc-feature-component
-		&__header
-			margin-left: calc((100% - #{$content-max-width})/2) 
 		
 		
