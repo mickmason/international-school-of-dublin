@@ -35,11 +35,11 @@
 		margin-left: 	-$gutter/2
 		margin-right: -$gutter/2
 		width: 			calc(100% + #{$gutter})
-		@media screen and (min-width: $x-large)
+		@media screen and (min-width: $large)
 			margin-left: 		4.444rem - $gutter/2
 			margin-right: 	4.444rem - $gutter/2
 	@else 
-		@media screen and (min-width: $x-large)
+		@media screen and (min-width: $large)
 			margin-left: 		4.444rem
 			margin-right: 	4.444rem
 			
@@ -49,7 +49,7 @@
 	margin-top: $margin-top - (($line-height * $font-size) - $font-size)
 
 
-@mixin absoluteCentre
+@mixin absoluteCenter
 	position: absolute
 	top: 50%
 	left: 50%
@@ -57,3 +57,19 @@
 @mixin linkHover
 	&:hover, &:active, &:focus
 		@content
+
+@mixin makeSquare
+	padding-top: 100%
+	position: relative
+	img, iframe, video
+		height: 100%
+		width: 100%
+		position: absolute
+		@include absoluteCenter 
+		object-fit: cover
+
+@mixin doColours($selector, $property: color, $cols: $colours)
+	@for $i from 0 to length($cols)
+		@debug nth($cols, floor(random()*10))
+		#{$selector}:nth-child(#{$i+1})
+			#{$property}: nth($cols, floor(random()*10))

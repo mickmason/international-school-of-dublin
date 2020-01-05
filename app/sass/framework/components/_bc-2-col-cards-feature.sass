@@ -1,6 +1,11 @@
 .bc-feature-component
 	&.bc-2-col-cards-feature 
-		 
-		.bc-feature-component__content
-			@include makeContentGrid(1)
-		.bc-two-col-card 
+		background-color: $shade-02
+		.bc-feature-component__content 
+			display: block
+			padding-left: 0
+			padding-right: 0
+			max-width: 100%
+			@media screen and (min-width: $x-large)
+				margin-left: 		4.444rem - $gutter/2
+				margin-right: 	4.444rem - $gutter/2

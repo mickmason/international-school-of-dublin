@@ -1,5 +1,7 @@
 $desktop-break: $x-large
 .bc-site-header
+	width: 100%
+	z-index: 30
 	&__logo
 		position: relative
 		z-index: 30
@@ -46,12 +48,12 @@ $desktop-break: $x-large
 			display: none
 			max-width: 	1.5rem
 			max-height: 1.5rem
+	
 	&.is-overlay
 			position: absolute
 			top: 0
 			left: 0
-			width: 100%
-			z-index: 30
+			
 			.bc-main-navigation-toggle
 				&__show, &__hide
 					fill: white
@@ -149,7 +151,7 @@ $desktop-break: $x-large
 .has-active-navigation 
 	.bc-main-navigation 
 		display: flex
-		transition: opacity 400ms ease-out 120ms
+		transition: opacity 280ms ease-out 120ms
 		visibility: inherit
 		opacity: 1
 		z-index: 20
@@ -190,54 +192,71 @@ $desktop-break: $x-large
 			padding-bottom: $vertical-unit * 1
 		.bc-main-navigation__links
 			display: grid
-			grid-template: repeat(4, 25%) / repeat(2, 1fr)
+			grid-template: repeat(4, 20%) / repeat(2, 1fr)
 			grid-column-gap: 1.5rem
 			align-items: stretch
 			.bc-main-navigation__item
 				display: flex 
 				align-items: flex-end
-				&__link
-					font-size: $text-01
 				&:last-child 
 					.bc-main-navigation__item__link
 							border-bottom: 1px solid $brand-primary
 		& &__sub-navigation
 			.bc-main-navigation__links
-				grid-template: repeat(3, 33.33%) / repeat(2, 1fr)
+				grid-template: repeat(3, 16%) / repeat(2, 1fr)
 @media screen and (min-width: $large)
 	.bc-site-header
 		& &__heading	
 			padding-left: 	4.444rem
 			padding-right: 4.444rem
 		&__content
-			margin-left: calc((100% - #{$content-max-width})/2)
-			margin-right: calc((100% - #{$content-max-width})/2)
+			margin-left: 	4.444rem
+			margin-right: 4.444rem
 	.bc-main-navigation
 		display: flex
 		flex-direction: column
 		justify-content: stretch
+		& &__links
+			grid-template: repeat(4, 27%) / repeat(3, 1fr)
+		
 		&__navs 
 			flex: 1 0 100%
-			// display: grid
-			// grid-template: 100% / 61.8% 38.2%
 		& &__main-nav
 			padding-left: 4.444rem + $gutter/2
 			padding-right: 4.444rem + $gutter/2
 			margin-right: 0
 		& &__sub-navigation
-			.bc-main-navigation__links
-				display: grid
-				grid-template: repeat(4, 1fr) / repeat(3, 1fr)
-				grid-column-gap: 1.5rem
-				align-items: stretch
 			padding-left: 4.444rem + $gutter/2
 			padding-right: 4.444rem + $gutter/2
 			margin-left: 0
 			.bc-main-navigation__links
+				grid-template: repeat(3, 20%) / repeat(3, 1fr)
 				margin-top: $gutter/2
-		
-			
+				
 
+@media screen and (min-width: $x-large)
+	.bc-main-navigation
+		&__navs
+			grid-template: auto / 3fr 1fr
+		& &__main-nav
+			padding-right: $gutter/2
+			margin-right: 0
+		& &__links
+			grid-template: repeat(4, 16%) / repeat(2, 1fr)
+		& &__sub-navigation
+			padding-top: $vertical-unit + 0.25rem
+			padding-left: $gutter/2
+			.bc-main-navigation__links
+				display: flex
+				flex-direction: column
+			.bc-main-navigation__item__link
+				padding-bottom: $gutter/4
+@media screen and (min-width: $xx-large)
+	.bc-main-navigation
+		& &__links
+			grid-template: repeat(4, 12.5%) / repeat(2, 1fr)	
 		
-
-	
+@media screen and (min-width: $xxx-large) 
+	.bc-main-navigation
+		& &__links
+			//grid-template: repeat(4, 18.5%) / repeat(2, 1fr)

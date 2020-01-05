@@ -2,16 +2,16 @@ $vunit: 1.45rem
 
 //Globals
 @import 'framework/project-globals/globals-project' 
-@import 'framework/mixins'
 @import 'framework/project-globals/mixins-project'
 @import 'framework/utilities'
 @import 'framework/typography' 
 
-@import 'framework/navigation-schemes' 
+@import 'framework/navigation-schemes'   
 @import 'framework/grid' 
 @import 'framework/hero' 
 @import 'framework/site-header'
 @import 'framework/components/bc-feature-component'   
+@import 'framework/components/bc-inner-page-header'   
 
 /* Normalize overrides and resets */ 
 *
@@ -50,18 +50,69 @@ img
 		align-items: flex-end 
 	
 .bc-two-col-card
-	@include makeContentGrid(4)
+	display: grid
+	grid-template: auto / 100%
+	grid-column-gap: $gutter
+	margin-bottom: $vertical-unit * 2
+	background-color: $white
 	&__body 
+		padding: $vertical-unit $gutter /2 
 		display: flex
 		flex-direction: column		
 		justify-content: center
-	
 	&__heading, p, .bc-icon-link
 		flex: 0 1 auto
 		margin-top: 0
 		margin-bottom: $vertical-unit/2
+	//&__heading
+	//	font-size: $text-03
+	&:nth-child(1n)
+		.bc-two-col-card__heading 
+			color: $mid-green 
+	&:nth-child(2n)
+		.bc-two-col-card__heading
+			color: $red
+	&:nth-child(3n)
+		.bc-two-col-card__heading
+			color: $orange
+	&:nth-child(4n)
+		.bc-two-col-card__heading
+			color: $purple
+	@media screen and (min-width: 700px)
+		grid-template: auto / 0.618fr 0.382fr
+		&__image
+			picture
+				@include makeSquare
+		&:nth-child(odd)
+			.bc-two-col-card__body 
+				padding-right: 0
+		&:nth-child(even)
+			grid-template: auto / 0.382fr 0.618fr
+			.bc-two-col-card__body 
+				grid-column: 2 / span 1
+				padding-left: 0
+			.bc-two-col-card__image 
+				grid-row: 1
+				grid-column: 1 / span 1
+	
 	@media screen and (min-width: $med)
-		flex-direction: row
+		grid-template: auto / 2fr 1fr
+		&:nth-child(odd)
+			margin-right: $gutter
+		&:nth-child(even)
+			margin-left: $gutter
+			grid-template: auto / 1fr 2fr
+	@media screen and (min-width: $large)
+		grid-template: auto / 7fr 3fr
+		&:nth-child(odd)
+			margin-left: -4.444rem
+			.bc-two-col-card__body 
+				padding-left: 4.444rem + $gutter
+		&:nth-child(even)
+			grid-template: auto / 3fr 7fr
+			margin-right: -4.444rem
+			.bc-two-col-card__body 
+				padding-right: 4.444rem + $gutter		
 
 /* Utilities */
 .bc-button
@@ -238,4 +289,7 @@ img
 			min-height: 0
 			
 		
-		
+/** Index page for presentation */
+.bc-feature-component.bc-site-index
+	.bc-feature-component__content
+		grid-template-columns: 100%

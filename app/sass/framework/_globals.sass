@@ -42,7 +42,14 @@ $blue:							#00f 		!default
 $purple:						#4B0082	!default
 $violet:						#9400D3	!default
 
-// * Shades
+$colors: $brand-primary, $brand-secondary, $red, $orange, $yellow, $green, $blue, $purple, $violet
+
+@debug length($colors)
+//@for $i from 0 to length($colors)
+//	@debug floor(random()*10)
+//	@debug nth($colors, floor(random()*10)) 
+
+/* Shades */
 $white:				#fff			!default
 $shade-01:		#f6f6f6		!default
 $shade-02:		#f0f0f0		!default
