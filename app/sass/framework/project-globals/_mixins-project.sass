@@ -8,8 +8,7 @@
 	@else if $type == 'grey-fill'
 		background-image: linear-gradient(#{$direction},  $shade-01, $shade-03)
 
-@mixin makeHighChroma($start-colour: rgba($brand-primary, .618), $end-colour:  $brand-darker) 
-	@include gradOverlay('high-chroma', $start-colour: $start-colour, $end-colour: $end-colour)
+@mixin makeWhiteText()
 	h1, h2, h3, h4, h5, ul, li, p, a, bloquote, .bc-inner-page-content__heading, .bc-feature-component__heading 
 		color: $white	
 	.bc-button
@@ -23,3 +22,9 @@
 			color: $brand-primary
 			.bc-svg-icon
 				fill: $brand-primary
+
+@mixin makeHighChroma($start-colour: rgba($brand-primary, .618), $end-colour:  $brand-darker) 
+	@include gradOverlay('high-chroma', $start-colour: $start-colour, $end-colour: $end-colour)
+	@include makeWhiteText
+		
+		

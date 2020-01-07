@@ -5,11 +5,17 @@
 	flex-direction: column
 	justify-content: stretch
 	height: calc(100vh)
-	background-image: url(../media/happy-kid.jpg)
-	background-repeat: no-repeat
-	background-size: cover
-	background-position: center		
-	background-color: transparent
+	&__background-image
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		background-image: url(../media/happy-kid.jpg)
+		background-repeat: no-repeat
+		background-size: cover
+		background-position: center		
+		background-color: transparent
 	h1, p, a
 		color: $white
 		margin-top: 0
@@ -47,14 +53,9 @@
 		font-weight: $heading-font-weight 
 	&__header, &__footer
 		flex: 0 1 10%
-	&__image-overlay
-		position: absolute
-		top: 0
-		left: 0
-		right: 0
-		bottom: 0
+	&__image-overlay, .media-overlay
+		
 		z-index: 0
-		//background-color: rgba(#000, 0.56)
 		@include gradOverlay('main-hero', $start-colour: rgba($black, 0.618), $mid-colour: rgba($black, 0.382), $end-colour: $black)
 	&__header
 		position: relative
@@ -72,10 +73,8 @@
 .bc-hero
 	&.bc-hero--inpage
 		.bc-hero__body
-		//	bottom: $vertical-unit
-		//	transform: translateY(0)
-		.bc-hero__image-overlay 
-		  background-image: linear-gradient(to bottom, rgba($brand-primary, 0) 10%, rgba($brand-primary, 0.96) 72%)
+		.media-overlay
+		  background-image: linear-gradient(to bottom, rgba($brand-primary, 0) 10%, rgba($brand-primary, 1) 72%)
 
 @media screen and (min-width: 720px)
 	.bc-hero
