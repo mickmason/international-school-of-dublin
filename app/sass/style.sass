@@ -12,6 +12,7 @@ $vunit: 1.45rem
 @import 'framework/site-header'
 @import 'framework/components/bc-feature-component'   
 @import 'framework/components/bc-inner-page-header'   
+@import 'framework/components/bc-inner-page-content'    
 
 /* Normalize overrides and resets */ 
 *
@@ -82,7 +83,7 @@ img
 		grid-template: auto / 0.618fr 0.382fr
 		&__image
 			picture
-				@include makeSquare
+				@include mediaContainer
 		&:nth-child(odd)
 			.bc-two-col-card__body 
 				padding-right: 0
@@ -235,23 +236,66 @@ img
 .bc-feature-component
 	/* 4-col feature */
 	&.bc-4-col-feature
+		position: relative
+		.bc-feature-component__content, .bc-feature-component__header
+			position: relative
+			z-index: 20
 		.bc-feature-component__header
 			margin-bottom: $vertical-unit * 2
 		.bc-feature-component__heading
 			margin-bottom: $vertical-unit
+		.bc-card:not(.has-image)
+			.bc-card__heading 
+				padding-bottom: $vertical-unit*0.5
+				border-bottom: 2px solid $black
+					
 		.bc-card:nth-child(1)
 			.bc-card__heading 
 				color: $mid-green 
+				border-bottom-color: $mid-green 
 		.bc-card:nth-child(2)
 			.bc-card__heading
 				color: $red
+				border-bottom-color: $red
 		.bc-card:nth-child(3)
 			.bc-card__heading
-				color: $brand-primary
+				color: $orange
+				border-bottom-color: $orange 
 		.bc-card:nth-child(4)
 			.bc-card__heading
 				color: $purple
-	
+				border-bottom-color: $purple 
+
+	&.has-high-chroma
+		@include makeHighChroma() 
+		.bc-card:nth-child(1)
+			.bc-card__heading 
+				color: $white
+				
+		.bc-card:nth-child(2)
+			.bc-card__heading
+				color: $white
+				
+		.bc-card:nth-child(3)
+			.bc-card__heading
+				color: $white
+				
+		.bc-card:nth-child(4)
+			.bc-card__heading
+				color: $white
+				
+		
+@media screen and (min-width: $large)
+	.bc-feature-component
+		&.bc-4-col-feature
+			.bc-feature-component__content
+				grid-template: auto / repeat(2, 1fr)
+@media screen and (min-width: $x-large)
+	.bc-feature-component
+		&.bc-4-col-feature
+			.bc-feature-component__content
+				grid-template: auto / repeat(4, 1fr)
+
 .bc-feature-component
 	&.bc-2-col-media-feature
 		@include makeHighChroma($start-colour: rgba($orange, 1), $end-colour: $dark-red)
@@ -273,10 +317,7 @@ img
 		
 		.bc-feature-component__cta
 			align-self: flex-start
-			margin-left: 0
-		
-			
-		
+			margin-left: 0 
 @media screen and (min-width: $large)
 	.bc-feature-component
 		&.bc-cta-feature
@@ -287,9 +328,93 @@ img
 	.bc-feature-component
 		&.bc-cta-feature
 			min-height: 0
-			
-		
+
 /** Index page for presentation */
 .bc-feature-component.bc-site-index
 	.bc-feature-component__content
 		grid-template-columns: 100%
+	
+.bc-inner-page-header
+	position: relative
+	padding-top: 		$vertical-unit * 5
+	padding-bottom: $vertical-unit * 5.5
+	&__bg-svg
+		position: absolute 
+		top: 50%
+		transform: translateY(-50%)
+		height: 100%
+		width: 50%
+		svg
+			position: absolute
+			top: 50%
+			transform: translateY(-50%)
+			width: 100%
+			max-height: 100%
+	&__bg-svg 
+		width: 100%
+		left: 0
+		z-index: 1
+		svg
+			width: 50%
+			left: 0
+			fill: $brand-primary
+			
+@media screen and (min-width: $med)
+	.bc-inner-page-header
+		&__bg-svg
+			width: 50%
+
+.bc-elipses
+	position: absolute 
+	top: 0
+	right: 0
+	width: 100%
+	height: 100%
+	z-index: 1
+	.bc-single-elipse
+		position: absolute
+		width: 	100%
+		height: 100%
+		opacity: 0.50 
+		&__col-stop1 
+			stop-color: $brand-primary
+			stop-opacity: 0.618  
+		&__col-stop2
+			stop-color: darken($brand-darker, 20%)
+			stop-opacity: 1
+		&__elipse
+			r: 50%
+			cx: 50%
+			cy: 50%
+		&:nth-of-type(n+1)
+			left: 	72%
+			top: 		12%
+			width: 	12% 
+			height: 12% 
+		&:nth-of-type(n+2)
+			left: 	28%
+			top: 		12%
+			width: 	24% 
+			height: 24% 
+		&:nth-of-type(n+3)
+			left: 	52%
+			top: 		36%
+			width: 	16%
+			height: 16% 
+		&:nth-of-type(n+4)
+			left: 	60%
+			top: 		60%
+			width: 	32% 
+			height: 32% 
+		&:nth-of-type(n+5)
+			left: 	0%
+			top: 		52%
+			width:	36% 
+			height:	36% 
+		
+@media screen and (min-width: $med)
+	.bc-elipses
+		width: 66.666%
+	
+	
+	

@@ -54,8 +54,34 @@
 		color: $white
 		.bc-svg-icon
 			fill: $white
+/* Shading */
+@each $name, $shade in $shades	
+	.has-#{$name}
+		background-color: $shade
+
+/* Coloring */
+@each $name, $color in $colors	
+	$color-invert: nth($color, 2) 
+	$color: nth($color, 1)
+	.has-#{$name}-background 
+		background-color: $color
+		h1, h2, h3, h4, h5, h6, p, ul, li, blockquote, .bc-feature-component__heading, .bc-inner-page-content__heading
+			color: $color-invert
+
+/* Fixed aspect ratio media containers */
+.is-square-media
+	@include mediaContainer 
+.is-16x9-media
+	@include mediaContainer(16, 9) 
+
+.bc-media-embed
+	margin-bottom: $vertical-unit
+	width: 100%
+	&__media
+		@include mediaContainer(16, 9)
+	&__caption
+		padding-top: $vertical-unit*0.5
+		color: $shade-05
 		
 	
-/* Fixed aspect ratio media containers */
-.is-square
-	@include makeSquare
+	

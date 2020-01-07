@@ -1,0 +1,20 @@
+.bc-inner-page-content
+	@include makeSection
+	padding-top: 		$vertical-unit * 2
+	padding-bottom: $vertical-unit * 2
+	&__content
+		@include makeContentFlexbox($direction: column, $justify: center)
+		@media screen and (min-width: $large)
+			max-width: $text-max-width
+			margin-left: auto
+			margin-right: auto
+	& &__heading
+		font-size: $large-text
+	& &__intro
+		font-size: $text-01
+		font-weight: 500
+	&--minor-section
+		@extend .bc-inner-page-content
+		padding-top: 		$vertical-unit * 1
+		padding-bottom: $vertical-unit * 1
+		

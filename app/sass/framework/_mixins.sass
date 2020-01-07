@@ -6,7 +6,7 @@
 @mixin makeGrid($cols: $base-cols, $break-at: $small, $nested: false)
 	display: grid
 	grid-column-gap: $gutter
-	grid-template: auto / repeat(1, 100%)
+	grid-template: auto / repeat(1, 1fr)
 	@if $cols > 1
 		@media screen and (min-width: $break-at) 
 			grid-template: auto / repeat(2, 1fr)
@@ -58,13 +58,12 @@
 	&:hover, &:active, &:focus
 		@content
 
-@mixin makeSquare
-	padding-top: 100%
+@mixin mediaContainer($x: 1, $y: 1)
+	padding-top: #{$y/$x*100%}
 	position: relative
 	img, iframe, video
 		height: 100%
 		width: 100%
-		position: absolute
 		@include absoluteCenter 
 		object-fit: cover
 

@@ -42,7 +42,7 @@ $blue:							#00f 		!default
 $purple:						#4B0082	!default
 $violet:						#9400D3	!default
 
-$colors: $brand-primary, $brand-secondary, $red, $orange, $yellow, $green, $blue, $purple, $violet
+$colors: ('primary': $brand-primary, 'secondary': $brand-secondary, 'red':  $red, 'orange': $orange, 'yellow': $yellow, 'green': $green, 'blue': $blue, 'purple': $purple, 'violet': $violet)
 
 @debug length($colors)
 //@for $i from 0 to length($colors)
@@ -56,6 +56,8 @@ $shade-02:		#f0f0f0		!default
 $shade-03:		#e0e0e0		!default 
 $shade-04:		#e0e0e0		!default
 $shade-05:		#808080		!default
+
+$shades: ('white': $white, 'shade-01': $shade-01, 'shade-02': $shade-02, 'shade-03': $shade-03, 'shade-04': $shade-04, 'shade-05': $shade-05)
 
 $white-inverse: 	invert($white)
 $black-inverse: 	invert($black)

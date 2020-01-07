@@ -2,7 +2,7 @@
 //Project global variables
 
 $content-max-width: 88%
-$text-max-width: 		48rem
+$text-max-width: 		44rem
 
 //Spacing
 $line-height:			1.45
@@ -28,9 +28,9 @@ $indigo:						#2E3191
 $violet:						#C934F5
 
 
-$brand-primary-invert:		invert($brand-primary)										
-$brand-secondary-invert:	invert($brand-secondary)										
-$brand-darker-invert:			invert($brand-darker)										
+$brand-primary-invert:		$white										
+$brand-secondary-invert:	$brand-primary										
+$brand-darker-invert:			$white										
 $red-invert:							invert($red)										
 $dark-red-invert:					invert($dark-red)						
 $orange-invert:						invert($orange)						
@@ -44,6 +44,7 @@ $purple-invert:						invert($purple)
 $indigo-invert:						invert($indigo)					
 $violet-invert:						invert($violet)					
 
+$colors: ('primary': ($brand-primary, $brand-primary-invert), 'secondary': ($brand-secondary, $brand-secondary-invert), 'brand-darker': ($brand-darker, $brand-darker-invert), 'red':  ($red, $red-invert), 'orange': ($orange, $orange-invert), 'yellow': ($yellow, $yellow-invert), 'green': ($green, $green-invert), 'blue': ($blue, $blue-invert), 'purple': ($purple, $purple-invert), 'violet': ($violet, $violet-invert))
 
 //** Typography
 $base-font-family: 			'Poppins', sans-serif
@@ -54,3 +55,5 @@ $link-active-color:			darken($brand-primary, 20%)
 
 $text-line-height: $line-height
 $heading-font-weight: 300
+
+$feature-vertical-padding: $vertical-unit * 3

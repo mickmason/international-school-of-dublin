@@ -1,6 +1,21 @@
 .bc-inner-page-header
+	position: relative
 	@include makeSection
-	padding-top: $vertical-unit * 5
-	padding-bottom: $vertical-unit * 3
+	padding-top: 		$feature-vertical-padding 
+	padding-bottom: $feature-vertical-padding 
+	background-image: linear-gradient(to bottom left, $brand-primary 0%, $brand-darker 50%) 
+	
 	&__content
+		position: relative
 		@include makeContentFlexbox($direction: column, $justify: center)
+		z-index: 10
+	& &__heading
+		font-size: $super-large-text
+		padding-bottom: $vertical-unit
+		margin-bottom: 0
+		border-bottom: 2px solid $brand-secondary
+		color: $brand-secondary 
+	& &__sub-heading
+		font-size: $h3-text
+		margin-top: $vertical-unit
+		color: $white 
