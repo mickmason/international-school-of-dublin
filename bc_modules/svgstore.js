@@ -3,7 +3,7 @@
 	Wrapper for npm svgstore 
 	https://www.npmjs.com/package/svgstore
 	*/
-	const debug = false	 ;
+	const debug = true	 ;
 	
 	const fs = require('fs');
 	const path = require('path');
@@ -15,7 +15,7 @@
 		throw new Error(`${messagePrefix} Provide svgstore.config.js at the project root`)
 	}
 	const argv = yargs.option('icons', {
-		alias: 'i',
+		alias: 'c',
 		description: 'Do SVG icons',
 		type: 'boolean'
 	}).option('images', {
@@ -25,13 +25,18 @@
 	}).usage(messagePrefix + ' Indicate SVG Icons or images at the command line').argv;
 	
 	const options = require('../svgstore.config.js');
+	if (argv.images) {
+		console.log(argv.images);
+		options.cleanDefs = false;
+		options.cleanSymbols = false;
+	}
 	if (debug) {
 		console.log(options)
 	}
 	const svgsSource = (argv.images) ? options.src.images : options.src.icons;
 	const srcSvgs = (argv.images) ? fs.readdirSync(options.src.images) : fs.readdirSync(options.src.icons);
-	try {
-		
+	
+	try {	
 		let sprite = svgstore(options);
 		if (srcSvgs.length) {
 			for (svg in srcSvgs) {	

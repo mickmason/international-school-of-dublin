@@ -10,9 +10,6 @@ module.exports = {
 	cleanDefs: true,
 	cleanSymbols: true,
 	svgAttrs: false,
-	symbolAttrs: {
-		viewBox: '0 0 100 100'
-	},
 	copyAttrs: false,
 	renameDefs: false
 }
