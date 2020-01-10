@@ -26,17 +26,12 @@ function concatenate(targetFile, inputFile) {
 				if (err) return console.log(err);
 			});	
 		});
-		
-		
 	});
-	
 }
 async function asyncConcatenate(files) {
 	const filesBuffer = [];
 	for (file of files) {
-		
-		await concatenate(targetFile, file) ;
-		
+		await concatenate(targetFile, file);
 	}
 	
 }

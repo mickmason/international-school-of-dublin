@@ -29,11 +29,17 @@
       "patterns": [
         "app"
       ],
-      "extensions": "jpg,png,svg"
+      "extensions": "jpg,png"
     },
     "svgstore": {
       "patterns": [
         "app/media/svg/icons"
+      ],
+      "extensions": "svg"
+    },
+		"svgstore:imgs": {
+      "patterns": [
+        "app/media/svg/images"
       ],
       "extensions": "svg"
     },
@@ -58,7 +64,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run sass & npm run watch:html & npm run watch:media & npm run watch:svg & npm run watch:js & npm run watch:css & npm run server",
+    "start": "npm run sass & npm run watch:html & npm run watch:media & npm run watch:svg & npm run watch:svgimgs & npm run watch:js & npm run watch:css & npm run server",
     "build": "npm run copy:html && npm run sass:build && npm run copy:css && npm run babeljs && npm run uglifyjs && npm run concatjs && npm run postcss && npm run criticalcss ",
     "stop": "stop http-server",
     "sass": "node-sass --sourceMap=true -w ./app/sass/ -o ./app/css/",
@@ -70,8 +76,9 @@
     "watch:postcss": "npm-watch postcss",
     "watch:media": "npm-watch copy:media",
     "watch:svg": "npm-watch svgstore",
-    "svgstore:icons": "node ./bc_modules/svgstore.js --icons",
-    "svgstore:imgs": "node ./bc_modules/svgstore.js --imgs",
+    "watch:svgimgs": "npm-watch svgstore:imgs",
+    "svgstore": "node ./bc_modules/svgstore.js",
+    "svgstore:imgs": "node ./bc_modules/svgstore.js --images",
     "lintjs": "./node_modules/.bin/eslint ./app/scripts && npm run copy:js",
     "babeljs": "./node_modules/.bin/babel ./dist/scripts/app.js -o ./dist/scripts/app.js",
     "uglifyjs": "uglifyjs ./dist/scripts/app.js -o ./dist/scripts/app.js",
@@ -81,7 +88,7 @@
     "copy:html": "find app/. -type f -name \"*.html\" | xargs -Ifile rsync -vR file dist/ && echo '\n'",
     "copy:css": "find app/. -type f \"(\" -iname \"*.css\" -o -iname \"*.css.map\" \")\" | xargs -Ifile rsync -vR file dist/ && echo file 'copied' '\n'",
     "copy:js": "find app/. -type f -name \"*.js\" | xargs -Ifile rsync -vR file dist/ && echo file 'copied' '\n'",
-    "copy:media": "find app/. -type f \"(\" -iname \"*.jpg\" -o -iname \"*.png\" -o -iname \"*.svg\" \")\" | xargs -Ifile rsync -vR file dist/",
+    "copy:media": "find app/. -type f \"(\" -iname \"*.jpg\" -o -iname \"*.png\" \")\" | xargs -Ifile rsync -vR file dist/",
     "criticalcss": "node ./bc_modules/critical-css.js",
     "server": "node live-server.js"
   },
