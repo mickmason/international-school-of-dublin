@@ -9,6 +9,9 @@
 	@include makeSection
 	padding-top: 		$vertical-unit * 2 
 	padding-bottom: $vertical-unit * 2 
+	&__header, &__cta, &__content
+		position: relative
+		z-index: 10
 	&.is-full-vh
 		min-height: 100vh
 	&__content

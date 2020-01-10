@@ -33,7 +33,7 @@
     },
     "svgstore": {
       "patterns": [
-        "app"
+        "app/media/svg/icons"
       ],
       "extensions": "svg"
     },
@@ -70,7 +70,8 @@
     "watch:postcss": "npm-watch postcss",
     "watch:media": "npm-watch copy:media",
     "watch:svg": "npm-watch svgstore",
-    "svgstore": "node ./bc_modules/svgstore.js",
+    "svgstore:icons": "node ./bc_modules/svgstore.js --icons",
+    "svgstore:imgs": "node ./bc_modules/svgstore.js --imgs",
     "lintjs": "./node_modules/.bin/eslint ./app/scripts && npm run copy:js",
     "babeljs": "./node_modules/.bin/babel ./dist/scripts/app.js -o ./dist/scripts/app.js",
     "uglifyjs": "uglifyjs ./dist/scripts/app.js -o ./dist/scripts/app.js",

@@ -53,8 +53,7 @@
 		font-weight: $heading-font-weight 
 	&__header, &__footer
 		flex: 0 1 10%
-	&__image-overlay, .media-overlay
-		
+	.media-overlay	
 		z-index: 0
 		@include gradOverlay('main-hero', $start-colour: rgba($black, 0.618), $mid-colour: rgba($black, 0.382), $end-colour: $black)
 	&__header
@@ -70,11 +69,11 @@
 		.bc-svg-icon
 			fill: $white
 	
+
 .bc-hero
 	&.bc-hero--inpage
-		.bc-hero__body
-		.media-overlay
-		  background-image: linear-gradient(to bottom, rgba($brand-primary, 0) 10%, rgba($brand-primary, 1) 72%)
+		background-image: linear-gradient(to bottom, rgba($brand-primary, 0) 10%, rgba($brand-primary, 1) 72%)
+	
 
 @media screen and (min-width: 720px)
 	.bc-hero

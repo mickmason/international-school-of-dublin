@@ -184,8 +184,6 @@ img
 /* Hero feature */
 
 .bc-hero
-	
-	clip-path: url(../media/svg-mask.svg#curves) 
 	.media-overlay 
 		background-color: transparent
 		@include gradOverlay('main-hero', $start-colour: rgba($brand-primary, 0.618), $mid-colour: rgba($brand-primary, 0.382), $end-colour: $brand-darker)
@@ -221,6 +219,19 @@ img
 			border-bottom: none
 		.bc-hero__tagline
 			margin-bottom: $vertical-unit/2
+		&.has-mid-green-grad
+			.media-overlay
+			  background-image: linear-gradient(to bottom, rgba($mid-green, 0) 10%, rgba($mid-green, 1) 72%)
+			.wave-wrap
+				svg
+					.isd-wave
+						fill: $mid-green
+		&.has-brand-grad 
+			.wave-wrap
+				svg
+					.isd-wave
+						fill: $brand-primary
+			
 
 @media screen and (min-width: 720px)
 	.bc-hero
@@ -270,7 +281,6 @@ img
 
 	&.has-high-chroma
 		@include makeHighChroma() 
-		//background-image: radial-gradient(ellipse at 100% 0%, $brand-primary, $brand-darker 80%) 
 		@include makeWhiteText
 		.bc-card:nth-child(1)
 			.bc-card__heading 
@@ -309,6 +319,16 @@ img
 .bc-feature-component
 	&.bc-one-col-feature
 		@include gradOverlay('grey-fill', 'to bottom right')
+		&.has-background-svg
+			.feature-svg
+				position: absolute
+				bottom: 0
+				left: 50%
+				transform: translate(-50%, 0)
+		&.has-background-svg--centered
+			.feature-svg
+				bottom: 50%
+				transform: translateX(-50%, -50%)
 	
 /* CTA feature */
 .bc-feature-component
@@ -368,6 +388,26 @@ img
 		&__bg-svg
 			width: 50%
 
+/* SVG defs */
+.bc-svg-defs
+	position: absolute
+	height: 0px
+	width: 0px
+	&__linear-gradient
+		&__col-stop1 
+			stop-color: $brand-primary
+			stop-opacity: 0.618  
+		&__col-stop2
+			stop-color: darken($brand-darker, 20%)
+			stop-opacity: 1
+	& .bc-svg-defs__linear-gradient--orange
+			.bc-svg-defs__linear-gradient__col-stop1 
+				stop-color: $orange
+				stop-opacity: 0.618  
+			.bc-svg-defs__linear-gradient__col-stop2
+				stop-color: darken($dark-red, 20%)
+				stop-opacity: 1
+
 .bc-elipses
 	position: absolute 
 	top: 0
@@ -375,95 +415,96 @@ img
 	width: 100%
 	height: 100%
 	z-index: 1
-	.bc-single-elipse
+	display: none
+	&__svg
 		position: absolute
 		width: 	100%
 		height: 100%
 		opacity: 0.50 
-		&__col-stop1 
-			stop-color: $brand-primary
-			stop-opacity: 0.618  
-		&__col-stop2
-			stop-color: darken($brand-darker, 20%)
-			stop-opacity: 1
-		&__elipse
-			r: 50%
-			cx: 50%
-			cy: 50%
+	&__elipse
+		fill: url(#linear-gradient) 
 		&:nth-of-type(n+1)
-			left: 	72%
-			top: 		12%
-			width: 	12% 
-			height: 12% 
+			cx: 	88%
+			cy:		12%
+			r: 		2% 
 		&:nth-of-type(n+2)
-			left: 	28%
-			top: 		12%
-			width: 	24% 
-			height: 24% 
+			cx:		36%
+			cy:		16%
+			r:  	8%
 		&:nth-of-type(n+3)
-			left: 	52%
-			top: 		36%
-			width: 	16%
-			height: 16% 
+			cx: 	68%
+			cy: 	36%
+			r:  	4%
 		&:nth-of-type(n+4)
-			left: 	60%
-			top: 		60%
-			width: 	32% 
-			height: 32% 
+			cx: 	92%
+			cy: 	72%
+			r:  	12% 
 		&:nth-of-type(n+5)
-			left: 	0%
-			top: 		52%
-			width:	36% 
-			height:	36% 
-		
+			cx: 	16% 	
+			cy: 	56%
+			r: 		16% 		
+.has-orange-gradient
+	.bc-elipses
+		&__elipse
+			fill: url(#linear-gradient--orange) 
+	
 @media screen and (min-width: $med)
 	.bc-elipses
+		display: block
 		width: 66.666%
+	.bc-feature-component	
+		.bc-elipses
+			display: block
+			width: 80%
 	
+	
+
 /* Feature component waves */
+
+
 $waves-height: 50px
+/* svg rainbow gradient used in svg image **/
+.bc-feature-component
+	padding-top: 		calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
+	padding-bottom: calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
+	&.bc-2-col-media-feature, &.bc-cta-feature
+		padding-top: 		calc(#{$vertical-unit} * 3.5 + (#{$waves-height} / 2))
+		padding-bottom: calc(#{$vertical-unit} * 3.5 + (#{$waves-height} / 2))
 .has-waves 
-	z-index: 10
-	padding-bottom: $waves-height
-	overflow: hidden
-	.media-overlay
-		height: calc(100% - #{$waves-height})
+	z-index: 10 
 	.wave-wrap
-		//background-image: linear-gradient(to right, $light-blue 0%, $blue 25%, $violet 50%,  )
 		position: absolute
-		bottom: 0
+		bottom: -$waves-height
 		width: 100%
-	
 		height: $waves-height
 		svg
 			.isd-wave
 				fill: $brand-darker
+		&__rainbow
+			fill: url(#isd-rainbow-grad)
 		&__wave
 			width: 100%
 			height: $waves-height
 			fill: $brand-darker
 	&--at-top
-		
 		.wave-wrap
 			&__wave
 				transform-origin: 50% 50%
 				transform: rotate(180deg)
-				
-	margin-bottom: -$waves-height
-	
-
 .bc-hero
 	&.has-waves
-		height: calc(100vh + #{$waves-height})
-		.bc-hero__background-image
-			height: calc(100% - #{$waves-height})
 		.wave-wrap
 			svg
 				.isd-wave
 					fill: $brand-darker
-	&.bc-hero--inpage
-		&.has-waves
+.bc-feature-component
+	&.has-waves
+		.wave-wrap
+			svg
+				.isd-wave
+					fill: $shade-03
+		&.has-high-chroma
 			.wave-wrap
-				svg
-					.isd-wave
-						fill: $brand-primary
+			svg
+				.isd-wave
+					fill: $brand-darker
