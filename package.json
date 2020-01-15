@@ -27,7 +27,7 @@
     },
     "copy:media": {
       "patterns": [
-        "app"
+        "app/media/"
       ],
       "extensions": "jpg,png"
     },

@@ -3,7 +3,7 @@
 	Wrapper for npm svgstore 
 	https://www.npmjs.com/package/svgstore
 	*/
-	const debug = true	 ;
+	const debug = false	 ;
 	
 	const fs = require('fs');
 	const path = require('path');
@@ -26,7 +26,7 @@
 	
 	const options = require('../svgstore.config.js');
 	if (argv.images) {
-		console.log(argv.images);
+		console.log(`argv.images: ${argv.images}`); 
 		options.cleanDefs = false;
 		options.cleanSymbols = false;
 	}

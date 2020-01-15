@@ -116,6 +116,8 @@ img
 				padding-right: 4.444rem + $gutter		
 
 /* Utilities */
+.bc-svg-icon
+	fill: $brand-darker
 .bc-button
 	font-weight: 500
 	display: inline-flex
@@ -133,6 +135,21 @@ img
 		.bc-svg-icon
 			fill: $white
 
+.bc-content-label
+	font-size: $text--2
+	.bc-svg-icon, img
+		margin-right: $gutter/2
+		max-width: 	2.4rem
+		max-height: 2.4rem
+.has-high-chroma
+	@include makeHighChroma
+	@include makeWhiteText
+	&--orange
+		@include makeHighChroma($start-colour: rgba($orange, 1), $end-colour: $dark-red)
+		//background-image: radial-gradient(ellipse at 100% 0%, $orange, $dark-red 80%) 
+		@include makeWhiteText
+		.bc-elipses__elipse
+			fill: url(#linear-gradient--orange)
 /* Site header */
 .bc-site-header
 	&__logo
@@ -178,15 +195,14 @@ img
 			max-width: 	1.75rem
 			max-height: 1.75rem
 
-
-
-
 /* Hero feature */
 
 .bc-hero
 	.media-overlay 
 		background-color: transparent
 		@include gradOverlay('main-hero', $start-colour: rgba($brand-primary, 0.618), $mid-colour: rgba($brand-primary, 0.382), $end-colour: $brand-darker)
+	.bc-svg-icon
+		fill: white
 	&__body
 		&__text
 			background-color: $brand-primary
@@ -280,7 +296,6 @@ img
 				border-bottom-color: $purple 
 
 	&.has-high-chroma
-		@include makeHighChroma() 
 		@include makeWhiteText
 		.bc-card:nth-child(1)
 			.bc-card__heading 
@@ -288,14 +303,13 @@ img
 		.bc-card:nth-child(2)
 			.bc-card__heading
 				color: $white
-				
 		.bc-card:nth-child(3)
 			.bc-card__heading
 				color: $white
-				
 		.bc-card:nth-child(4)
 			.bc-card__heading
 				color: $white
+		
 
 @media screen and (min-width: $large)
 	.bc-feature-component
@@ -310,9 +324,6 @@ img
 
 .bc-feature-component
 	&.bc-2-col-media-feature
-		@include makeHighChroma($start-colour: rgba($orange, 1), $end-colour: $dark-red)
-		//background-image: radial-gradient(ellipse at 100% 0%, $orange, $dark-red 80%) 
-		@include makeWhiteText
 		.bc-2-col-media-feature__media
 			border: 2px solid $shade-01
 
@@ -334,8 +345,6 @@ img
 				bottom: 0
 				left: 50%
 				transform: translate(-50%, 0)
-		&.has-background-svg--centered
-			.bc-feature-svg
 		&.isd-kids-feature, &.isd-about-dublin, &.isd-community
 			background-repeat: no-repeat
 		&.isd-about-dublin, &.isd-community
@@ -349,10 +358,10 @@ img
 				height: 100%
 				background-repeat: no-repeat
 				background-position: center bottom
-				background-image: url(../media/svg/images/community.svg)
+				background-image: url(../media/community.svg)
 		&.isd-kids-feature
 			@media screen and (min-width: $large)
-				background-image: url(../media/svg/images/kids-carefree-playtime.svg)
+				background-image: url(../media/kids-carefree-playtime.svg)
 				background-repeat: no-repeat
 				background-position: center
 				background-size: 100% auto
@@ -362,10 +371,10 @@ img
 					left: 0
 					width: 100%
 					height: 100%
-					background-image: linear-gradient(to right, rgba($white, 0) 0%, rgba($white, 0.618) 25%, rgba($white, 1) 50%, rgba($white, 0.618) 75%, rgba($white, 0) 100%)
+					background-image: linear-gradient(to right, rgba($white, 0) 0%, rgba($white, 0.8) 25%, rgba($white, 1) 50%, rgba($white, 0.8) 75%, rgba($white, 0) 100%)
 		&.isd-about-dublin
 			.bc-feature-component__grad-overlay 
-				background-image: url(../media/svg/images/dublin.svg)
+				background-image: url(../media/dublin.svg)
 		&.isd-community
 			padding-top: 		$vertical-unit * 3
 			padding-bottom: $vertical-unit * 6
@@ -384,15 +393,42 @@ img
 		display: flex
 		flex-direction: column
 		justify-content: center
-		
 		.bc-feature-component__cta
 			align-self: flex-start
 			margin-left: 0 
+.bc-feature-component
+	&.bc-cta-feature
+		.bc-svg-icon
+			&.cta-arrow
+				display: none
+				margin-left: $gutter/2	
+				max-width: #{(100/14)}rem
+				max-height: 2.5rem 
+		.bc-feature-component__heading
+			display: flex
+			flex-wrap: wrap
+			align-items: center
+				
+@media screen and (min-width: $small)
+	.bc-feature-component
+		&.bc-cta-feature
+			.bc-svg-icon
+				&.cta-arrow
+					display: initial
 @media screen and (min-width: $large)
 	.bc-feature-component
 		&.bc-cta-feature
 			.bc-feature-component__cta
 				margin-left: auto
+			.bc-svg-icon
+				&.cta-arrow
+					max-width: #{(200/14)}rem
+					max-height: 2.5rem 
+			.bc-feature-component__heading
+				display: flex
+				align-items: center
+				margin-bottom: $vertical-unit
+				
 		
 @media screen and (min-width: $large), (min-width: $med) and (orientation: portrait)
 	.bc-feature-component

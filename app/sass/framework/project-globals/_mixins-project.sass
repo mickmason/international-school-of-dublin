@@ -11,12 +11,12 @@
 @mixin makeWhiteText()
 	h1, h2, h3, h4, h5, ul, li, p, a, bloquote, .bc-inner-page-content__heading, .bc-feature-component__heading 
 		color: $white	
+	.bc-svg-icon
+		fill: $white
 	.bc-button
 		border-color: $white
 		background-color: transparent
 		color: $white
-		.bc-svg-icon
-			fill: $white
 		@include linkHover
 			background-color: $white	
 			color: $brand-primary
