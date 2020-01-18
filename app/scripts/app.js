@@ -186,10 +186,8 @@ window.onload = () => {
 	document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
 		event.preventDefault();
 		let siteHeader = null;
-		let thisParent = event.currentTarget.parentElement;
-		while (!siteHeader) {
-			siteHeader = (thisParent.classList.contains('.bc-site-header')) ? thisParent : thisParent = thisParent.parentElement; 
-		}
+		siteHeader = event.currentTarget.closest('.bc-site-header');
+		siteHeader.classList.toggle('has-active-navigation');
 	}, true);
 	if (document.querySelectorAll('.bc-expandible-block__expander__button').length > 0) {
 		const $expandButotns = document.querySelectorAll('.bc-expandible-block__expander__button');
