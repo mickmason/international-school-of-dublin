@@ -26,96 +26,7 @@ img
 	display: block
 	max-width: 100% 
 
-/* bc-cards */
-.bc-card, .bc-two-col-card
-	display: 				flex  
-	flex-direction: column
-	align-self: stretch
-	justify-content: flex-start 
-	margin-bottom: $gutter
-	&__heading
-		flex: 1 1 100%
-		display: flex
-		align-items: flex-end 
-		@include doFeatureHeading($font-size: $h2) 
-	&__media
-		display: 		block  
-	img
-		width: 100%
-	p 
-		flex: 1 1 100% 
-	&__cta  
-		flex: 1 1 100%  
-		display: flex
-		justify-content: stretch
-		align-items: flex-end 
-	
-.bc-two-col-card
-	display: grid
-	grid-template: auto / 100%
-	grid-column-gap: $gutter
-	margin-bottom: $vertical-unit * 2
-	background-color: $white
-	&__body 
-		padding: $vertical-unit $gutter /2 
-		display: flex
-		flex-direction: column		
-		justify-content: center
-	&__heading, p, .bc-icon-link
-		flex: 0 1 auto
-		margin-top: 0
-		margin-bottom: $vertical-unit/2
-	//&__heading
-	//	font-size: $text-03
-	&:nth-child(1n)
-		.bc-two-col-card__heading 
-			color: $mid-green 
-	&:nth-child(2n)
-		.bc-two-col-card__heading
-			color: $red
-	&:nth-child(3n)
-		.bc-two-col-card__heading
-			color: $orange
-	&:nth-child(4n)
-		.bc-two-col-card__heading
-			color: $purple
-	@media screen and (min-width: 700px)
-		grid-template: auto / 0.618fr 0.382fr
-		&__image
-			picture
-				@include mediaContainer
-		&:nth-child(odd)
-			.bc-two-col-card__body 
-				padding-right: 0
-		&:nth-child(even)
-			grid-template: auto / 0.382fr 0.618fr
-			.bc-two-col-card__body 
-				grid-column: 2 / span 1
-				padding-left: 0
-			.bc-two-col-card__image 
-				grid-row: 1
-				grid-column: 1 / span 1
-	
-	@media screen and (min-width: $med)
-		grid-template: auto / 2fr 1fr
-		&:nth-child(odd)
-			margin-right: $gutter
-		&:nth-child(even)
-			margin-left: $gutter
-			grid-template: auto / 1fr 2fr
-	@media screen and (min-width: $large)
-		grid-template: auto / 7fr 3fr
-		&:nth-child(odd)
-			margin-left: -4.444rem
-			.bc-two-col-card__body 
-				padding-left: 4.444rem + $gutter
-		&:nth-child(even)
-			grid-template: auto / 3fr 7fr
-			margin-right: -4.444rem
-			.bc-two-col-card__body 
-				padding-right: 4.444rem + $gutter		
-
-/* Utilities */
+/* Project custom utilities */
 .bc-svg-icon
 	fill: $brand-darker
 .bc-button
@@ -150,7 +61,16 @@ img
 		@include makeWhiteText
 		.bc-elipses__elipse
 			fill: url(#linear-gradient--orange)
-/* Site header */
+/* SVGs as background-images */
+.has-background-svg, .has-background-svg--centered
+	.bc-feature-svg
+		position: absolute
+		width: 100%
+		height: 100%
+		bottom: 0
+		z-index: 0
+		min-width: 61.5rem
+/* Project custom site header */
 .bc-site-header
 	&__logo
 		background-color: $white
@@ -170,6 +90,7 @@ img
 		&__show
 			max-width: 2.125rem
 			max-height: 2.125rem
+
 @media screen and (min-width: $large+1)
 	.bc-main-navigation
 		&__item
@@ -195,8 +116,7 @@ img
 			max-width: 	1.75rem
 			max-height: 1.75rem
 
-/* Hero feature */
-
+/* Project custom Heroes */
 .bc-hero
 	.media-overlay 
 		background-color: transparent
@@ -206,7 +126,6 @@ img
 	&__body
 		&__text
 			background-color: $brand-primary
-			
 			padding: $vertical-unit $gutter/2
 			&__IB
 				display: flex
@@ -247,21 +166,36 @@ img
 				svg
 					.isd-wave
 						fill: $brand-primary
-			
-
-@media screen and (min-width: 720px)
-	.bc-hero
-		&__body
-			&__text
-				padding-left:  	$gutter
-				padding-right:  $gutter
-
-@media screen and (min-width: $large)
-	.bc-hero
+	@media screen and (min-width: $large)
 		&.bc-hero--inpage
 			.bc-hero__body
 				max-width: $text-max-width
-/* Feature component */
+
+/* Project custom bc-cards */
+.bc-card, .bc-two-col-card
+	display: 				flex  
+	flex-direction: column
+	align-self: stretch
+	justify-content: flex-start 
+	margin-bottom: $gutter
+	&__heading
+		flex: 1 1 100%
+		display: flex
+		align-items: flex-end 
+		@include doFeatureHeading($font-size: $h2) 
+	&__media
+		display: 		block  
+	img
+		width: 100%
+	p 
+		flex: 1 1 100% 
+	&__cta  
+		flex: 1 1 100%  
+		display: flex
+		justify-content: stretch
+		align-items: flex-end 
+
+/* Project custom feature components */
 .bc-feature-component
 	/* 4-col feature */
 	&.bc-4-col-feature
@@ -276,8 +210,7 @@ img
 		.bc-card:not(.has-image)
 			.bc-card__heading 
 				padding-bottom: $vertical-unit*0.5
-				border-bottom: 2px solid $black
-					
+				border-bottom: 2px solid $black		
 		.bc-card:nth-child(1)
 			.bc-card__heading 
 				color: $mid-green 
@@ -294,7 +227,13 @@ img
 			.bc-card__heading
 				color: $purple
 				border-bottom-color: $purple 
-
+		@media screen and (min-width: $large)
+			.bc-feature-component__content
+				grid-template: auto / repeat(2, 1fr)
+		@media screen and (min-width: $x-large)
+			.bc-feature-component__content
+				grid-template: auto / repeat(4, 1fr)
+	
 	&.has-high-chroma
 		@include makeWhiteText
 		.bc-card:nth-child(1)
@@ -309,33 +248,11 @@ img
 		.bc-card:nth-child(4)
 			.bc-card__heading
 				color: $white
-		
 
-@media screen and (min-width: $large)
-	.bc-feature-component
-		&.bc-4-col-feature
-			.bc-feature-component__content
-				grid-template: auto / repeat(2, 1fr)
-@media screen and (min-width: $x-large)
-	.bc-feature-component
-		&.bc-4-col-feature
-			.bc-feature-component__content
-				grid-template: auto / repeat(4, 1fr)
-
-.bc-feature-component
 	&.bc-2-col-media-feature
 		.bc-2-col-media-feature__media
 			border: 2px solid $shade-01
 
-.has-background-svg, .has-background-svg--centered
-	.bc-feature-svg
-		position: absolute
-		width: 100%
-		height: 100%
-		bottom: 0
-		z-index: 0
-		min-width: 61.5rem
-.bc-feature-component
 	&.bc-one-col-feature
 		@include gradOverlay('grey-fill', 'to bottom right')
 		&.has-background-svg
@@ -382,9 +299,255 @@ img
 				padding-bottom: $vertical-unit * 8
 			.bc-feature-component__grad-overlay
 				background-width: auto
+
+/* 
+ *	2-column cards - they are pulled left and right consecutively into the page margin in larger screens 
+ */ 
+/* Card wrapper - pulls into the left and right page margins */
+.bc-two-col-card-wrap
+	background-color: $white
+	&:nth-child(1n)
+		.bc-two-col-card__heading 
+			color: $mid-green 
+	&:nth-child(2n)
+		.bc-two-col-card__heading
+			color: $red
+	&:nth-child(3n)
+		.bc-two-col-card__heading
+			color: $orange
+	&:nth-child(4n)
+		.bc-two-col-card__heading
+			color: $purple
+	.bc-two-col-card__body 
+		order: 1
+	.bc-two-col-card__image
+		order: 0
+	@media screen and (min-width: 700px)
+		&:nth-child(odd)
+			.bc-two-col-card__body 
+				order: 0
+			.bc-two-col-card__image 
+				order: 1
+		&:nth-child(even)
+			.bc-two-col-card
+				grid-template: auto / 0.382fr 0.618fr
+
+	@media screen and (min-width: $med)
+		&:nth-child(even)
+			.bc-two-col-card
+				grid-template: auto / 1fr 2fr
+	@media screen and (min-width: $large)
+		&:nth-child(odd)
+			margin-left: -4.444rem
+			margin-right: $gutter/2
+			padding-left: calc(4.444rem + #{$gutter/2})
+			width: calc(100% + (4.444rem - #{$gutter/2})
+		&:nth-child(even)
+			margin-right: -4.444rem
+			margin-left: $gutter/2
+			padding-right: calc(4.444rem + #{$gutter/2})
+		&:nth-child(even)
+			.bc-two-col-card
+				grid-template: auto / 3fr 7fr
+		
+.bc-two-col-card
+	display: grid
+	grid-template: auto / 100%
+	grid-column-gap: $gutter
+	margin-bottom: $vertical-unit * 2
+	&__body 
+		padding: $vertical-unit $gutter/2 
+		display: flex
+		flex-direction: column		
+		justify-content: center
+	&__heading, p, .bc-icon-link
+		flex: 0 1 auto
+		margin-top: 0
+		margin-bottom: $vertical-unit/2
+	@media screen and (min-width: 700px)
+		display: grid
+		grid-template: auto / 0.618fr 0.382fr
+		.bc-two-col-card__image
+			picture
+				@include mediaContainer
+	@media screen and (min-width: $med)
+		grid-template: auto / 2fr 1fr
+	@media screen and (min-width: $large)
+		grid-template: auto / 7fr 3fr
+		.bc-two-col-card__body
+			padding-left: 	0
+			padding-right: 	0
+	
+/* Expandible blocks - custom for ISD */
+.bc-feature-component
+	&.bc-expandible-blocks-component
+		+ .bc-feature-component.bc-expandible-blocks-component
+			padding-top: 0
+		.bc-feature-component__header
+			padding-bottom: 0
+			margin-bottom: $vertical-unit
+		.bc-expandible-block
+			margin-bottom: $vertical-unit * 2
+			display: flex
+			flex-direction: column
+			&__intro, &__body
+				display: grid
+				grid-template: auto auto / 1fr
+				&__intro
+					font-weight: 500
+				&__text
+					order: 1
+				&__media
+					order: 0
+					picture
+						margin-bottom: $vertical-unit
+			&__intro
+				&__heading
+					font-size: $h3
+					margin-bottom: $vertical-unit
+			&__body
+				//padding-top: $vertical-unit * 0.5
+				overflow: hidden
+				height: 0;
+				h2
+					font-size: $h3
+				h3 
+					font-size: $h4
+				h4 
+					font-size: $h5
+				&__media
+					img
+						width: 100%
+			&__expander
+				&__button
+					display: inline-flex
+					align-items: stretch
+					color: lighten($text-black, 12.5%)
+					font-size: $text--2
+					font-weight: 300
+					text-transform: uppercase
+					border: 1px solid $text-black
+					border-radius: 1.125rem
+					background-color: $shade-01
+					transition: background-color 420ms ease-out
+					&:hover, &:active, &:focus
+						background-color: $white
+					&.is-active
+						.bc-expandible-block__expander__button__icon
+							.bc-svg-icon
+								transform: rotate(90deg) 
+						.bc-expandible-block__expander__button__text
+							.inactive-text
+								transform: translateY(-160%)	
+							.active-text
+								transform: translateY(-50%)	
+					&__text
+						position: relative
+						display: inline-flex
+						align-items: center
+						padding: $gutter/5 $gutter/3
+						padding-left: 5.2rem
+						padding-top: calc((#{$text--1} * #{$line-height}) + 0.125rem	)
+						overflow: hidden
+						.inactive-text, .active-text
+							width: 100%
+							position: absolute
+							left: $gutter/2 
+							top: 50%
+							transform: translateY(-50%)	
+							transition: transform 420ms ease-out
+						.active-text
+							transform: translateY(110%)
+					&__icon
+						display: inline-flex
+						justify-content: center
+						align-items: 			center
+						background-color: $shade-05
+						border-radius: 1.125rem
+						padding-left: 	$gutter/2
+						padding-right: 	$gutter/2
+						transition: background-color 420ms ease-out
+						.bc-svg-icon
+							transform: rotate(45deg)
+							fill: $white
+							max-width: 	$text--1
+							max-height: $text--1
+							transition: transform 380ms ease-out
+			&.is-active		
+				.bc-expandible-block__body
+					padding-top: $vertical-unit * 0.5
+			&:nth-child(1n)
+				.bc-expandible-block__intro__heading
+					color: $mid-green
+				.bc-expandible-block__expander__button__icon
+					background-color: darken($mid-green, 10%) 
+				.bc-expandible-block__expander__button
+						&:hover, &:active, &:focus
+							.bc-expandible-block__expander__button__icon
+								background-color: $mid-green
+			&:nth-child(2n)
+				.bc-expandible-block__intro__heading
+					color: $red
+				.bc-expandible-block__expander__button__icon
+					background-color: darken($red, 10%)
+				.bc-expandible-block__expander__button
+						&:hover, &:active, &:focus
+							.bc-expandible-block__expander__button__icon
+								background-color: $red
+			&:nth-child(3n)
+				.bc-expandible-block__intro__heading
+					color: $orange
+				.bc-expandible-block__expander__button__icon
+					background-color: darken($orange, 10%)
+				.bc-expandible-block__expander__button
+						&:hover, &:active, &:focus
+							.bc-expandible-block__expander__button__icon
+								background-color: $orange 
+			&:nth-child(4n)
+				.bc-expandible-block__intro__heading
+					color: $purple
+				.bc-expandible-block__expander__button__icon
+					background-color: darken($purple, 10%)
+				.bc-expandible-block__expander__button
+						&:hover, &:active, &:focus
+							.bc-expandible-block__expander__button__icon
+								background-color: $purple 
 				
-					
-					
+			@media screen and (max-width: #{$med - 1px})
+				&__body
+					&__media
+						width: 100%
+						display: flex
+						flex-wrap: wrap
+						picture
+							margin-bottom: 0
+							flex: 0 0 50%
+							@include mediaContainer()
+							padding-top: 50%
+			@media screen and (min-width: $small) and (max-width: #{$med - 1px})
+				&__body
+					&__media
+						picture
+							flex: 0 0 33.333%
+							padding-top: 33.333%
+			@media screen and (min-width: $med)
+				&__intro, &__body
+					grid-template: auto / 7fr 3fr
+					grid-column-gap: $gutter
+					&__media
+						grid-column: 2 / 3
+					&__text
+						order: 0
+					&__heading
+						//@include doFeatureHeading($font-size: $h2)
+						margin-top: 0
+				&__intro
+					&__heading
+						grid-column: span 2
+				&__body
+					h2:first-child, h3:first-child, h4:first-child, h4:first-child, p, ul
+						margin-top: 0
+			
 /* CTA feature */
 .bc-feature-component
 	&.bc-cta-feature
@@ -396,8 +559,6 @@ img
 		.bc-feature-component__cta
 			align-self: flex-start
 			margin-left: 0 
-.bc-feature-component
-	&.bc-cta-feature
 		.bc-svg-icon
 			&.cta-arrow
 				display: none
@@ -408,16 +569,11 @@ img
 			display: flex
 			flex-wrap: wrap
 			align-items: center
-				
-@media screen and (min-width: $small)
-	.bc-feature-component
-		&.bc-cta-feature
+		@media screen and (min-width: $small)
 			.bc-svg-icon
 				&.cta-arrow
 					display: initial
-@media screen and (min-width: $large)
-	.bc-feature-component
-		&.bc-cta-feature
+		@media screen and (min-width: $large)
 			.bc-feature-component__cta
 				margin-left: auto
 			.bc-svg-icon
@@ -428,11 +584,23 @@ img
 				display: flex
 				align-items: center
 				margin-bottom: $vertical-unit
-				
-		
-@media screen and (min-width: $large), (min-width: $med) and (orientation: portrait)
-	.bc-feature-component
-		&.bc-cta-feature
+				.bc-card:nth-child(1)
+					.bc-card__heading 
+						color: $mid-green 
+						border-bottom-color: $mid-green 
+				.bc-card:nth-child(2)
+					.bc-card__heading
+						color: $red
+						border-bottom-color: $red
+				.bc-card:nth-child(3)
+					.bc-card__heading
+						color: $orange
+						border-bottom-color: $orange 
+				.bc-card:nth-child(4)
+					.bc-card__heading
+						color: $purple
+						border-bottom-color: $purple 
+		@media screen and (min-width: $large), (min-width: $med) and (orientation: portrait)
 			min-height: 0
 
 /** Index page for presentation */
@@ -489,7 +657,6 @@ img
 			.bc-svg-defs__linear-gradient__col-stop2
 				stop-color: darken($dark-red, 20%)
 				stop-opacity: 1
-
 .bc-elipses
 	position: absolute 
 	top: 0
@@ -542,7 +709,6 @@ img
 	
 
 /* Feature component waves */
-
 
 $waves-height: 50px
 /* svg rainbow gradient used in svg image **/
