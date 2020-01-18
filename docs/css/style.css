@@ -664,8 +664,7 @@ a {
 .bc-feature-component.bc-4-col-feature {
   background-image: linear-gradient(to bottom left, #f6f6f6 0%, #e0e0e0 61.8%); }
   .bc-feature-component.bc-4-col-feature .bc-card__heading {
-    font-size: 1.3195rem;
-    font-weight: 500;
+    font-size: 1.5157rem;
     margin-top: 0.9rem; }
   .bc-feature-component.bc-4-col-feature .bc-feature-component__intro {
     margin-bottom: 0; }
@@ -1158,6 +1157,9 @@ img {
     @media screen and (min-width: 1240px) {
       .bc-feature-component.bc-4-col-feature .bc-feature-component__content {
         grid-template: auto/repeat(4, 1fr); } }
+  @media screen and (min-width: 880px) {
+    .bc-feature-component.bc-2-col-media-feature .bc-2-col-media-feature__text {
+      margin-top: -3.3rem; } }
   .bc-feature-component.has-high-chroma h1, .bc-feature-component.has-high-chroma h2, .bc-feature-component.has-high-chroma h3, .bc-feature-component.has-high-chroma h4, .bc-feature-component.has-high-chroma h5, .bc-feature-component.has-high-chroma ul, .bc-feature-component.has-high-chroma li, .bc-feature-component.has-high-chroma p, .bc-feature-component.has-high-chroma a, .bc-feature-component.has-high-chroma bloquote, .bc-feature-component.has-high-chroma .bc-inner-page-content__heading, .bc-feature-component.has-high-chroma .bc-feature-component__heading {
     color: #fff; }
   .bc-feature-component.has-high-chroma .bc-svg-icon {
@@ -1626,6 +1628,64 @@ img {
   .bc-feature-component.bc-2-col-media-feature, .bc-feature-component.bc-cta-feature {
     padding-top: calc(1.5rem * 3.5 + (50px / 2));
     padding-bottom: calc(1.5rem * 3.5 + (50px / 2)); }
+  .bc-feature-component.has-high-chroma {
+    background-image: linear-gradient(to bottom left, rgba(1, 124, 192, 0.618) 0%, #02659B 61.8%); }
+    .bc-feature-component.has-high-chroma h1, .bc-feature-component.has-high-chroma h2, .bc-feature-component.has-high-chroma h3, .bc-feature-component.has-high-chroma h4, .bc-feature-component.has-high-chroma h5, .bc-feature-component.has-high-chroma ul, .bc-feature-component.has-high-chroma li, .bc-feature-component.has-high-chroma p, .bc-feature-component.has-high-chroma a, .bc-feature-component.has-high-chroma bloquote, .bc-feature-component.has-high-chroma .bc-inner-page-content__heading, .bc-feature-component.has-high-chroma .bc-feature-component__heading {
+      color: #fff; }
+    .bc-feature-component.has-high-chroma .bc-svg-icon {
+      fill: #fff; }
+    .bc-feature-component.has-high-chroma .bc-button {
+      border-color: #fff;
+      background-color: transparent;
+      color: #fff; }
+      .bc-feature-component.has-high-chroma .bc-button:hover, .bc-feature-component.has-high-chroma .bc-button:active, .bc-feature-component.has-high-chroma .bc-button:focus {
+        background-color: #fff;
+        color: #017CC0; }
+        .bc-feature-component.has-high-chroma .bc-button:hover .bc-svg-icon, .bc-feature-component.has-high-chroma .bc-button:active .bc-svg-icon, .bc-feature-component.has-high-chroma .bc-button:focus .bc-svg-icon {
+          fill: #017CC0; }
+    .bc-feature-component.has-high-chroma h1, .bc-feature-component.has-high-chroma h2, .bc-feature-component.has-high-chroma h3, .bc-feature-component.has-high-chroma h4, .bc-feature-component.has-high-chroma h5, .bc-feature-component.has-high-chroma ul, .bc-feature-component.has-high-chroma li, .bc-feature-component.has-high-chroma p, .bc-feature-component.has-high-chroma a, .bc-feature-component.has-high-chroma bloquote, .bc-feature-component.has-high-chroma .bc-inner-page-content__heading, .bc-feature-component.has-high-chroma .bc-feature-component__heading {
+      color: #fff; }
+    .bc-feature-component.has-high-chroma .bc-svg-icon {
+      fill: #fff; }
+    .bc-feature-component.has-high-chroma .bc-button {
+      border-color: #fff;
+      background-color: transparent;
+      color: #fff; }
+      .bc-feature-component.has-high-chroma .bc-button:hover, .bc-feature-component.has-high-chroma .bc-button:active, .bc-feature-component.has-high-chroma .bc-button:focus {
+        background-color: #fff;
+        color: #017CC0; }
+        .bc-feature-component.has-high-chroma .bc-button:hover .bc-svg-icon, .bc-feature-component.has-high-chroma .bc-button:active .bc-svg-icon, .bc-feature-component.has-high-chroma .bc-button:focus .bc-svg-icon {
+          fill: #017CC0; }
+    .bc-feature-component.has-high-chroma--orange {
+      background-image: linear-gradient(to bottom left, #f6921e 0%, #CA1622 61.8%); }
+      .bc-feature-component.has-high-chroma--orange h1, .bc-feature-component.has-high-chroma--orange h2, .bc-feature-component.has-high-chroma--orange h3, .bc-feature-component.has-high-chroma--orange h4, .bc-feature-component.has-high-chroma--orange h5, .bc-feature-component.has-high-chroma--orange ul, .bc-feature-component.has-high-chroma--orange li, .bc-feature-component.has-high-chroma--orange p, .bc-feature-component.has-high-chroma--orange a, .bc-feature-component.has-high-chroma--orange bloquote, .bc-feature-component.has-high-chroma--orange .bc-inner-page-content__heading, .bc-feature-component.has-high-chroma--orange .bc-feature-component__heading {
+        color: #fff; }
+      .bc-feature-component.has-high-chroma--orange .bc-svg-icon {
+        fill: #fff; }
+      .bc-feature-component.has-high-chroma--orange .bc-button {
+        border-color: #fff;
+        background-color: transparent;
+        color: #fff; }
+        .bc-feature-component.has-high-chroma--orange .bc-button:hover, .bc-feature-component.has-high-chroma--orange .bc-button:active, .bc-feature-component.has-high-chroma--orange .bc-button:focus {
+          background-color: #fff;
+          color: #017CC0; }
+          .bc-feature-component.has-high-chroma--orange .bc-button:hover .bc-svg-icon, .bc-feature-component.has-high-chroma--orange .bc-button:active .bc-svg-icon, .bc-feature-component.has-high-chroma--orange .bc-button:focus .bc-svg-icon {
+            fill: #017CC0; }
+      .bc-feature-component.has-high-chroma--orange h1, .bc-feature-component.has-high-chroma--orange h2, .bc-feature-component.has-high-chroma--orange h3, .bc-feature-component.has-high-chroma--orange h4, .bc-feature-component.has-high-chroma--orange h5, .bc-feature-component.has-high-chroma--orange ul, .bc-feature-component.has-high-chroma--orange li, .bc-feature-component.has-high-chroma--orange p, .bc-feature-component.has-high-chroma--orange a, .bc-feature-component.has-high-chroma--orange bloquote, .bc-feature-component.has-high-chroma--orange .bc-inner-page-content__heading, .bc-feature-component.has-high-chroma--orange .bc-feature-component__heading {
+        color: #fff; }
+      .bc-feature-component.has-high-chroma--orange .bc-svg-icon {
+        fill: #fff; }
+      .bc-feature-component.has-high-chroma--orange .bc-button {
+        border-color: #fff;
+        background-color: transparent;
+        color: #fff; }
+        .bc-feature-component.has-high-chroma--orange .bc-button:hover, .bc-feature-component.has-high-chroma--orange .bc-button:active, .bc-feature-component.has-high-chroma--orange .bc-button:focus {
+          background-color: #fff;
+          color: #017CC0; }
+          .bc-feature-component.has-high-chroma--orange .bc-button:hover .bc-svg-icon, .bc-feature-component.has-high-chroma--orange .bc-button:active .bc-svg-icon, .bc-feature-component.has-high-chroma--orange .bc-button:focus .bc-svg-icon {
+            fill: #017CC0; }
+      .bc-feature-component.has-high-chroma--orange .bc-elipses__elipse {
+        fill: url(#linear-gradient--orange); }
 
 .has-waves {
   z-index: 10; }
