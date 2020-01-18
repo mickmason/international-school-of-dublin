@@ -89,6 +89,7 @@
     "copy:css": "find app/. -type f \"(\" -iname \"*.css\" -o -iname \"*.css.map\" \")\" | xargs -Ifile rsync -vR file dist/ && echo file 'copied' '\n'",
     "copy:js": "find app/. -type f -name \"*.js\" | xargs -Ifile rsync -vR file dist/ && echo file 'copied' '\n'",
     "copy:media": "find app/. -type f \"(\" -iname \"*.jpg\" -o -iname \"*.png\" \")\" | xargs -Ifile rsync -vR file dist/",
+    "copy:docs": "cp -r ./dist/. ./docs/",
     "criticalcss": "node ./bc_modules/critical-css.js",
     "server": "node live-server.js"
   },
