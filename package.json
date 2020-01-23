@@ -37,15 +37,15 @@
       ],
       "extensions": "svg"
     },
-		"svgstore:imgs": {
+    "svgstore:imgs": {
       "patterns": [
         "app/media/svg/images"
       ],
       "extensions": "svg"
     },
-    "lintjs": {
+    "js:dev": {
       "patterns": [
-        "app"
+        "app/scripts"
       ],
       "extensions": "js"
     },
@@ -71,7 +71,7 @@
     "sass:build": "node-sass ./app/sass/ -o ./app/css/",
     "watch:sass": "npm-watch sass",
     "watch:html": "npm-watch copy:html",
-    "watch:js": "npm-watch lintjs",
+    "watch:js": "npm-watch js:dev",
     "watch:css": "npm-watch copy:css",
     "watch:postcss": "npm-watch postcss",
     "watch:media": "npm-watch copy:media",
@@ -79,7 +79,8 @@
     "watch:svgimgs": "npm-watch svgstore:imgs",
     "svgstore": "node ./bc_modules/svgstore.js",
     "svgstore:imgs": "node ./bc_modules/svgstore.js --images",
-    "lintjs": "./node_modules/.bin/eslint ./app/scripts && npm run copy:js",
+    "js:dev": "npm run js:lint && npm run concatjs",
+    "js:lint": "./node_modules/.bin/eslint ./app/scripts/",
     "babeljs": "./node_modules/.bin/babel ./dist/scripts/app.js -o ./dist/scripts/app.js",
     "uglifyjs": "uglifyjs ./dist/scripts/app.js -o ./dist/scripts/app.js",
     "lintcss": "csslint ./app/css/style.css && copy:css",
@@ -93,8 +94,11 @@
     "criticalcss": "node ./bc_modules/critical-css.js",
     "server": "node live-server.js"
   },
-  "dependencies": {},
+  "dependencies": {
+   
+  },
   "devDependencies": {
+		"gsap": "^3.0.5",
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
