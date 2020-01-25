@@ -17,41 +17,34 @@ const targetFile = (config.target) ? config.target : Error(messagePrefix + ' Pro
 if (debug) {
 	console.log(`Target file: ${targetFile}`);	
 }
-
 if (filesToConcat.length) {
-	let newFile = true;
 	if (debug) {
 		console.log(``);	
 		console.log(`* Process files *`);	
 	}
-	for (file of filesToConcat) {
+	if (fs.existsSync(targetFile) && fs.lstatSync(targetFile).isFile()) {
 		if (debug) {
-			console.log(`New file is: ${newFile}`);	
-			console.log(`Current source file: ${file}`);	
+			console.log(`Delete existing file ${targetFile}`);	
 		}
-		concatenate(targetFile, file, newFile);
-		newFile = false;
+		fs.unlinkSync(targetFile);
 	}
+	if (debug === true) 
+		console.log(`Open target file: ${targetFile}`);	
+	const targetFD = fs.openSync(targetFile, 'a+');
+	if (debug) {	
+		console.log(`Target file FD: ${targetFD}`);	
+	}
+	let inputFileData = '';
+	
+	for (file of filesToConcat) {
+		if (debug === true) 
+			console.log(`Read file: ${file}`);	
+		inputFileData += fs.readFileSync(file, 'utf-8') + '\n';
+	}
+	if (debug === true) 
+			console.log(`Read file: ${targetFD}`);	
+	fs.appendFileSync(targetFD, inputFileData);
+	fs.closeSync(targetFD);
 } else {
 	return console.log(messagePrefix + ' No findable files in concatenate-js.config.js');
-}
-
-function concatenate(target, input, newFile) {
-	try {
-		if (debug) {
-			console.log(``);
-			console.log('Concatenate function:');	
-		}
-		if (newFile === true && fs.existsSync(target) && fs.lstatSync(target).isFile()) {
-			if (debug) {
-				console.log('New file is true, unlink existing file');	
-			}
-			fs.unlinkSync(targetFile);
-		}
- 		const targetFD = fs.openSync(targetFile, 'a+');
-		const inputFileData = fs.readFileSync(input);	
-		fs.appendFileSync(targetFD, inputFileData);
-	} catch (err) {
-		return console.log(err);
-	}
 }
