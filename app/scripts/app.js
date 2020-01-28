@@ -1,4 +1,5 @@
 (function bcScriptsWrap() {
+	
 	/* The scripts object */
 	const $bc = (function bigCatScripts() {
 		/* Utility functions */
@@ -166,6 +167,30 @@
 			}
 		}//showHide()
 		/* 
+			Wrapper functions for gsap https://greensock.com/
+		*/
+		const $gsap = gsap;
+		function gsapScrollTo(targetScrollOptions, $el) {
+			$el = $el || window;
+			$gsap.registerPlugin(ScrollToPlugin); 
+			const scrollOptions =  Object.assign({scrollTo: {x: 0, y: 0}, duration: 1, ease: 'power1'}, targetScrollOptions);
+			$gsap.to($el, scrollOptions);
+		}
+		function gsapFadeIn($el, targetFadeInOpts) {
+			console.log('gsapFadeIn');
+			if ($el) {
+				let fadeInOpts = targetFadeInOpts || {
+					duration: 0.82,
+					opacity: 0,
+					y: 12
+				};	
+				$gsap.from($el, fadeInOpts);
+			} else {
+				return new Error(`gsapFadeIn requries a target DOMNode`);
+			}
+			
+		}
+		/* 
 			Interface 
 		*/
 		return {
@@ -173,23 +198,31 @@
 			selectSiblings: selectSiblings,
 			responsiveiFrames: makeResponsiveiFrames,
 			showHide: showHide,
+			gsapFns: {
+				scrollTo: gsapScrollTo,
+				fadeIn: gsapFadeIn
+			},
 			utils: {
 				getDomNode: _getDOMNode,
 				getDomNodes: _getAllDOMNodes,
 			}
 		};
-	})();//bigCatScripts()
+	})();	//bigCatScripts()()
 	
+	/*** Project scripts ***/
 	window.onload = () => {
-		/* Project scripts */
-		$bc.responsiveiFrames('.bc-responsive-embed');
-		/* Main navigation */
+		
+		$bc.responsiveiFrames('.bc-responsive-embed'); 
+		/*const $gsap = gsap;
+		$gsap.registerPlugin(ScrollToPlugin); */
+		/** Main navigation **/
 		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
 			event.preventDefault();
 			let siteHeader = null;
 			siteHeader = event.currentTarget.closest('.bc-site-header');
 			siteHeader.classList.toggle('has-active-navigation');
 		}, true);
+		
 		if (document.querySelectorAll('.bc-expandible-block__expander__button').length > 0) {
 			const $expandButtons = document.querySelectorAll('.bc-expandible-block__expander__button');
 			for (let $btn of $expandButtons) {
@@ -201,10 +234,93 @@
 						$btn.classList.toggle('is-active');	
 					});
 				});
-				
 			}
 		}
-	};
-})();
-
-
+		/** end Main navigation **/
+		
+		/** Feature components, Heroes scroll to next content onclick **/
+		//All heroes and feature components
+		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;
+		if ($pageFeatures.length > 1) {
+			console.log(`Got them  ${$pageFeatures.length}`);
+			//For each node in the list 
+			$pageFeatures.forEach(($this) =>{
+				//Project specific - if this is a hero component and it has the site quick nav embedded or if it is not full VH in it then skip it
+				if ($this.classList.contains('has-quick-nav') || $this.classList.contains('is-full-vh') === false) {
+					return;
+				} 
+				if ($this.nextElementSibling) {
+					const $nextSibling = $this.nextElementSibling;
+					//Skip this if the next element is the CTA feature
+					if ($nextSibling.classList.contains('.bc-cta-feature')) {
+						return;
+					}
+					const linkText = ($nextSibling.getAttribute('aria-label')) ? 'Next: '+$nextSibling.getAttribute('aria-label') : 'Next content' ;	
+					const $thisCTA = $this.querySelector('.bc-hero__cta, .bc-feature-component__cta');
+					if ($thisCTA) {
+						const $nextLink = document.createElement('a');
+						
+						$nextLink.setAttribute('href', 'javascript:void(0)');
+						$nextLink.classList.add('bc-feature-component__next');
+						$nextLink.classList.add('is-hidden');
+						$nextLink.append(document.createTextNode(linkText));
+						$nextLink.addEventListener('click', (evt) => {
+							evt.preventDefault(); 
+							console.log(`click ${linkText}`);
+							$bc.gsapFns.scrollTo({scrollTo: {y: $nextSibling.offsetTop}, duration: 0.360});
+						});
+						$thisCTA.append($nextLink);
+						$bc.gsapFns.fadeIn($nextLink);
+						
+						
+						/*console.log(linkText);
+						console.log($nextLink);*/
+					}
+				} else {
+					return;
+				}
+			});
+			/*
+				if there is a next sibling with class .bc-hero or .bc-feature-compent
+					Get it 
+					Get its aria-label value
+					Get the component's CTA element 
+					--
+					Create a text node with the aria-label value
+					Create an anchor with: classes .bc-scroll-trigger, .bc-feature-component__next 
+					Add an event listener to the anchor to scroll the window to the top of the next sibling on click
+					--
+					Append the text node to the anchor
+					Append the anchor to the CTA node 
+			*/
+			//Find the CTA element
+			
+		} else {
+			console.log(`Didn't Got them.`);
+		}
+		
+		//All scroll triggers on a page - click one to scroll...somewhere
+		/*const $scrollTriggers = document.querySelectorAll('.bc-scroll-trigger');
+		console.log(`${$scrollTriggers.length}`);
+		$scrollTriggers.forEach((el, idx, arr) => {
+			const $this = el;
+			const $thisFeatureWrap = $this.closest('.bc-hero') || $this.closest('.bc-feature-component');
+			const $thisNextSibling = $thisFeatureWrap.nextElementSibling;
+			let thisLinkText = '';	
+			if ($thisFeatureWrap && $thisNextSibling) {
+				
+				thisLinkText = $thisNextSibling.getAttribute('aria-label');	
+				console.log(thisLinkText);
+			}
+			
+			arr[idx].addEventListener('click', (evt) => {
+				evt.preventDefault(); 
+				$bc.gsapFns.scrollTo({scrollTo: {y: $thisNextSibling.offsetTop}, duration: 0.360});
+				
+				//$gsap.to(window, opts);
+			}); 
+		});*/
+		
+	};/*** // window.onload Project scripts ***/
+	
+})();// bcScriptsWrap()

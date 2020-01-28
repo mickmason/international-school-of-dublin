@@ -7,8 +7,9 @@
    "globals": {
       "Atomics": "readonly",
       "SharedArrayBuffer": "readonly",
-			"$gsap": "readonly",
-			"$global": "readonly"
+			"gsap": "readonly",
+			"$global": "readonly",
+		 	"ScrollToPlugin": "readonly"
    },
    "parserOptions": {
        "ecmaVersion": 2020,
