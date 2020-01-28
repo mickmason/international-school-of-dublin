@@ -5,9 +5,9 @@
    },
    "extends": "eslint:recommended",
    "globals": {
-       "Atomics": "readonly",
-       "SharedArrayBuffer": "readonly",
-			"gsap": "readonly",
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly",
+			"$gsap": "readonly",
 			"$global": "readonly"
    },
    "parserOptions": {

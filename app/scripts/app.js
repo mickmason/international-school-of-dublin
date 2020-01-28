@@ -1,15 +1,16 @@
 (function bcScriptsWrap() {
+	/* The scripts object */
 	const $bc = (function bigCatScripts() {
 		/* Utility functions */
 		/* 
 			Tests is a selector is a String or DOM Node, retunrs the selected Node if it can
-			Throws an Error otherwise
+			Returns false otherwise
 			*/
 		function _getDOMNode(selector) {
 			let $el = null;
 			if (typeof selector === 'string') {
 				if (document.querySelector(selector) === null) {
-					throw new Error(`Element selector must be a String value or a Document Node object ${selector}`);
+					return false;
 				}
 				$el = document.querySelector(selector);
 				return $el ;
@@ -17,23 +18,23 @@
 				$el = selector;
 				return $el;
 			} else {
-				throw new Error(`Element selector must be a String value or a Document Node object`);
+				return false;
 			}
 		}//_getOMNode() 
 		/* 
 			Tests will a string selector will return a DOM Node, retunrs an array of Nodes if it can
-			Throws an Error otherwise
+			Returns false otherwise
 			*/
 		function _getAllDOMNodes(selector) {
 			let $els = null;
 			if (typeof selector === 'string') {
 				if (document.querySelectorAll(selector) === null) {
-					return null;
+					return false;
 				}
 				$els = document.querySelectorAll(selector);
 				return $els ;
 			} else {
-				throw new Error(`Element selector must be a String value`);
+				return false;
 			}
 		}//_getAllDOMNodes()
 		/* API functions */
@@ -54,11 +55,11 @@
 			}
 		}//toggleClass()
 		/**
-			Select siblings - select the direct next siblings of an element optionally filtered by classname
+			Select siblings - select the direct next siblings of an element filtered by a classname
 			Returns an array of HTMLElements if there is no callback
 			el:  					DOM element: find this element's siblings filtered by an optional class 
 			className: 		String: Class to filter the list of siblings
-			callback: 		Callback function, gets the array of matching siblings
+			callback: 		Gets the array of matching siblings
 			*/
 		function selectSiblings(el, classname, callback) {
 			if ((el !== undefined && el instanceof Node) && (classname !== undefined && typeof classname === 'string')) {
@@ -70,7 +71,7 @@
 						return (sibling.tagName !== undefined) ? sibling : false;	
 					}
 				});
-				if (typeof callback == 'function') {
+				if (callback !== undefined && typeof callback == 'function') {
 					callback(matchingSiblings);
 				} else {
 					return matchingSiblings;
@@ -81,7 +82,7 @@
 		}//selectSiblings()
 		/* 
 			Remove width and height from iframes
-			@arg iframeParents, String selector for the iframe parent or and array of String selectors
+			@arg iframeParents, String selector for the iframe parent or and array of String selector parents
 		*/
 		function makeResponsiveiFrames(iframeParents) {
 			iframeParents = Array.from(document.querySelectorAll(iframeParents));
@@ -115,6 +116,7 @@
 						_lerpShowHide($el, currentHeight, targetHeight);
 					});
 				} else if (Math.round(currentHeight) > Math.round(targetHeight)) {
+					//Hide
 					if (currentHeight < 2) {
 						requestAnimationFrame(() => {
 							$el.style.height = 0 + 'px';
@@ -122,7 +124,6 @@
 						console.log(`End time: ${Date.now() - startTime}`);
 						return ;
 					}
-					//Hide
 					currentHeight -= (currentHeight - targetHeight) * 0.25;
 					$el.style.height = currentHeight + 'px';
 					requestAnimationFrame(() => {
@@ -164,7 +165,9 @@
 				});
 			}
 		}//showHide()
-		/* Interface */
+		/* 
+			Interface 
+		*/
 		return {
 			toggleClass: toggleClass,
 			selectSiblings: selectSiblings,
@@ -178,7 +181,9 @@
 	})();//bigCatScripts()
 	
 	window.onload = () => {
+		/* Project scripts */
 		$bc.responsiveiFrames('.bc-responsive-embed');
+		/* Main navigation */
 		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
 			event.preventDefault();
 			let siteHeader = null;
@@ -186,8 +191,8 @@
 			siteHeader.classList.toggle('has-active-navigation');
 		}, true);
 		if (document.querySelectorAll('.bc-expandible-block__expander__button').length > 0) {
-			const $expandButotns = document.querySelectorAll('.bc-expandible-block__expander__button');
-			for (let $btn of $expandButotns) {
+			const $expandButtons = document.querySelectorAll('.bc-expandible-block__expander__button');
+			for (let $btn of $expandButtons) {
 				const $expandableBlock = $btn.parentElement.parentElement;
 				const $expandableBody = $expandableBlock.querySelector('.bc-expandible-block__body'); 
 				$btn.addEventListener('click', () => {
@@ -195,7 +200,6 @@
 					requestAnimationFrame(() => {
 						$btn.classList.toggle('is-active');	
 					});
-					
 				});
 				
 			}

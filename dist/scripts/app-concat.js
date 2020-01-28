@@ -3,6 +3,7 @@ const howdy = (hi) => {
 	console.log(hi);
 };
 howdy('Hello');
+
 const $bc = (function bigCatScripts() {
 	
 	/* Utility functions */
@@ -210,4 +211,5 @@ window.onload = () => {
 	}
 	
 };
+
 
