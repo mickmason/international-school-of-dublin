@@ -5395,40 +5395,63 @@
 				}
 			}
 		});
-		//* If IntersectionObserver in window */
+		//* If (IntersectionObserver in window) */
 		const featuresObserverOptions = {
 			threshold: [0.1, 0.2, 0.25, 0.3, 0.5, 0.9]
 		};
-		const bcFeaturesFadeInoOptions = {
+		const bcFeaturesFadeInOptions = {
 			rootMargin: '0% 0% -18% 0%',
 			threshold: [0.15, 0.20, 0.382, 0.5, 0.75, 0.95]
 		};
+		const bcHeroesFadeInOptions = {
+			rootMargin: '0% 0% 0% 0%',
+			threshold: [0.15, 0.20, 0.382, 0.5, 0.75, 0.95]
+		};
+		/* Observer for Features */
 		const bcFeaturesFadeInObserver = new IntersectionObserver((entries) => {
 			for (let entry of entries) {
 				if (entry.isIntersecting) {
 					const $target = entry.target;
+					//Handle cards a little bit differently
 					if ($target.classList.contains('bc-card') && entry.intersectionRatio >= 0.1) {
 						$bc.gsapFns.fadeIn($target, {y: 0, duration: 0.721, ease: 'power4.out'});
 					}
+					//Fade in for everything else - show when it's fully visible
 					if (entry.intersectionRatio === 1) {
 						$bc.gsapFns.fadeIn($target, {y: 0, duration: 1.125, ease: 'power4.out'});
-						
+						if ($target.classList.contains('bc-feature-component__next')) {
+							$bc.gsap.to($target.querySelector('.bc-svg-icon'), {rotation: '90deg', duration: 1, ease: 'power4.out', delay: 0.4});
+						}
+					}
+				}
+			}
+		}, bcFeaturesFadeInOptions);
+		//Observe all fadable elements in feature components
+		const bcFadeInFeatures = document.querySelectorAll('.bc-feature-component .bc-fade-in-up--is-not-visible');
+		if (bcFadeInFeatures.length > 0) {
+			for (let fadeInFeature of bcFadeInFeatures) {
+				bcFeaturesFadeInObserver.observe(fadeInFeature);	
+			}
+		}
+		/* Observer for Heroes */
+		const bcHeroesFadeInObserver = new IntersectionObserver((entries) => {
+			for (let entry of entries) {
+				if (entry.isIntersecting) {
+					const $target = entry.target;
+					if (entry.intersectionRatio === 1) {
+						$bc.gsapFns.fadeIn($target, {y: 0, duration: 1.125, ease: 'power4.out'});
 						if ($target.classList.contains('bc-feature-component__next')) {
 							console.log(`Fade in Observer: intersectionRatio: ${entry.intersectionRatio}`);
 							$bc.gsap.to($target.querySelector('.bc-svg-icon'), {rotation: '90deg', duration: 1, ease: 'power4.out', delay: 0.4});
 						}
 					}
-					/*if (entry.intersectionRatio >= 0.95 && $target.classList.contains('bc-fade-in-up--is-not-visible')) {
-						$target.classList.remove('bc-fade-in-up--is-not-visible');	
-					}*/
 				}
 			}
-		}, bcFeaturesFadeInoOptions);
-		const bcFadeInFeatures = document.querySelectorAll('.bc-fade-in-up--is-not-visible');
+		}, bcHeroesFadeInOptions);
+		const bcHeroesFadeInFeatures = document.querySelectorAll('.bc-hero .bc-fade-in-up--is-not-visible');
 		if (bcFadeInFeatures.length > 0) {
-			console.log(bcFadeInFeatures.length);
-			for (let fadeInFeature of bcFadeInFeatures) {
-				bcFeaturesFadeInObserver.observe(fadeInFeature);	
+			for (let fadeInFeature of bcHeroesFadeInFeatures) {
+				bcHeroesFadeInObserver.observe(fadeInFeature);	
 			}
 		}
 		const bcFeaturesObserver = new IntersectionObserver((entries) => {
