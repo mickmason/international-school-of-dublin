@@ -81,6 +81,10 @@
 				throw new Error('Function selectSiblings requires: a HTML Node and a class name of type String');
 			}
 		}//selectSiblings()
+		/* Check if an element is within the viewport on scroll */
+		function isScrollVisible($el, threshold = '50%'){
+			console.log(threshold);
+		}//isScrollVisible
 		/* 
 			Remove width and height from iframes
 			@arg iframeParents, String selector for the iframe parent or and array of String selector parents
@@ -173,22 +177,27 @@
 		function gsapScrollTo(targetScrollOptions, $el) {
 			$el = $el || window;
 			$gsap.registerPlugin(ScrollToPlugin); 
-			const scrollOptions =  Object.assign({scrollTo: {x: 0, y: 0}, duration: 1, ease: 'power1'}, targetScrollOptions);
+			const scrollOptions =  Object.assign({
+				scrollTo: {x: 0, y: 0}, 
+				duration: 1, 
+				ease: 'power1.in'
+			}, targetScrollOptions);
 			$gsap.to($el, scrollOptions);
 		}
-		function gsapFadeIn($el, targetFadeInOpts) {
-			console.log('gsapFadeIn');
+		function gsapFadeIn($el, targetFadeInOpts, cb) {
 			if ($el) {
-				let fadeInOpts = targetFadeInOpts || {
+				const fadeInOptions = Object.assign({
 					duration: 0.82,
-					opacity: 0,
-					y: 12
-				};	
-				$gsap.from($el, fadeInOpts);
+					opacity: 1,
+					y: 0
+				}, targetFadeInOpts);
+				$gsap.to($el, fadeInOptions);
 			} else {
 				return new Error(`gsapFadeIn requries a target DOMNode`);
 			}
-			
+			if (typeof cb === 'function') {
+				cb($el);
+			}
 		}
 		/* 
 			Interface 
@@ -198,6 +207,8 @@
 			selectSiblings: selectSiblings,
 			responsiveiFrames: makeResponsiveiFrames,
 			showHide: showHide,
+			isScrollVisible: isScrollVisible,
+			gsap: $gsap,
 			gsapFns: {
 				scrollTo: gsapScrollTo,
 				fadeIn: gsapFadeIn
@@ -213,8 +224,7 @@
 	window.onload = () => {
 		
 		$bc.responsiveiFrames('.bc-responsive-embed'); 
-		/*const $gsap = gsap;
-		$gsap.registerPlugin(ScrollToPlugin); */
+		
 		/** Main navigation **/
 		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
 			event.preventDefault();
@@ -238,13 +248,101 @@
 		}
 		/** end Main navigation **/
 		
-		/** Feature components, Heroes scroll to next content onclick **/
-		//All heroes and feature components
+		//All heroes and feature components - used in the following scripts
 		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;
-		if ($pageFeatures.length > 1) {
+		/** 
+			*	Animate elements as they become visible
+			*	.bc-fade-in-up--is-not-visible has not been seen
+			*	.bc-fade-in-up--is-visible has been seen
+		**/
+		/* 
+			* 					-- If !(IntersectionObserver in window) -- 
+		*/
+		// Custom event - fired when an element becomes visible in the viewport
+		const bcIsVisibleEvt = document.createEvent('Event');
+		bcIsVisibleEvt.initEvent('bc-is-visible', true, true);
+		const animatableElements = document.querySelectorAll('.bc-feature-component .bc-fade-in-up--is-not-visible, .bc-hero .bc-fade-in-up--is-not-visible');
+		for (const $el of animatableElements) {
+			//bc-is-visible handler
+			$el.addEventListener('bc-is-visible', () => {
+				//Fade in up
+				//console.log(`Event`);
+				/*$bc.gsapFns.fadeIn($el, {duration: 1, y: 20}, ($el) => {
+					$el.classList.remove('bc-fade-in-up--is-not-visible');
+					$el.classList.add('bc-fade-in-up--is-visible');
+				});*/
+			});
+		}
+		document.addEventListener('scroll', () => {
+			for (const $el of animatableElements) {
+				//Test visibility using $bc.isScrollVisible()
+				if ($el.classList.contains('bc-fade-in-up--is-not-visible') ) {
+					$el.dispatchEvent(bcIsVisibleEvt);	
+				}
+			}
+		});
+		//* If IntersectionObserver in window */
+		const featuresObserverOptions = {
+			threshold: [0.1, 0.2, 0.25, 0.3, 0.5, 0.9]
+		};
+		const bcFeaturesFadeInoOptions = {
+			rootMargin: '0% 0% -18% 0%',
+			threshold: [0.15, 0.20, 0.382, 0.5, 0.75, 0.95]
+		};
+		const bcFeaturesFadeInObserver = new IntersectionObserver((entries) => {
+			for (let entry of entries) {
+				if (entry.isIntersecting) {
+					const $target = entry.target;
+					if ($target.classList.contains('bc-card') && entry.intersectionRatio >= 0.1) {
+						$bc.gsapFns.fadeIn($target, {y: 0, duration: 0.721, ease: 'power4.out'});
+					}
+					if (entry.intersectionRatio === 1) {
+						$bc.gsapFns.fadeIn($target, {y: 0, duration: 1.125, ease: 'power4.out'});
+						
+						if ($target.classList.contains('bc-feature-component__next')) {
+							console.log(`Fade in Observer: intersectionRatio: ${entry.intersectionRatio}`);
+							$bc.gsap.to($target.querySelector('.bc-svg-icon'), {rotation: '90deg', duration: 1, ease: 'power4.out', delay: 0.4});
+						}
+					}
+					/*if (entry.intersectionRatio >= 0.95 && $target.classList.contains('bc-fade-in-up--is-not-visible')) {
+						$target.classList.remove('bc-fade-in-up--is-not-visible');	
+					}*/
+				}
+			}
+		}, bcFeaturesFadeInoOptions);
+		const bcFadeInFeatures = document.querySelectorAll('.bc-fade-in-up--is-not-visible');
+		if (bcFadeInFeatures.length > 0) {
+			console.log(bcFadeInFeatures.length);
+			for (let fadeInFeature of bcFadeInFeatures) {
+				bcFeaturesFadeInObserver.observe(fadeInFeature);	
+			}
+		}
+		const bcFeaturesObserver = new IntersectionObserver((entries) => {
+			for (let entry of entries) {
+				/*console.log(`Features Observer: entry target: ${entry.target.classList}`);
+				console.log(entry.intersectionRatio);*/
+				if (entry.isIntersecting && entry.intersectionRatio > 0.9) {
+					const $thisFeature = entry.target;
+					const thisFeatureChildren = $thisFeature.querySelectorAll('.bc-fade-in-up--is-not-visible');
+					console.log(`Feature thisFeatureChildren length: ${thisFeatureChildren.length}`);
+					if (thisFeatureChildren.length > 0) {
+						for (let thisFeatureChild of thisFeatureChildren) {
+							if (thisFeatureChild.classList.contains('bc-fade-in-up--is-not-visible')) {
+								thisFeatureChild.classList.remove('bc-fade-in-up--is-not-visible');	
+							}
+						}
+					}	
+				}
+			}
+		}, featuresObserverOptions);
+		bcFeaturesObserver.observe(document.querySelector('.bc-feature-component'));
+		/** Feature components, Heroes scroll to next content onclick **/
+		
+		if ($pageFeatures) {
 			console.log(`Got them  ${$pageFeatures.length}`);
 			//For each node in the list 
 			$pageFeatures.forEach(($this) =>{
+				
 				//Project specific - if this is a hero component and it has the site quick nav embedded or if it is not full VH in it then skip it
 				if ($this.classList.contains('has-quick-nav') || $this.classList.contains('is-full-vh') === false) {
 					return;
@@ -257,70 +355,25 @@
 					}
 					const linkText = ($nextSibling.getAttribute('aria-label')) ? 'Next: '+$nextSibling.getAttribute('aria-label') : 'Next content' ;	
 					const $thisCTA = $this.querySelector('.bc-hero__cta, .bc-feature-component__cta');
-					if ($thisCTA) {
-						const $nextLink = document.createElement('a');
-						
-						$nextLink.setAttribute('href', 'javascript:void(0)');
-						$nextLink.classList.add('bc-feature-component__next');
-						$nextLink.classList.add('is-hidden');
-						$nextLink.append(document.createTextNode(linkText));
-						$nextLink.addEventListener('click', (evt) => {
+					if ($thisCTA  && $thisCTA.querySelector('.bc-feature-component__next')) {
+						const $nextLinkText = $thisCTA.querySelector('.bc-feature-component__next__text');
+						//const $nextLinkIcon = $thisCTA.querySelector('.bc-feature-component__next__icon svg');
+						$nextLinkText.innerHTML = '';
+						$nextLinkText.append(document.createTextNode(linkText));
+						$nextLinkText.addEventListener('click', (evt) => {
 							evt.preventDefault(); 
 							console.log(`click ${linkText}`);
 							$bc.gsapFns.scrollTo({scrollTo: {y: $nextSibling.offsetTop}, duration: 0.360});
 						});
-						$thisCTA.append($nextLink);
-						$bc.gsapFns.fadeIn($nextLink);
-						
-						
-						/*console.log(linkText);
-						console.log($nextLink);*/
+						//$bc.gsapFns.fadeIn($nextLinkText);
+						//$bc.gsap.to($nextLinkIcon, {rotation: '90deg', duration: 0.88, ease: 'power2.out', delay: 0.2});
 					}
 				} else {
 					return;
 				}
 			});
-			/*
-				if there is a next sibling with class .bc-hero or .bc-feature-compent
-					Get it 
-					Get its aria-label value
-					Get the component's CTA element 
-					--
-					Create a text node with the aria-label value
-					Create an anchor with: classes .bc-scroll-trigger, .bc-feature-component__next 
-					Add an event listener to the anchor to scroll the window to the top of the next sibling on click
-					--
-					Append the text node to the anchor
-					Append the anchor to the CTA node 
-			*/
-			//Find the CTA element
 			
-		} else {
-			console.log(`Didn't Got them.`);
 		}
-		
-		//All scroll triggers on a page - click one to scroll...somewhere
-		/*const $scrollTriggers = document.querySelectorAll('.bc-scroll-trigger');
-		console.log(`${$scrollTriggers.length}`);
-		$scrollTriggers.forEach((el, idx, arr) => {
-			const $this = el;
-			const $thisFeatureWrap = $this.closest('.bc-hero') || $this.closest('.bc-feature-component');
-			const $thisNextSibling = $thisFeatureWrap.nextElementSibling;
-			let thisLinkText = '';	
-			if ($thisFeatureWrap && $thisNextSibling) {
-				
-				thisLinkText = $thisNextSibling.getAttribute('aria-label');	
-				console.log(thisLinkText);
-			}
-			
-			arr[idx].addEventListener('click', (evt) => {
-				evt.preventDefault(); 
-				$bc.gsapFns.scrollTo({scrollTo: {y: $thisNextSibling.offsetTop}, duration: 0.360});
-				
-				//$gsap.to(window, opts);
-			}); 
-		});*/
-		
 	};/*** // window.onload Project scripts ***/
 	
 })();// bcScriptsWrap()

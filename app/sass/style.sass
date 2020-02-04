@@ -70,6 +70,10 @@ img
 		bottom: 0
 		z-index: 0
 		min-width: 61.5rem
+	
+.bc-fade-in-up--is-not-visible
+	opacity: 0
+	transform: translateY(35px)
 /* Project custom site header */
 .bc-site-header
 	&__logo
@@ -380,7 +384,42 @@ img
 		.bc-two-col-card__body
 			padding-left: 	0
 			padding-right: 	0
-	
+
+	/* Heroes and content features next links */
+.bc-feature-component, .bc-hero
+	& &__cta
+		justify-content: space-between
+		align-items: center
+		margin-top: $vertical-unit
+		.bc-button
+			margin-top: 0
+	& &__next
+			display: inline-flex
+			justify-content: flex-end
+			align-items: center
+			font-size: $text--1
+			&__text
+				opacity: 1
+				margin-right: $gutter/2
+			&__icon
+				display: inline-flex
+				justify-content: center
+				align-items: center
+				height: 3.2rem
+				width: 	3.2rem
+				border: 1px solid $brand-primary
+				border-radius: 50%
+				background-color: $shade-04
+				.bc-svg-icon
+					//transform: rotate(90deg)
+					height: 78% 
+					width: 	78% 
+					padding: $gutter/3
+					background-color: $white
+					border: 1px solid $brand-primary
+					border-radius: 50%
+					fill: $brand-primary
+		
 /* Expandible blocks - custom for ISD */
 .bc-feature-component
 	&.bc-expandible-blocks-component
@@ -718,6 +757,7 @@ $waves-height: 50px
 .bc-feature-component
 	padding-top: 		calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
 	padding-bottom: calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
+	
 	&.bc-2-col-media-feature, &.bc-cta-feature
 		padding-top: 		calc(#{$vertical-unit} * 3.5 + (#{$waves-height} / 2))
 		padding-bottom: calc(#{$vertical-unit} * 3.5 + (#{$waves-height} / 2))
