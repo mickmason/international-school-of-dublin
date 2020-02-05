@@ -199,6 +199,40 @@
 				cb($el);
 			}
 		}
+		function gsapShowHide($toggler, $el, activeClass, GSAPOptions, cb) {
+			if ($el && $toggler) {
+				const targetHeight = ($el.classList.contains(activeClass)) ? '0px' : $el.scrollHeight;
+				const opts = Object.assign({
+					height: targetHeight,
+					duration: 0.482,
+					ease: 'power1.out'	
+				}, GSAPOptions);
+				
+				if (GSAPOptions.height !== undefined) {
+					console.log(GSAPOptions.height);
+					opts.height = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.height;
+				}
+				if (GSAPOptions.paddingTop !== undefined) {
+					console.log(GSAPOptions.paddingTop);
+					opts.paddingTop = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.paddingTop;
+				}
+				if (GSAPOptions.paddingBottom !== undefined) {
+					opts.paddingBottom = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.paddingBottom;
+				}
+				if (GSAPOptions.marginTop !== undefined) {
+					opts.marginTop = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.marginTop;
+				}
+				$gsap.to($el, opts).eventCallback('onComplete', cb, [$toggler, $el]);
+				
+				if ($el.classList.contains(activeClass)) {
+					$el.classList.remove(activeClass);
+				} else {
+					$el.classList.add(activeClass);
+				}
+			} else {
+				return new Error(`gsapFadeIn requries a target DOMNode`);
+			}
+		}
 		/* 
 			Interface 
 		*/
@@ -211,7 +245,8 @@
 			gsap: $gsap,
 			gsapFns: {
 				scrollTo: gsapScrollTo,
-				fadeIn: gsapFadeIn
+				fadeIn: gsapFadeIn,
+				showHide: gsapShowHide
 			},
 			utils: {
 				getDomNode: _getDOMNode,
@@ -247,6 +282,47 @@
 			}
 		}
 		/** end Main navigation **/
+		
+		/** Landing page navigation **/ 
+		const $landingPageToggle = (document.querySelector('.feature-page-navigation__heading__icon')) ? document.querySelector('.feature-page-navigation__heading__icon') : null;
+		const $landingPageNav = (document.querySelector('.feature-page-navigation__list')) ? document.querySelector('.feature-page-navigation__list') : null;
+		
+		if ($landingPageNav && $landingPageToggle) {
+			const targetHeight = $landingPageNav.scrollHeight;
+			$landingPageNav.style.height = 0;
+			$landingPageNav.style.paddingTop = 0;
+			$landingPageNav.style.paddingBottom = 0;
+			$landingPageNav.style.marginTop = 0;
+			
+			const menuIcon = $landingPageToggle.querySelector('.bc-menu-icon');
+			const menuIconTopLine = menuIcon.querySelector('.bc-menu-icon__icon__line--top');
+			const menuIconMiddleLine = menuIcon.querySelector('.bc-menu-icon__icon__line--middle');
+			const menuIconBottomLine = menuIcon.querySelector('.bc-menu-icon__icon__line--bottom');
+			let duration = 0.482;
+			
+			const menuAnimation = $bc.gsap.timeline();
+			
+			$landingPageToggle.addEventListener('click', (evt) => {
+				evt.preventDefault();
+				const $this = evt.currentTarget;
+				const $thisWrapper = $this.closest('.feature-page-navigation');
+				
+				$bc.gsapFns.showHide($this, $landingPageNav, 'is-active', {height: targetHeight, paddingBottom: '1rem', paddingTop: '0', marginTop: '2.91483rem'});
+				
+				if ($thisWrapper.classList.contains('is-active')) {
+					menuAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 1});
+					menuAnimation.to([menuIconTopLine, menuIconBottomLine] , {duration: 0, stroke: '#fff'}, -duration);
+					menuAnimation.to(menuIconTopLine, {duration: duration, y: 0, rotation: '0deg', transformOrigin: '50%'}, -duration);
+					menuAnimation.to(menuIconBottomLine, {duration: duration, y: 0, rotation: '0deg', transformOrigin: '50%'}, -duration);
+				} else {
+					menuAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 0});
+					menuAnimation.to([menuIconTopLine, menuIconBottomLine] , {duration: 0, stroke: '#017CC0', }, -duration);
+					menuAnimation.to(menuIconTopLine, {duration: duration, y: '50%', rotation: '45deg', transformOrigin: '50%'}, -duration);
+					menuAnimation.to(menuIconBottomLine, {duration: duration, y: '-50%', rotation: '-45deg', transformOrigin: '50%'}, -duration);
+				}
+				$thisWrapper.classList.toggle('is-active');	
+			});
+		}
 		
 		//All heroes and feature components - used in the following scripts
 		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;

@@ -6,4 +6,92 @@
 		&__list
 			flex-direction: row
 			align-items: center
-			
+
+.feature-page-navigation
+	padding-left: 	$gutter/2;
+	padding-right: 	$gutter/2;
+	position: relative
+	&__list, &__item
+		padding: 0
+		margin: 0
+		list-style: none
+	&__heading, &__list
+		position: relative
+		flex: 1 1 100%
+		width: 100%
+	&__heading
+		z-index: 10
+		display: flex
+		justify-content: space-between
+		align-items: center
+		overflow: visible
+		font-weight: 500
+		font-size: $text-01
+		border-radius: ($text-01*$line-height)+$vertical-unit/3
+		border: 1px solid $brand-primary
+		background-color: $white
+		padding-top:  	$vertical-unit/2
+		padding-bottom: $vertical-unit/2
+		padding-left: $gutter
+		&__icon
+			position: absolute
+			right: -1%
+			flex: 0 1 auto
+			padding: 0.75rem
+			display: inline-flex
+			justify-content: center
+			align-items: center
+			border-radius: 50%
+			background-color: $brand-primary
+			transition: background-color 482ms ease-in-out
+			.bc-svg-icon
+				max-width: 	$text-04 
+				max-height: $text-04 
+				fill: $white
+			.bc-menu-icon
+				width: 	$text-04
+				height: $text-04
+				&__icon
+					&__line
+						transform-origin: 50% 50%
+						stroke: $white
+	&__wrapper
+		z-index: 0
+		width: 98%
+		margin-left: auto
+		margin-right: auto
+		margin-top: 	-($text-01*$line-height)*1.75
+		border-radius: $text-01*$line-height
+		border: 1px solid $brand-primary
+		background-color: $white
+	&__list
+		display: flex
+		flex-direction: column
+		overflow: hidden
+		margin-top: 	($text-01*$line-height)*1.75
+		padding-right: calc(#{$gutter} - 1%) 
+		padding-bottom: $vertical-unit*0.5
+		padding-left: calc(#{$gutter} - 1%) 
+		
+		
+	&__item
+		> a
+			display: block
+			padding-top: 		$vertical-unit/2 
+			padding-bottom: $vertical-unit/2 
+			border-bottom: 1px solid $brand-primary
+		&:last-child
+			> a
+				border-bottom: none
+	&__hide
+		display: none
+	&.is-active
+		.feature-page-navigation__heading__icon
+			border: 1px solid $brand-primary
+			background-color: $white
+			.bc-svg-icon
+				fill: $brand-primary
+		.feature-page-navigation__hide
+			display: block
+		.feature-page-navigation__show
+			display: none
