@@ -5288,7 +5288,8 @@
 			Wrapper functions for gsap https://greensock.com/
 		*/
 		const $gsap = gsap;
-		function gsapScrollTo(targetScrollOptions, $el) {
+		function gsapScrollTo(targetScrollOptions, $el, cb) {
+			console.log('gsapScrollTo');
 			$el = $el || window;
 			$gsap.registerPlugin(ScrollToPlugin); 
 			const scrollOptions =  Object.assign({
@@ -5296,7 +5297,14 @@
 				duration: 1, 
 				ease: 'power1.in'
 			}, targetScrollOptions);
-			$gsap.to($el, scrollOptions);
+			const scrollToTween = $gsap.to($el, scrollOptions).pause();
+			if (typeof cb === 'function') {
+				scrollToTween.eventCallback('onComplete', cb);
+				scrollToTween.play();
+			} else {
+				scrollToTween.play();	
+			}
+			
 		}
 		function gsapFadeIn($el, targetFadeInOpts, cb) {
 			if ($el) {
@@ -5373,6 +5381,7 @@
 	window.onload = () => {
 		
 		$bc.responsiveiFrames('.bc-responsive-embed'); 
+		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;
 		
 		/** Main navigation **/
 		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
@@ -5407,14 +5416,27 @@
 			$landingPageNav.style.paddingTop = 0;
 			$landingPageNav.style.paddingBottom = 0;
 			$landingPageNav.style.marginTop = 0;
-			
 			const menuIcon = $landingPageToggle.querySelector('.bc-menu-icon');
 			const menuIconTopLine = menuIcon.querySelector('.bc-menu-icon__icon__line--top');
 			const menuIconMiddleLine = menuIcon.querySelector('.bc-menu-icon__icon__line--middle');
 			const menuIconBottomLine = menuIcon.querySelector('.bc-menu-icon__icon__line--bottom');
 			let duration = 0.482;
 			
-			const menuAnimation = $bc.gsap.timeline();
+			const menuShowAnimation = $bc.gsap.timeline().pause();
+			menuShowAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 0 }); 
+			//menuAnimation.fromTo([menuIconTopLine, menuIconBottomLine], {stroke: '#fff'}, {duration: 0, stroke: '#017CC0'}, '-='+duration);
+			
+			menuShowAnimation.to(menuIconTopLine, {duration: duration/2, y: '50%', rotation: '45deg', transformOrigin: '50%', stroke: '#017CC0'}, '-='+duration*1.75);
+			menuShowAnimation.to(menuIconBottomLine, {duration: duration/2, y: '-50%', rotation: '-45deg', transformOrigin: '50%', stroke: '#017CC0'}, '-='+duration*1.75); 
+			menuShowAnimation.to($landingPageToggle, {duration: duration/2, backgroundColor: '#fff'}, '-='+duration*2); 
+			
+			const menuHideAnimation = $bc.gsap.timeline().pause();
+			
+			menuHideAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 1 }); 
+			menuHideAnimation.to(menuIconTopLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50%', duration: duration/2}, '-='+duration);
+			menuHideAnimation.to(menuIconBottomLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50%', duration: duration/2}, '-='+duration); 
+			menuHideAnimation.to($landingPageToggle, {backgroundColor: '#017CC0', duration: duration/2}, '-='+duration); 
+			
 			
 			$landingPageToggle.addEventListener('click', (evt) => {
 				evt.preventDefault();
@@ -5424,22 +5446,34 @@
 				$bc.gsapFns.showHide($this, $landingPageNav, 'is-active', {height: targetHeight, paddingBottom: '1rem', paddingTop: '0', marginTop: '2.91483rem'});
 				
 				if ($thisWrapper.classList.contains('is-active')) {
-					menuAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 1});
-					menuAnimation.to([menuIconTopLine, menuIconBottomLine] , {duration: 0, stroke: '#fff'}, -duration);
-					menuAnimation.to(menuIconTopLine, {duration: duration, y: 0, rotation: '0deg', transformOrigin: '50%'}, -duration);
-					menuAnimation.to(menuIconBottomLine, {duration: duration, y: 0, rotation: '0deg', transformOrigin: '50%'}, -duration);
+					menuHideAnimation.progress(0).play();
+					document.querySelector('.feature-page-navigation').classList.toggle('is-active');	
 				} else {
-					menuAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 0});
-					menuAnimation.to([menuIconTopLine, menuIconBottomLine] , {duration: 0, stroke: '#017CC0', }, -duration);
-					menuAnimation.to(menuIconTopLine, {duration: duration, y: '50%', rotation: '45deg', transformOrigin: '50%'}, -duration);
-					menuAnimation.to(menuIconBottomLine, {duration: duration, y: '-50%', rotation: '-45deg', transformOrigin: '50%'}, -duration);
+					menuShowAnimation.progress(0).play();
+					document.querySelector('.feature-page-navigation').classList.toggle('is-active');	
 				}
-				$thisWrapper.classList.toggle('is-active');	
+			
 			});
-		}
+			
+			//set up links
+			
+			const $landingPageNavLinks = ($landingPageNav.querySelectorAll('.feature-page-navigation__item a').length > 0) ? $landingPageNav.querySelectorAll('.feature-page-navigation__item a') : null;
+			console.log($landingPageNavLinks);
+			
+			if ($landingPageNavLinks) {
+				for (let $landingPageNavLink of $landingPageNavLinks) {
+					
+					$landingPageNavLink.addEventListener('click', (evt) => {
+						evt.preventDefault();
+						let linkTarget = document.querySelector($landingPageNavLink.getAttribute('href'));
+						
+						$bc.gsapFns.scrollTo({scrollTo: {y: linkTarget.offsetTop}, duration: 0.360});
+					});
+				}
+			}
+			
+		}//if landing page nav
 		
-		//All heroes and feature components - used in the following scripts
-		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;
 		/** 
 			*	Animate elements as they become visible
 			*	.bc-fade-in-up--is-not-visible has not been seen
