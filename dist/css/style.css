@@ -310,7 +310,7 @@ a {
       align-items: center;
       border-radius: 50%;
       background-color: #017CC0;
-      transition: background-color 482ms ease-in-out; }
+      /*transition: background-color 482ms ease-in-out*/ }
       .feature-page-navigation__heading__icon .bc-svg-icon {
         max-width: 1.7411rem;
         max-height: 1.7411rem;
