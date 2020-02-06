@@ -278,6 +278,12 @@ a {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   position: relative; }
+  .feature-page-navigation.bc-feature-component {
+    padding-top: 2.25rem;
+    padding-bottom: 4.5rem; }
+    @media screen and (min-width: 1024px) {
+      .feature-page-navigation.bc-feature-component {
+        padding-top: 3rem; } }
   .feature-page-navigation__list, .feature-page-navigation__item {
     padding: 0;
     margin: 0;
@@ -319,14 +325,14 @@ a {
         width: 1.7411rem;
         height: 1.7411rem; }
         .feature-page-navigation__heading__icon .bc-menu-icon__icon__line {
-          transform-origin: 50% 50%;
           stroke: #fff; }
   .feature-page-navigation__wrapper {
     z-index: 0;
     width: 98%;
-    margin-left: auto;
-    margin-right: auto;
     margin-top: -2.91483rem;
+    margin-right: auto;
+    margin-bottom: 1.5rem;
+    margin-left: auto;
     border-radius: 1.66562rem;
     border: 1px solid #017CC0;
     background-color: #fff; }
@@ -356,6 +362,11 @@ a {
     display: block; }
   .feature-page-navigation.is-active .feature-page-navigation__show {
     display: none; }
+  @media screen and (min-width: 768px) {
+    .feature-page-navigation__content {
+      max-width: 61.8%;
+      margin-left: auto;
+      margin-right: auto; } }
 
 .container {
   padding: 1rem;
@@ -1192,6 +1203,39 @@ img {
 @media screen and (min-width: 1024px) {
   .bc-hero.bc-hero--inpage .bc-hero__body {
     max-width: 44rem; } }
+
+.bc-hero.bc-hero--is-feature .bc-hero__content {
+  position: relative; }
+  .bc-hero.bc-hero--is-feature .bc-hero__content:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 90%;
+    z-index: -10;
+    opacity: 0.88; }
+    @media screen and (min-width: 768px) {
+      .bc-hero.bc-hero--is-feature .bc-hero__content:after {
+        background-size: contain;
+        background-image: url(../media/kids-carefree--lines.svg); } }
+    @media screen and (min-width: 768px) and (orientation: portrait) {
+      .bc-hero.bc-hero--is-feature .bc-hero__content:after {
+        background-size: 150%;
+        background-position: 50% 105%; } }
+  @media screen and (min-width: 1024px) {
+    .bc-hero.bc-hero--is-feature .bc-hero__content {
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      padding-left: 5.194rem;
+      padding-right: 5.194rem; } }
 
 /* Project custom bc-cards */
 .bc-card, .bc-two-col-card {

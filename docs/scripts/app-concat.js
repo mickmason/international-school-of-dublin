@@ -5423,18 +5423,17 @@
 			let duration = 0.482;
 			
 			const menuShowAnimation = $bc.gsap.timeline().pause();
-			menuShowAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 0 }); 
-			//menuAnimation.fromTo([menuIconTopLine, menuIconBottomLine], {stroke: '#fff'}, {duration: 0, stroke: '#017CC0'}, '-='+duration);
+			menuShowAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 0 });
 			
-			menuShowAnimation.to(menuIconTopLine, {duration: duration/2, y: '50%', rotation: '45deg', transformOrigin: '50%', stroke: '#017CC0'}, '-='+duration*1.75);
-			menuShowAnimation.to(menuIconBottomLine, {duration: duration/2, y: '-50%', rotation: '-45deg', transformOrigin: '50%', stroke: '#017CC0'}, '-='+duration*1.75); 
+			menuShowAnimation.to(menuIconTopLine, {duration: duration/2, y: '50%', z: '50%', rotation: '45deg', transformOrigin: '50% 50%', stroke: '#017CC0'}, '-='+duration*1.75);
+			menuShowAnimation.to(menuIconBottomLine, {duration: duration/2, y: '-50%', z: '50%', rotation: '-45deg', transformOrigin: '50% 50%', stroke: '#017CC0'}, '-='+duration*1.75); 
 			menuShowAnimation.to($landingPageToggle, {duration: duration/2, backgroundColor: '#fff'}, '-='+duration*2); 
 			
 			const menuHideAnimation = $bc.gsap.timeline().pause();
 			
 			menuHideAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 1 }); 
-			menuHideAnimation.to(menuIconTopLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50%', duration: duration/2}, '-='+duration);
-			menuHideAnimation.to(menuIconBottomLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50%', duration: duration/2}, '-='+duration); 
+			menuHideAnimation.to(menuIconTopLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration);
+			menuHideAnimation.to(menuIconBottomLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration); 
 			menuHideAnimation.to($landingPageToggle, {backgroundColor: '#017CC0', duration: duration/2}, '-='+duration); 
 			
 			
@@ -5446,10 +5445,10 @@
 				$bc.gsapFns.showHide($this, $landingPageNav, 'is-active', {height: targetHeight, paddingBottom: '1rem', paddingTop: '0', marginTop: '2.91483rem'});
 				
 				if ($thisWrapper.classList.contains('is-active')) {
-					menuHideAnimation.progress(0).play();
+					menuHideAnimation.play(0);
 					document.querySelector('.feature-page-navigation').classList.toggle('is-active');	
 				} else {
-					menuShowAnimation.progress(0).play();
+					menuShowAnimation.play(0);
 					document.querySelector('.feature-page-navigation').classList.toggle('is-active');	
 				}
 			

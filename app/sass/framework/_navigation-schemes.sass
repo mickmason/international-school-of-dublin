@@ -8,6 +8,11 @@
 			align-items: center
 
 .feature-page-navigation
+	&.bc-feature-component
+		padding-top: 		$vertical-unit *1.5
+		padding-bottom: $vertical-unit *3
+		@media screen and (min-width: $large)
+			padding-top: 		$vertical-unit *2
 	padding-left: 	$gutter/2;
 	padding-right: 	$gutter/2;
 	position: relative
@@ -53,14 +58,14 @@
 				height: $text-04
 				&__icon
 					&__line
-						transform-origin: 50% 50%
 						stroke: $white
 	&__wrapper
 		z-index: 0
 		width: 98%
-		margin-left: auto
-		margin-right: auto
 		margin-top: 	-($text-01*$line-height)*1.75
+		margin-right: auto
+		margin-bottom: $vertical-unit
+		margin-left: auto	
 		border-radius: $text-01*$line-height
 		border: 1px solid $brand-primary
 		background-color: $white
@@ -72,8 +77,6 @@
 		padding-right: calc(#{$gutter} - 1%) 
 		padding-bottom: $vertical-unit*0.5
 		padding-left: calc(#{$gutter} - 1%) 
-		
-		
 	&__item
 		> a
 			display: block
@@ -95,3 +98,9 @@
 			display: block
 		.feature-page-navigation__show
 			display: none
+	
+	@media screen and (min-width: $med)
+		&__content
+			max-width: 61.8%
+			margin-left: auto
+			margin-right: auto
