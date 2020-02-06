@@ -111,7 +111,7 @@
 				Add or remove the active class
 		*/
 		function showHide(el, activeClass) {
-			let startTime = Date.now();
+			//let startTime = Date.now();
 			function _lerpShowHide($el, currentHeight, targetHeight) {
 				if (Math.round(targetHeight) > Math.round(currentHeight)) {
 					//Show
@@ -126,7 +126,7 @@
 						requestAnimationFrame(() => {
 							$el.style.height = 0 + 'px';
 						});	
-						console.log(`End time: ${Date.now() - startTime}`);
+						
 						return ;
 					}
 					currentHeight -= (currentHeight - targetHeight) * 0.25;
@@ -136,14 +136,14 @@
 						_lerpShowHide($el, currentHeight, targetHeight);
 					});
 				} else {
-					console.log(`End time: ${Date.now() - startTime}`);
+					
 					return ;
 				}
 			}//_lerpShowHide()
 			let $el = null;
 			try {
 				$el = _getDOMNode(el);	
-				console.log(`${$el}`);
+				
 			} catch (err) {
 				return console.log(err);
 			}
@@ -175,7 +175,6 @@
 		*/
 		const $gsap = gsap;
 		function gsapScrollTo(targetScrollOptions, $el, cb) {
-			console.log('gsapScrollTo');
 			$el = $el || window;
 			$gsap.registerPlugin(ScrollToPlugin); 
 			const scrollOptions =  Object.assign({
@@ -217,11 +216,9 @@
 				}, GSAPOptions);
 				
 				if (GSAPOptions.height !== undefined) {
-					console.log(GSAPOptions.height);
 					opts.height = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.height;
 				}
 				if (GSAPOptions.paddingTop !== undefined) {
-					console.log(GSAPOptions.paddingTop);
 					opts.paddingTop = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.paddingTop;
 				}
 				if (GSAPOptions.paddingBottom !== undefined) {
@@ -270,6 +267,7 @@
 		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;
 		
 		/** Main navigation **/
+		navTogglersFactory(document.querySelector('.bc-main-navigation-toggle .bc-navigation-toggle'), {baseColor: 'transparent', activeColor: '#fff', baseStrokeColor: '#fff', activeStrokeColor: '#303030'});
 		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
 			event.preventDefault();
 			let siteHeader = null;
@@ -291,9 +289,44 @@
 			}
 		}
 		/** end Main navigation **/
-		
+		/** Nav icons **/
+		function navTogglersFactory($navigationToggler, toggleColors = {baseColor: '#000', activeColor: '#fff', baseStrokeColor: '#030303', activeStrokeColor: '#030303'}, duration =  0.482) {
+			//Menu icon parts
+			const menuIcon = $navigationToggler.querySelector('.bc-menu-icon');
+			const menuIconTopLine = menuIcon.querySelector('.bc-menu-icon__icon__line--top');
+			const menuIconMiddleLine = menuIcon.querySelector('.bc-menu-icon__icon__line--middle');
+			const menuIconBottomLine = menuIcon.querySelector('.bc-menu-icon__icon__line--bottom');
+			
+			//Icon active/inactive transitions timeline
+			const activeTransitionTl = $bc.gsap.timeline().pause();
+			
+			activeTransitionTl.to(menuIconMiddleLine, {duration: duration, opacity: 0 });
+			activeTransitionTl.to(menuIconTopLine, {duration: duration/2, y: '50%', rotation: '45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75);
+			activeTransitionTl.to(menuIconBottomLine, {duration: duration/2, y: '-50%', rotation: '-45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75); 
+			activeTransitionTl.to($navigationToggler, {duration: duration/2, backgroundColor: toggleColors.activeColor}, '-='+duration*2); 
+			
+			const inactiveTransitionTl = $bc.gsap.timeline().pause();
+			
+			inactiveTransitionTl.to(menuIconMiddleLine, {duration: duration, opacity: 1 }); 
+			inactiveTransitionTl.to(menuIconTopLine, {stroke: toggleColors.baseStrokeColor, y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration);
+			inactiveTransitionTl.to(menuIconBottomLine, {stroke: toggleColors.baseStrokeColor, y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration); 
+			inactiveTransitionTl.to($navigationToggler, {backgroundColor: toggleColors.baseColor, duration: duration/2}, '-='+duration); 
+			$navigationToggler.addEventListener('click', (evt) => {
+				evt.preventDefault();
+				const $this = evt.currentTarget;
+				if ($this.classList.contains('is-active')) {
+					inactiveTransitionTl.play(0);
+					$this.classList.toggle('is-active');	
+				} else {
+					activeTransitionTl.play(0);
+					$this.classList.toggle('is-active');	
+				}
+			});
+			return $navigationToggler;
+		}//navTogglersFactory
+
 		/** Landing page navigation **/ 
-		const $landingPageToggle = (document.querySelector('.feature-page-navigation__heading__icon')) ? document.querySelector('.feature-page-navigation__heading__icon') : null;
+		const $landingPageToggle = (document.querySelector('.feature-page-navigation__toggle')) ? document.querySelector('.feature-page-navigation__toggle') : null;
 		const $landingPageNav = (document.querySelector('.feature-page-navigation__list')) ? document.querySelector('.feature-page-navigation__list') : null;
 		
 		if ($landingPageNav && $landingPageToggle) {
@@ -302,48 +335,23 @@
 			$landingPageNav.style.paddingTop = 0;
 			$landingPageNav.style.paddingBottom = 0;
 			$landingPageNav.style.marginTop = 0;
-			const menuIcon = $landingPageToggle.querySelector('.bc-menu-icon');
-			const menuIconTopLine = menuIcon.querySelector('.bc-menu-icon__icon__line--top');
-			const menuIconMiddleLine = menuIcon.querySelector('.bc-menu-icon__icon__line--middle');
-			const menuIconBottomLine = menuIcon.querySelector('.bc-menu-icon__icon__line--bottom');
-			let duration = 0.482;
 			
-			const menuShowAnimation = $bc.gsap.timeline().pause();
-			menuShowAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 0 });
-			
-			menuShowAnimation.to(menuIconTopLine, {duration: duration/2, y: '50%', z: '50%', rotation: '45deg', transformOrigin: '50% 50%', stroke: '#017CC0'}, '-='+duration*1.75);
-			menuShowAnimation.to(menuIconBottomLine, {duration: duration/2, y: '-50%', z: '50%', rotation: '-45deg', transformOrigin: '50% 50%', stroke: '#017CC0'}, '-='+duration*1.75); 
-			menuShowAnimation.to($landingPageToggle, {duration: duration/2, backgroundColor: '#fff'}, '-='+duration*2); 
-			
-			const menuHideAnimation = $bc.gsap.timeline().pause();
-			
-			menuHideAnimation.to(menuIconMiddleLine, {duration: duration, opacity: 1 }); 
-			menuHideAnimation.to(menuIconTopLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration);
-			menuHideAnimation.to(menuIconBottomLine, {stroke: '#fff', y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration); 
-			menuHideAnimation.to($landingPageToggle, {backgroundColor: '#017CC0', duration: duration/2}, '-='+duration); 
-			
+			navTogglersFactory($landingPageToggle, {baseColor: '#017CC0', activeColor: '#fff', baseStrokeColor: '#fff', activeStrokeColor: '#017CC0'});
 			
 			$landingPageToggle.addEventListener('click', (evt) => {
 				evt.preventDefault();
+				evt.stopPropagation();
+				console.log('landing page toggle click');
 				const $this = evt.currentTarget;
 				const $thisWrapper = $this.closest('.feature-page-navigation');
-				
-				$bc.gsapFns.showHide($this, $landingPageNav, 'is-active', {height: targetHeight, paddingBottom: '1rem', paddingTop: '0', marginTop: '2.91483rem'});
-				
-				if ($thisWrapper.classList.contains('is-active')) {
-					menuHideAnimation.play(0);
-					document.querySelector('.feature-page-navigation').classList.toggle('is-active');	
-				} else {
-					menuShowAnimation.play(0);
-					document.querySelector('.feature-page-navigation').classList.toggle('is-active');	
-				}
-			
+				$bc.gsapFns.showHide($this, $landingPageNav, 'is-active', {height: targetHeight, paddingBottom: '1rem', paddingTop: '0', marginTop: '2.91483rem'}, () => {
+					$thisWrapper.classList.toggle('is-active');
+				});
 			});
 			
 			//set up links
 			
 			const $landingPageNavLinks = ($landingPageNav.querySelectorAll('.feature-page-navigation__item a').length > 0) ? $landingPageNav.querySelectorAll('.feature-page-navigation__item a') : null;
-			console.log($landingPageNavLinks);
 			
 			if ($landingPageNavLinks) {
 				for (let $landingPageNavLink of $landingPageNavLinks) {
@@ -375,7 +383,6 @@
 			//bc-is-visible handler
 			$el.addEventListener('bc-is-visible', () => {
 				//Fade in up
-				//console.log(`Event`);
 				/*$bc.gsapFns.fadeIn($el, {duration: 1, y: 20}, ($el) => {
 					$el.classList.remove('bc-fade-in-up--is-not-visible');
 					$el.classList.add('bc-fade-in-up--is-visible');
@@ -436,7 +443,6 @@
 					if (entry.intersectionRatio === 1) {
 						$bc.gsapFns.fadeIn($target, {y: 0, duration: 1.125, ease: 'power4.out'});
 						if ($target.classList.contains('bc-feature-component__next')) {
-							console.log(`Fade in Observer: intersectionRatio: ${entry.intersectionRatio}`);
 							$bc.gsap.to($target.querySelector('.bc-svg-icon'), {rotation: '90deg', duration: 1, ease: 'power4.out', delay: 0.4});
 						}
 					}
@@ -451,12 +457,9 @@
 		}
 		const bcFeaturesObserver = new IntersectionObserver((entries) => {
 			for (let entry of entries) {
-				/*console.log(`Features Observer: entry target: ${entry.target.classList}`);
-				console.log(entry.intersectionRatio);*/
 				if (entry.isIntersecting && entry.intersectionRatio > 0.9) {
 					const $thisFeature = entry.target;
 					const thisFeatureChildren = $thisFeature.querySelectorAll('.bc-fade-in-up--is-not-visible');
-					console.log(`Feature thisFeatureChildren length: ${thisFeatureChildren.length}`);
 					if (thisFeatureChildren.length > 0) {
 						for (let thisFeatureChild of thisFeatureChildren) {
 							if (thisFeatureChild.classList.contains('bc-fade-in-up--is-not-visible')) {
@@ -469,9 +472,7 @@
 		}, featuresObserverOptions);
 		bcFeaturesObserver.observe(document.querySelector('.bc-feature-component'));
 		/** Feature components, Heroes scroll to next content onclick **/
-		
 		if ($pageFeatures) {
-			console.log(`Got them  ${$pageFeatures.length}`);
 			//For each node in the list 
 			$pageFeatures.forEach(($this) =>{
 				
@@ -494,7 +495,6 @@
 						$nextLinkText.append(document.createTextNode(linkText));
 						$nextLinkText.addEventListener('click', (evt) => {
 							evt.preventDefault(); 
-							console.log(`click ${linkText}`);
 							$bc.gsapFns.scrollTo({scrollTo: {y: $nextSibling.offsetTop}, duration: 0.360});
 						});
 						//$bc.gsapFns.fadeIn($nextLinkText);
