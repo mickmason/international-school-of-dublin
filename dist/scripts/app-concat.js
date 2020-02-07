@@ -5515,16 +5515,16 @@
 		/*const featuresObserverOptions = {
 			threshold: [0.1, 0.2, 0.25, 0.3, 0.5, 0.9]
 		};*/
-		const bcFeaturesFadeInOptions = {
+		/*const bcFeaturesFadeInOptions = {
 			rootMargin: '0% 0% 0% 0%',
 			threshold: [0.15, 0.20, 0.382, 0.5, 0.75, 0.95]
 		};
 		const bcHeroesFadeInOptions = {
 			rootMargin: '0% 0% 0% 0%',
 			threshold: [0.15, 0.20, 0.382, 0.5, 0.75, 0.95]
-		};
+		};*/
 		/* Observer for Features */
-		const bcFeaturesFadeInObserver = new IntersectionObserver((entries) => {
+		/*const bcFeaturesFadeInObserver = new IntersectionObserver((entries) => {
 			for (let entry of entries) {
 				if (entry.isIntersecting) {
 					const $target = entry.target;
@@ -5541,16 +5541,16 @@
 					}
 				}
 			}
-		}, bcFeaturesFadeInOptions);
+		}, bcFeaturesFadeInOptions);*/
 		//Observe all fadable elements in feature components
-		const bcFadeInFeatures = document.querySelectorAll('.bc-feature-component .bc-fade-in-up--is-not-visible');
+		/*const bcFadeInFeatures = document.querySelectorAll('.bc-feature-component .bc-fade-in-up--is-not-visible');
 		if (bcFadeInFeatures.length > 0) {
 			for (let fadeInFeature of bcFadeInFeatures) {
 				bcFeaturesFadeInObserver.observe(fadeInFeature);	
 			}
-		}
+		}*/
 		/* Observer for Heroes */
-		const bcHeroesFadeInObserver = new IntersectionObserver((entries) => {
+		/*const bcHeroesFadeInObserver = new IntersectionObserver((entries) => {
 			for (let entry of entries) {
 				if (entry.isIntersecting) {
 					const $target = entry.target;
@@ -5568,7 +5568,7 @@
 			for (let fadeInFeature of bcHeroesFadeInFeatures) {
 				bcHeroesFadeInObserver.observe(fadeInFeature);	
 			}
-		}
+		}*/
 		/* const bcFeaturesObserver = new IntersectionObserver((entries) => {
 			for (let entry of entries) {
 				if (entry.isIntersecting && entry.intersectionRatio > 0.9) {
