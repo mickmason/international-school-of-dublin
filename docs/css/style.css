@@ -1109,10 +1109,9 @@ img {
   z-index: 0;
   min-width: 61.5rem; }
 
-.bc-fade-in-up--is-not-visible {
-  opacity: 0;
-  transform: translateY(4.28rem); }
-
+/*.bc-fade-in-up--is-not-visible
+	opacity: 0
+	transform: translateY(4.28rem)*/
 /* Project custom site header */
 .bc-site-header__logo {
   background-color: #fff;
