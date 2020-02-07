@@ -301,15 +301,15 @@
 			const activeTransitionTl = $bc.gsap.timeline().pause();
 			
 			activeTransitionTl.to(menuIconMiddleLine, {duration: duration, opacity: 0 });
-			activeTransitionTl.to(menuIconTopLine, {duration: duration/2, y: '50%', rotation: '45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75);
-			activeTransitionTl.to(menuIconBottomLine, {duration: duration/2, y: '-50%', rotation: '-45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75); 
+			activeTransitionTl.to(menuIconTopLine, {duration: duration/2, y: '50%', x: '50%', rotation: '45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75);
+			activeTransitionTl.to(menuIconBottomLine, {duration: duration/2, y: '-50%', x: '50%', rotation: '-45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75); 
 			activeTransitionTl.to($navigationToggler, {duration: duration/2, backgroundColor: toggleColors.activeColor}, '-='+duration*2); 
 			
 			const inactiveTransitionTl = $bc.gsap.timeline().pause();
 			
 			inactiveTransitionTl.to(menuIconMiddleLine, {duration: duration, opacity: 1 }); 
-			inactiveTransitionTl.to(menuIconTopLine, {stroke: toggleColors.baseStrokeColor, y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration);
-			inactiveTransitionTl.to(menuIconBottomLine, {stroke: toggleColors.baseStrokeColor, y: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration); 
+			inactiveTransitionTl.to(menuIconTopLine, {stroke: toggleColors.baseStrokeColor, y: '0%', x: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration);
+			inactiveTransitionTl.to(menuIconBottomLine, {stroke: toggleColors.baseStrokeColor, y: '0%', x: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration); 
 			inactiveTransitionTl.to($navigationToggler, {backgroundColor: toggleColors.baseColor, duration: duration/2}, '-='+duration); 
 			$navigationToggler.addEventListener('click', (evt) => {
 				evt.preventDefault();
