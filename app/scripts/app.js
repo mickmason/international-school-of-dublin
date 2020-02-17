@@ -206,36 +206,46 @@
 				cb($el);
 			}
 		}
-		function gsapShowHide($toggler, $el, activeClass, GSAPOptions, cb) {
-			if ($el && $toggler) {
-				const targetHeight = ($el.classList.contains(activeClass)) ? '0px' : $el.scrollHeight;
+		function gsapShowHide($el, GSAPOptions, cb) {
+			if ($el) {
 				const opts = Object.assign({
-					height: targetHeight,
+					duration: 0.482,
+					ease: 'power1.out'	
+				}, GSAPOptions);
+				opts.height = ($el.scrollHeight < opts.height) ? opts.height : '0px';
+				console.log(opts);
+				$gsap.to($el, opts).eventCallback('onComplete', cb, [$el]);
+				
+			} else {
+				return new Error(`gsapFadeIn requries a target DOMNode`);
+			}
+		}
+		function gsapShow($el, height, GSAPOptions, cb) {
+			if ($el) {
+				const opts = Object.assign({
 					duration: 0.482,
 					ease: 'power1.out'	
 				}, GSAPOptions);
 				
-				if (GSAPOptions.height !== undefined) {
-					opts.height = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.height;
-				}
-				if (GSAPOptions.paddingTop !== undefined) {
-					opts.paddingTop = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.paddingTop;
-				}
-				if (GSAPOptions.paddingBottom !== undefined) {
-					opts.paddingBottom = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.paddingBottom;
-				}
-				if (GSAPOptions.marginTop !== undefined) {
-					opts.marginTop = ($el.classList.contains(activeClass)) ? '0px' : GSAPOptions.marginTop;
-				}
-				$gsap.to($el, opts).eventCallback('onComplete', cb, [$toggler, $el]);
+				opts.height = height;
+				console.log(opts.height);
+				$gsap.to($el, opts).eventCallback('onComplete', cb, [$el]);
 				
-				if ($el.classList.contains(activeClass)) {
-					$el.classList.remove(activeClass);
-				} else {
-					$el.classList.add(activeClass);
-				}
 			} else {
-				return new Error(`gsapFadeIn requries a target DOMNode`);
+				return new Error(`gsapShow requries a target DOMNode`);
+			}
+		}
+		function gsapHide($el, GSAPOptions, cb) {
+			if ($el) {
+				const opts = Object.assign({
+					duration: 0.482,
+					ease: 'power1.out'	
+				}, GSAPOptions);
+				opts.height = 0;
+				$gsap.to($el, opts).eventCallback('onComplete', cb, [$el]);
+				
+			} else {
+				return new Error(`gsapHide requries a target DOMNode`);
 			}
 		}
 		/* 
@@ -251,7 +261,9 @@
 			gsapFns: {
 				scrollTo: gsapScrollTo,
 				fadeIn: gsapFadeIn,
-				showHide: gsapShowHide
+				showHide: gsapShowHide,
+				show: gsapShow,
+				hide: gsapHide
 			},
 			utils: {
 				getDomNode: _getDOMNode,
@@ -263,7 +275,10 @@
 	/*** Project scripts ***/
 	window.onload = () => {
 		
+		/* Making iFrames responsive */
 		$bc.responsiveiFrames('.bc-responsive-embed'); 
+		
+		/* All feature content components - used through */
 		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;
 		
 		/** Main navigation **/
@@ -300,17 +315,22 @@
 			//Icon active/inactive transitions timeline
 			const activeTransitionTl = $bc.gsap.timeline().pause();
 			
-			activeTransitionTl.to(menuIconMiddleLine, {duration: duration, opacity: 0 });
-			activeTransitionTl.to(menuIconTopLine, {duration: duration/2, y: '50%', x: '50%', rotation: '45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75);
-			activeTransitionTl.to(menuIconBottomLine, {duration: duration/2, y: '-50%', x: '50%', rotation: '-45deg', transformOrigin: '50% 50%', stroke: toggleColors.activeStrokeColor}, '-='+duration*1.75); 
-			activeTransitionTl.to($navigationToggler, {duration: duration/2, backgroundColor: toggleColors.activeColor}, '-='+duration*2); 
+			activeTransitionTl.to(menuIconMiddleLine, {duration: duration, x: '200%' });
+			activeTransitionTl.to(menuIconTopLine, {duration: duration/2, y: '47%', rotation: '45deg', transformOrigin: 'center', stroke: toggleColors.activeStrokeColor},'-='+duration);
+			activeTransitionTl.to(menuIconBottomLine, {duration: duration/2, y: '-47%', rotation: '-45deg', transformOrigin: 'center', stroke: toggleColors.activeStrokeColor}, '-='+duration); 
+			activeTransitionTl.to($navigationToggler, {duration: duration/2, backgroundColor: toggleColors.activeColor}, '-='+duration); 
 			
 			const inactiveTransitionTl = $bc.gsap.timeline().pause();
 			
-			inactiveTransitionTl.to(menuIconMiddleLine, {duration: duration, opacity: 1 }); 
-			inactiveTransitionTl.to(menuIconTopLine, {stroke: toggleColors.baseStrokeColor, y: '0%', x: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration);
-			inactiveTransitionTl.to(menuIconBottomLine, {stroke: toggleColors.baseStrokeColor, y: '0%', x: '0%', rotation: '0deg', transformOrigin: '50% 50%', duration: duration/2}, '-='+duration); 
+			inactiveTransitionTl.to(menuIconMiddleLine, {duration: 0.24, x: 0 }); 
+			inactiveTransitionTl.to(menuIconTopLine, {stroke: toggleColors.baseStrokeColor, y: '0%', rotation: '0deg', transformOrigin: 'center', duration: duration/2}, '-='+duration);
+			inactiveTransitionTl.to(menuIconBottomLine, {stroke: toggleColors.baseStrokeColor, y: '0%', rotation: '0deg', transformOrigin: 'center', duration: duration/2}, '-='+duration); 
 			inactiveTransitionTl.to($navigationToggler, {backgroundColor: toggleColors.baseColor, duration: duration/2}, '-='+duration); 
+			
+			const animateInTl = $bc.gsap.timeline().pause();
+			$navigationToggler.addEventListener('bc-is-visible', () => {
+				animateInTl.to([menuIconTopLine, menuIconMiddleLine, menuIconBottomLine], {x: 0});	
+			});
 			$navigationToggler.addEventListener('click', (evt) => {
 				evt.preventDefault();
 				const $this = evt.currentTarget;
@@ -322,31 +342,38 @@
 					$this.classList.toggle('is-active');	
 				}
 			});
+			
 			return $navigationToggler;
 		}//navTogglersFactory
 
 		/** Landing page navigation **/ 
 		const $landingPageToggle = (document.querySelector('.feature-page-navigation__toggle')) ? document.querySelector('.feature-page-navigation__toggle') : null;
-		const $landingPageNav = (document.querySelector('.feature-page-navigation__list')) ? document.querySelector('.feature-page-navigation__list') : null;
+		const $landingPageNavList = (document.querySelector('.feature-page-navigation__list')) ? document.querySelector('.feature-page-navigation__list') : null;
 		
-		if ($landingPageNav && $landingPageToggle) {
-			const targetHeight = $landingPageNav.scrollHeight;
-			$landingPageNav.style.height = 0;
-			$landingPageNav.style.paddingTop = 0;
-			$landingPageNav.style.paddingBottom = 0;
-			$landingPageNav.style.marginTop = 0;
+		if ($landingPageNavList && $landingPageToggle) {
+			const $landingPageNav = $landingPageNavList.closest('.feature-page-navigation');
+			const targetHeight = $landingPageNavList.scrollHeight + 3;
 			
-			navTogglersFactory($landingPageToggle, {baseColor: '#017CC0', activeColor: '#fff', baseStrokeColor: '#fff', activeStrokeColor: '#017CC0'});
+			navTogglersFactory($landingPageToggle, {baseColor: '#017CC0', activeColor: '#F2EF11', baseStrokeColor: '#fff', activeStrokeColor: '#017CC0'});
 			
 			$landingPageToggle.addEventListener('click', (evt) => {
 				evt.preventDefault();
 				evt.stopPropagation();
-				console.log('landing page toggle click');
-				const $this = evt.currentTarget;
-				const $thisWrapper = $this.closest('.feature-page-navigation');
-				$bc.gsapFns.showHide($this, $landingPageNav, 'is-active', {height: targetHeight, paddingBottom: '1rem', paddingTop: '0', marginTop: '2.91483rem'}, () => {
-					$thisWrapper.classList.toggle('is-active');
-				});
+				const $thisWrapper =  $landingPageNav.querySelector('.feature-page-navigation__wrapper');
+				$thisWrapper.style.height = 0;
+				console.log($thisWrapper.classList);
+				if ($thisWrapper.classList.contains('is-active')) { 
+					$bc.gsapFns.hide($thisWrapper, {}, () => {
+						console.log('hide callback');
+						$thisWrapper.classList.toggle('is-active');
+					});	
+				} else {
+					$bc.gsapFns.show($thisWrapper, targetHeight, {}, () => {
+						console.log('show callback');
+						$thisWrapper.classList.toggle('is-active');
+					});	
+				}
+				
 			});
 			
 			//set up links
@@ -409,6 +436,16 @@
 			rootMargin: '0% 0% 0% 0%',
 			threshold: [0.15, 0.20, 0.382, 0.5, 0.75, 0.95]
 		};
+		const bcHeaderObserver = new IntersectionObserver((entries, observer) => {
+			const target = entries[0].target;
+			if (target) {
+				$bc.gsap.to(target, {y: 0, opacity: 1, duration: 1.125, ease: 'power4.out'}).eventCallback('onComplete', () => {
+					target.dispatchEvent(bcIsVisibleEvt);	
+					observer.unobserve(target);
+				});	
+			}
+		});
+		bcHeaderObserver.observe(document.querySelectorAll('.bc-site-header')[0]);
 		/* Observer for Features */
 		const bcFeaturesFadeInObserver = new IntersectionObserver((entries, observer) => {
 			const targets = entries.filter(entry => {
@@ -428,7 +465,6 @@
 		const bcFadeInFeatures = document.querySelectorAll('.bc-feature-component .bc-fade-in-up--is-not-visible');
 		if (bcFadeInFeatures.length > 0) {
 			for (let fadeInFeature of bcFadeInFeatures) {
-				console.log(bcFadeInFeatures.length);
 				bcFeaturesFadeInObserver.observe(fadeInFeature);	
 			}
 		}
@@ -446,30 +482,12 @@
 			}
 		}, bcHeroesFadeInOptions);
 		const bcHeroesFadeInFeatures = document.querySelectorAll('.bc-hero .bc-fade-in-up--is-not-visible');
-		if (bcFadeInFeatures.length > 0) {
-			
+		if (bcFadeInFeatures.length > 0) {			
 			for (let fadeInFeature of bcHeroesFadeInFeatures) {
-				
-				
 				bcHeroesFadeInObserver.observe(fadeInFeature);	
 			}
 		}
-		/* const bcFeaturesObserver = new IntersectionObserver((entries) => {
-			for (let entry of entries) {
-				if (entry.isIntersecting && entry.intersectionRatio > 0.9) {
-					const $thisFeature = entry.target;
-					const thisFeatureChildren = $thisFeature.querySelectorAll('.bc-fade-in-up--is-not-visible');
-					if (thisFeatureChildren.length > 0) {
-						for (let thisFeatureChild of thisFeatureChildren) {
-							if (thisFeatureChild.classList.contains('bc-fade-in-up--is-not-visible')) {
-								thisFeatureChild.classList.remove('bc-fade-in-up--is-not-visible');	
-							}
-						}
-					}	
-				}
-			}
-		}, featuresObserverOptions);
-		bcFeaturesObserver.observe(document.querySelector('.bc-feature-component'));*/
+		
 		/** Feature components, Heroes scroll to next content onclick **/
 		if ($pageFeatures) {
 			//For each node in the list 
