@@ -5478,36 +5478,84 @@
 				console.log($thisWrapper.classList);
 				if ($thisWrapper.classList.contains('is-active')) { 
 					$bc.gsapFns.hide($thisWrapper, {}, () => {
-						console.log('hide callback');
 						$thisWrapper.classList.toggle('is-active');
 					});	
 				} else {
 					$bc.gsapFns.show($thisWrapper, targetHeight, {}, () => {
-						console.log('show callback');
 						$thisWrapper.classList.toggle('is-active');
 					});	
 				}
-				
 			});
-			
 			//set up links
-			
-			const $landingPageNavLinks = ($landingPageNav.querySelectorAll('.feature-page-navigation__item a').length > 0) ? $landingPageNav.querySelectorAll('.feature-page-navigation__item a') : null;
-			
+			const $landingPageNavLinks = (document.querySelectorAll('.feature-page-navigation__item > a').length > 0) ? document.querySelectorAll('.feature-page-navigation__item a') : null;
 			if ($landingPageNavLinks) {
 				for (let $landingPageNavLink of $landingPageNavLinks) {
-					
 					$landingPageNavLink.addEventListener('click', (evt) => {
 						evt.preventDefault();
 						let linkTarget = document.querySelector($landingPageNavLink.getAttribute('href'));
-						
 						$bc.gsapFns.scrollTo({scrollTo: {y: linkTarget.offsetTop}, duration: 0.360});
 					});
 				}
 			}
 			
 		}//if landing page nav
-		
+		/** Landing page floating navigation **/ 
+		function toggleFloatingNav() {
+			const dur = 0.4; 
+			const easing = 'back(0.5)';
+			if ($floatingNav.classList.contains('is-visible')) {	
+				$bc.gsap.to($floatingNav, {bottom: '-100%', duration: dur, ease: easing}).eventCallback('onComplete', () => {
+					$floatingNav.classList.remove('is-visible');
+				});
+			} else {
+				$bc.gsap.to($floatingNav, {bottom: '3%', duration: dur, ease: easing}).eventCallback('onComplete', () => {
+					$floatingNav.classList.add('is-visible');
+				});
+			}
+		}
+		const $floatingNav = (document.querySelector('.feature-page-navigation--floating')) ? document.querySelector('.feature-page-navigation--floating') : null;
+		if ($floatingNav) {
+			const scrollThreshold = $floatingNav.scrollHeight;
+			const $floatingNav_toggleNav = navTogglersFactory($floatingNav.querySelector('.feature-page-navigation__toggle-nav__link'), {baseColor: '#017CC0', activeColor: '#fff', baseStrokeColor: '#fff', activeStrokeColor: '#303030'});
+			const $floatingNav_toTop = $floatingNav.querySelector('.feature-page-navigation__to-top');
+			const $floatingNav_nav = $floatingNav.querySelector('.feature-page-navigation__wrapper');
+			$bc.gsap.set($floatingNav_nav, {opacity: 0, display: 'none'});  
+			
+			if (window.scrollY >= scrollThreshold && $floatingNav.classList.contains('is-visible') === false) {
+				console.log('Show floating nav');
+				toggleFloatingNav();
+			}
+			window.onscroll = () => {
+				if (window.scrollY >= scrollThreshold && $floatingNav.classList.contains('is-visible') === false) {
+					console.log(`Show ${window.scrollY} ${scrollThreshold}`);
+					toggleFloatingNav();
+				} else if (window.scrollY < scrollThreshold && $floatingNav.classList.contains('is-visible')) {
+					console.log(`Hide ${window.scrollY} ${scrollThreshold}`);
+					toggleFloatingNav();
+				}
+			};
+			
+			
+			$floatingNav_toggleNav.addEventListener('click', (evt) => {
+				evt.stopPropagation();
+				const $this = evt.currentTarget;
+				if ($this.classList.contains('is-active')) {
+					$bc.gsap.to($floatingNav_nav, {opacity: 1, duration: 0.328, display: 'block', delay: 0.12}).eventCallback('onComplete', () => {
+						$floatingNav_nav.classList.toggle('is-active');
+					});	
+					
+				} else {
+					$bc.gsap.to($floatingNav_nav, {opacity: 0,  duration: 0.328, display: 'none', delay: 0.12}).eventCallback('onComplete', () => {
+						$floatingNav_nav.classList.toggle('is-active');
+					});	
+				}
+			});
+			$floatingNav_toTop.addEventListener('click', (evt) => {
+				evt.stopPropagation();
+				console.log('click '+evt.currentTarget.classList);
+				$bc.gsapFns.scrollTo({scrollTo: {y: 0}, duration: 0.360});
+			});
+		}
 		/** 
 			*	Animate elements as they become visible
 			*	.bc-fade-in-up--is-not-visible has not been seen
