@@ -1,5 +1,4 @@
 (function bcScriptsWrap() {
-	
 	/* The scripts object */
 	const $bc = (function bigCatScripts() {
 		/* Utility functions */
@@ -562,14 +561,61 @@
 							evt.preventDefault(); 
 							$bc.gsapFns.scrollTo({scrollTo: {y: $nextSibling.offsetTop}, duration: 0.360});
 						});
-						//$bc.gsapFns.fadeIn($nextLinkText);
-						//$bc.gsap.to($nextLinkIcon, {rotation: '90deg', duration: 0.88, ease: 'power2.out', delay: 0.2});
 					}
 				} else {
 					return;
 				}
 			});
-			
+		}
+		/* Flickty slider */
+		/*eslint no-undef: 1*/
+		/*eslint-env browser*/
+		if (document.querySelector('.bc-flickty-slider')) {
+			const $sliderElement = document.querySelector('.bc-flickty-slider');
+			const $sliderNext = document.querySelector('.bc-flickty-slider__next');
+			const $sliderPrev = document.querySelector('.bc-flickty-slider__prev');
+			const $slider = new Flickity($sliderElement, {
+				cellSelector: '.bc-flickty-slider__slide',
+				prevNextButtons: false
+			});
+			if ($slider.selectedIndex === 0) {
+				$sliderPrev.classList.add('is-inactive');	
+				$sliderNext.classList.remove('is-inactive');	
+			} else if ($slider.selectedIndex === $slider.cells.length -1) {
+				$sliderPrev.classList.remove('is-inactive');
+				$sliderNext.classList.add('is-inactive');	
+			} else {
+				$sliderPrev.classList.remove('is-inactive');	
+				$sliderNext.classList.remove('is-inactive');	
+			}
+			$sliderNext.addEventListener('click', (evt) => {
+				evt.preventDefault();
+				$slider.next();
+				if ($slider.selectedIndex === 0) {
+					$sliderPrev.classList.add('is-inactive');
+					$sliderNext.classList.remove('is-inactive');
+				} else if ($slider.selectedIndex === $slider.cells.length -1) {
+					$sliderPrev.classList.remove('is-inactive');
+					$sliderNext.classList.add('is-inactive');	
+				} else {
+					$sliderPrev.classList.remove('is-inactive');	
+					$sliderNext.classList.remove('is-inactive');	
+				}
+			});
+			$sliderPrev.addEventListener('click', (evt) => {
+				evt.preventDefault();
+				$slider.previous(); 
+				if ($slider.selectedIndex === 0) {
+					$sliderPrev.classList.add('is-inactive');
+					$sliderNext.classList.remove('is-inactive');
+				} else if ($slider.selectedIndex === $slider.cells.length -1) {
+					$sliderPrev.classList.remove('is-inactive');
+					$sliderNext.classList.add('is-inactive');	
+				} else {
+					$sliderPrev.classList.remove('is-inactive');	
+					$sliderNext.classList.remove('is-inactive');	
+				}
+			});
 		}
 	};/*** // window.onload Project scripts ***/
 	

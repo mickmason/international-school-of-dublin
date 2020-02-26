@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width">
 	<title>Document</title>
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 	<link rel="stylesheet" href="css/style.css" />
 </head>  
 <body> 
@@ -80,19 +81,45 @@
 		
 		<div class="bc-main-navigation__underlay"></div>
 	</header><!-- // .bc-site-header -->
-	<section class="bc-flickty-slider is-full-width">
-		<a href="javascript:void(0)" class="bc-flickty-slider__prev"></a>
-		<a href="javascript:void(0)" class="bc-flickty-slider__next"></a>
+	<section class="bc-flickty-slider is-full-width"> 
+		<a href="javascript:void(0)" class="bc-flickty-slider__prev">
+			<svg version="1.1" class="bc-svg-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<use xlink:href="./media/svg/icons/bc-svgs.svg#carat"></use>  
+			</svg>
+		</a>
+		<a href="javascript:void(0)" class="bc-flickty-slider__next">
+			<svg version="1.1" class="bc-svg-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<use xlink:href="./media/svg/icons/bc-svgs.svg#carat"></use>  
+			</svg>
+		</a>
 		
 		<article class="bc-flickty-slider__slide"> 
+			<div class="bc-flickty-slider__slide__overlay"></div> 
 			<img src="media/irish-family--portrait.jpg" alt="A family" class="bc-flickty-slider__slide__image"> 
 			<img src="media/irish-family.jpg" alt="A family" class="bc-flickty-slider__slide__image bc-flickty-slider__slide__image--landscape">
 			
 			<div class="bc-flickty-slider__slide__content">
-				<h1>A progressive learning alternative</h1> 
-				<h2>Parent/pupil name</h2>
-				<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam</p>
-				<p class="bc-icon-link">
+				<h1 class="bc-flickty-slider__slide__heading">A progressive learning alternative</h1> 
+				<h3  class="bc-flickty-slider__slide__sub-heading">Parent/pupil name</h3>
+				<p  class="bc-flickty-slider__slide__leader">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam</p>
+				<p class="bc-icon-link bc-flickty-slider__slide__link">
+					Read all about it 
+					<svg version="1.1" class="bc-svg-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+						 <use xlink:href="./media/svg/icons/bc-svgs.svg#arrow"></use>  
+					</svg>
+				</p>
+			</div>
+		</article>
+		<article class="bc-flickty-slider__slide"> 
+			<div class="bc-flickty-slider__slide__overlay"></div> 
+			<img src="media/irish-family--portrait.jpg" alt="A family" class="bc-flickty-slider__slide__image"> 
+			<img src="media/irish-family.jpg" alt="A family" class="bc-flickty-slider__slide__image bc-flickty-slider__slide__image--landscape">
+			
+			<div class="bc-flickty-slider__slide__content">
+				<h1 class="bc-flickty-slider__slide__heading">A progressive learning alternative #2</h1> 
+				<h3  class="bc-flickty-slider__slide__sub-heading">Parent/pupil name</h3>
+				<p  class="bc-flickty-slider__slide__leader">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam</p>
+				<p class="bc-icon-link bc-flickty-slider__slide__link">
 					Read all about it 
 					<svg version="1.1" class="bc-svg-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 						 <use xlink:href="./media/svg/icons/bc-svgs.svg#arrow"></use>  

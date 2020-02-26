@@ -10,21 +10,38 @@
 					width: 61.8%
 	.bc-flickty-slider__next, .bc-flickty-slider__prev
 		position: absolute
+		display: flex
+		justify-content: center
+		align-items: center
 		width: 10%
 		top: 0
 		bottom: 0
 		z-index: 20 
 		transition: background-color 240ms ease-out
+		.bc-svg-icon
+			fill: $white
+		&.is-inactive
+			.bc-svg-icon
+				opacity: 0.5
 		&:hover, &:active, &:focus
-			background-color: rgba($black, 0.124)
+			background-color: rgba($brand-primary, 0.36)
 	.bc-flickty-slider__prev
 		left: 0
+		transition: background-color 240ms ease-out
+		.bc-svg-icon
+			transform: rotate(180deg)
 	.bc-flickty-slider__next
 		right: 0
 	.bc-flickty-slider__slide
 		position: relative
 		width: 	100%
 		height: 100%
+		&__overlay
+			position: absolute
+			width: 100%
+			height: 100%
+			background-color: rgba($black, 0.22)
+			z-index: 10
 		&__image
 			position: absolute
 			width: 	100%
@@ -33,22 +50,34 @@
 			z-index: 0
 			&--landscape
 				display: none
+		&__heading, &__sub-heading, &__leader, &__link
+			margin-top: 0
+			margin-bottom: $vertical-unit/2
+		&__heading, &__sub-heading, &__link
+			font-weight: 500
+		&__link
+			margin-bottom: 0
 		&__content
 			position: absolute
-			top: 10%
+			bottom: 0
 			width: 80%
-			height: 80%
+			height: 100% 
+			padding-bottom: $vertical-unit 
 			left: 10%
 			color: $white
 			display: flex
 			flex-direction: column
-			justify-content: center
-			z-index: 10
+			justify-content: flex-end 
+			z-index: 20
 			h1, h2, h3, h4, h5, p, ul, a 
 				color: $white
 			.bc-svg-icon
 				fill: $white
 		
+	@media screen and (min-width: $med)
+		.bc-flickty-slider__slide
+			&__content
+				justify-content: center
 	@media screen and (min-width: $large)
 		.bc-flickty-slider__slide
 			&__image
