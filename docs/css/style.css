@@ -257,7 +257,6 @@ h5 {
 p {
   color: #303030;
   line-height: 1.45;
-  margin-top: auto;
   margin-bottom: 1.5rem; }
 
 a {
@@ -847,6 +846,88 @@ a {
 @media screen and (min-width: 1366px) {
   .bc-main-navigation .bc-main-navigation__links {
     grid-template: repeat(4, 12.5%)/repeat(2, 1fr); } }
+
+.bc-flickty-slider {
+  position: relative; }
+  .bc-flickty-slider.is-full-width {
+    width: 100%;
+    height: 100vh;
+    background-color: #017CC0; }
+    @media screen and (min-width: 1024px) {
+      .bc-flickty-slider.is-full-width .bc-flickty-slider__slide__content {
+        width: 61.8%; } }
+  .bc-flickty-slider .bc-flickty-slider__next, .bc-flickty-slider .bc-flickty-slider__prev {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    top: 0;
+    bottom: 0;
+    z-index: 20;
+    transition: background-color 240ms ease-out; }
+    .bc-flickty-slider .bc-flickty-slider__next .bc-svg-icon, .bc-flickty-slider .bc-flickty-slider__prev .bc-svg-icon {
+      fill: #fff; }
+    .bc-flickty-slider .bc-flickty-slider__next.is-inactive .bc-svg-icon, .bc-flickty-slider .bc-flickty-slider__prev.is-inactive .bc-svg-icon {
+      opacity: 0.5; }
+    .bc-flickty-slider .bc-flickty-slider__next:hover, .bc-flickty-slider .bc-flickty-slider__next:active, .bc-flickty-slider .bc-flickty-slider__next:focus, .bc-flickty-slider .bc-flickty-slider__prev:hover, .bc-flickty-slider .bc-flickty-slider__prev:active, .bc-flickty-slider .bc-flickty-slider__prev:focus {
+      background-color: rgba(1, 124, 192, 0.36); }
+  .bc-flickty-slider .bc-flickty-slider__prev {
+    left: 0;
+    transition: background-color 240ms ease-out; }
+    .bc-flickty-slider .bc-flickty-slider__prev .bc-svg-icon {
+      transform: rotate(180deg); }
+  .bc-flickty-slider .bc-flickty-slider__next {
+    right: 0; }
+  .bc-flickty-slider .bc-flickty-slider__slide {
+    position: relative;
+    width: 100%;
+    height: 100%; }
+    .bc-flickty-slider .bc-flickty-slider__slide__overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.22);
+      z-index: 10; }
+    .bc-flickty-slider .bc-flickty-slider__slide__image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0; }
+      .bc-flickty-slider .bc-flickty-slider__slide__image--landscape {
+        display: none; }
+    .bc-flickty-slider .bc-flickty-slider__slide__heading, .bc-flickty-slider .bc-flickty-slider__slide__sub-heading, .bc-flickty-slider .bc-flickty-slider__slide__leader, .bc-flickty-slider .bc-flickty-slider__slide__link {
+      margin-top: 0;
+      margin-bottom: 0.75rem; }
+    .bc-flickty-slider .bc-flickty-slider__slide__heading, .bc-flickty-slider .bc-flickty-slider__slide__sub-heading, .bc-flickty-slider .bc-flickty-slider__slide__link {
+      font-weight: 500; }
+    .bc-flickty-slider .bc-flickty-slider__slide__link {
+      margin-bottom: 0; }
+    .bc-flickty-slider .bc-flickty-slider__slide__content {
+      position: absolute;
+      bottom: 0;
+      width: 80%;
+      height: 100%;
+      padding-bottom: 1.5rem;
+      left: 10%;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      z-index: 20; }
+      .bc-flickty-slider .bc-flickty-slider__slide__content h1, .bc-flickty-slider .bc-flickty-slider__slide__content h2, .bc-flickty-slider .bc-flickty-slider__slide__content h3, .bc-flickty-slider .bc-flickty-slider__slide__content h4, .bc-flickty-slider .bc-flickty-slider__slide__content h5, .bc-flickty-slider .bc-flickty-slider__slide__content p, .bc-flickty-slider .bc-flickty-slider__slide__content ul, .bc-flickty-slider .bc-flickty-slider__slide__content a {
+        color: #fff; }
+      .bc-flickty-slider .bc-flickty-slider__slide__content .bc-svg-icon {
+        fill: #fff; }
+  @media screen and (min-width: 768px) {
+    .bc-flickty-slider .bc-flickty-slider__slide__content {
+      justify-content: center; } }
+  @media screen and (min-width: 1024px) {
+    .bc-flickty-slider .bc-flickty-slider__slide__image {
+      display: none; }
+      .bc-flickty-slider .bc-flickty-slider__slide__image--landscape {
+        display: initial; } }
 
 .bc-feature-component.bc-4-col-feature {
   background-image: linear-gradient(to bottom left, #f6f6f6 0%, #e0e0e0 61.8%); }
