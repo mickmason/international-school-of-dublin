@@ -9787,7 +9787,7 @@ return Flickity;
 		}//isScrollVisible
 		/* 
 			Remove width and height from iframes
-			@arg iframeParents, String selector for the iframe parent or and array of String selector parents
+			@arg iframeParents, String selector for the iframe parent or an array of String selector parents
 		*/
 		function makeResponsiveiFrames(iframeParents) {
 			iframeParents = Array.from(document.querySelectorAll(iframeParents));
@@ -9798,8 +9798,9 @@ return Flickity;
 						iframes[iframe].removeAttribute('width');	
 						iframes[iframe].removeAttribute('height'); 	
 					}
+					iframeParents[parent].classList.remove('is-not-loaded');
 				}	
-				iframeParents[parent].classList.remove('is-not-loaded');	
+					
 			}
 			return;
 		}//makeResponsiveiFrames
@@ -10120,8 +10121,6 @@ return Flickity;
 					toggleFloatingNav();
 				}
 			};
-			
-			
 			$floatingNav_toggleNav.addEventListener('click', (evt) => {
 				evt.stopPropagation();
 				const $this = evt.currentTarget;
@@ -10277,7 +10276,8 @@ return Flickity;
 			const $sliderPrev = document.querySelector('.bc-flickty-slider__prev');
 			const $slider = new Flickity($sliderElement, {
 				cellSelector: '.bc-flickty-slider__slide',
-				prevNextButtons: false
+				prevNextButtons: false,
+				pageDots: false
 			});
 			if ($slider.selectedIndex === 0) {
 				$sliderPrev.classList.add('is-inactive');	
@@ -10289,7 +10289,39 @@ return Flickity;
 				$sliderPrev.classList.remove('is-inactive');	
 				$sliderNext.classList.remove('is-inactive');	
 			}
-			$sliderNext.addEventListener('click', (evt) => {
+			if ($sliderElement.querySelectorAll('.bc-flickty-slider__slide--video').length > 0) {
+				const $videoSlide = $sliderElement.querySelectorAll('.bc-flickty-slider__slide--video')[0];
+				const $videoSlideWrap = $sliderElement.querySelectorAll('.bc-flickty-slider__video-wrap')[0];
+				$bc.responsiveiFrames('.bc-flickty-slider .bc-flickty-slider__slide--video');
+				
+				//	const $videoSlideContent = $videoSlide.querySelector('.bc-flickty-slider__slide__content'); 
+				//const $videoSlidePlay = $videoSlide.querySelector('.bc-flickty-slider__slide--video__play'); 
+				const $videoSlideHeading = $videoSlide.querySelector('.bc-flickty-slider__slide__heading');
+				const $videoSlideSubHeading = $videoSlide.querySelector('.bc-flickty-slider__slide__sub-heading');
+				const $videoSlideLeader = $videoSlide.querySelector('.bc-flickty-slider__slide__leader');
+				const $videoSlideLink = $videoSlide.querySelector('.bc-flickty-slider__slide__link'); 
+				const videoSliderElements = [$videoSlideHeading, $videoSlideSubHeading, $videoSlideLink, $videoSlideLeader];
+				
+				$videoSlideHeading.style.top = $videoSlideHeading.offsetTop + 'px'; 
+				
+				const videoTl = $bc.gsap.timeline().pause();
+				videoTl.to(videoSliderElements, {y: 50, opacity: 0, transformOrigin: 'left bottom'});
+				videoTl.set($videoSlideWrap, {display: 'block', opacity: 0, y: -50});
+				//videoTl.set([$videoSlidePlay, $videoSlideHeading, $videoSlideSubHeading], {display: 'none'});
+				videoTl.set([$videoSlideLink, $videoSlideLeader], {y: -20});
+				videoTl.to($videoSlideWrap, {opacity: 1, y: 0});
+				videoTl.to([$videoSlideLink, $videoSlideLeader], {opacity: 1, y: 0});
+				//videoTl.to($, {height: 0});
+				
+				/*$videoSlidePlay.addEventListener('click', (evt) => {
+					evt.preventDefault();
+					const $this = evt.currentTarget;
+					videoTl.play();
+					
+					$this.removeEventListener('click', arguments.callee);
+				});*/
+			}
+			$sliderNext.addEventListener('click', (evt) => { 
 				evt.preventDefault();
 				$slider.next();
 				if ($slider.selectedIndex === 0) {
