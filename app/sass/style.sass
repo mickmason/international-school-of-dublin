@@ -7,13 +7,14 @@ $vunit: 1.45rem
 @import 'framework/typography' 
 
 @import 'framework/navigation-schemes'   
-@import 'framework/grid' 
+@import 'framework/grid'  
 @import 'framework/hero' 
 @import 'framework/site-header'
 @import 'framework/components/full-width-slider'   
 @import 'framework/components/bc-feature-component'   
 @import 'framework/components/bc-inner-page-header'   
 @import 'framework/components/bc-inner-page-content'    
+@import 'framework/components/bc-accordion'    
 
 /* Normalize overrides and resets */ 
 *
@@ -552,11 +553,11 @@ img
 							transition: transform 380ms ease-out
 			&.is-active		
 				.bc-expandible-block__body
-					padding-top: $vertical-unit * 0.5
+					padding-top: $vertical-unit * 0.5  
 			&:nth-child(1n)
 				.bc-expandible-block__intro__heading
 					color: $mid-green
-				.bc-expandible-block__expander__button__icon
+				.bc-expandible-block__expander__button__icon 
 					background-color: darken($mid-green, 10%) 
 				.bc-expandible-block__expander__button
 						&:hover, &:active, &:focus
@@ -843,3 +844,54 @@ $waves-height: 50px
 			svg
 				.isd-wave
 					fill: $brand-darker
+		
+/* Accordion project overrides */
+.bc-accordion      
+	&__block-heading:nth-of-type(1n)
+		.bc-accordion__block-trigger
+			color: $mid-green 
+			.bc-svg-icon
+				fill: $mid-green
+	&__block-heading:nth-of-type(2n)
+		.bc-accordion__block-trigger
+			color: $red 
+			.bc-svg-icon
+				fill: $red
+	&__block-heading:nth-of-type(3n)
+		.bc-accordion__block-trigger
+			color: $orange
+			.bc-svg-icon
+				fill: $orange
+	&__block-heading:nth-of-type(4n)
+		.bc-accordion__block-trigger
+			color: $purple
+			.bc-svg-icon
+				fill: $purple
+	&__block-body
+		position: relative
+		padding-bottom: $vertical-unit * 0.125
+		&:after
+			content: ""
+			position: absolute
+			bottom: 0
+			right: 0
+			width: 5rem 
+			height: $vertical-unit * 0.125 
+			background-color: $brand-primary
+	&__block-body:nth-of-type(1n)
+		&:after
+			background-color: $mid-green
+	&__block-body:nth-of-type(2n)
+		&:after
+			background-color: $red
+	&__block-body:nth-of-type(3n)
+		&:after
+			background-color: $orange
+	&__block-body:nth-of-type(4n)
+		&:after
+			background-color: $purple
+	
+	@media screen and (min-width: $large)
+		&__block-trigger
+			&__icon
+				margin-left: 2.8rem

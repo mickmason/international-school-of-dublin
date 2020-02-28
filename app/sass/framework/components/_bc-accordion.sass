@@ -1,0 +1,31 @@
+.bc-accordion
+	&__block-heading
+		flex: 1 1 100%
+		&.is-active
+			.bc-accordion__block-trigger		
+				.bc-svg-icon 
+					transform: rotate(45deg)
+	&__block-trigger
+		width: 100%
+		display: flex
+		align-items: stretch
+		justify-content: space-between
+		&__icon
+			flex: 1 1 2.5rem
+			min-width: 2.5rem
+			max-width: 2.5rem
+			padding-top: $vertical-unit *0.25
+			display: inline-flex
+			justify-content: center
+		.bc-svg-icon 
+			max-height: 1.25rem 
+			max-width: 	1.25rem
+			transform: rotate(45deg)
+			transition: transform 380ms ease-out
+	&__block-body
+		height: 0
+		overflow: hidden
+	@media screen and (min-width: $large)
+		&__block-trigger
+			&__icon
+				margin-left: $gutter * 0.5
