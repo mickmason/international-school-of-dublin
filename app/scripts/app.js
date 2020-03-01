@@ -648,6 +648,73 @@
 					$sliderNext.classList.remove('is-inactive');	
 				}
 			});
+		}// end if .bc-flickty-slider
+		/** Accordions **/ 
+		function showAccordionBody(accordionBody, cb) {
+			if (accordionBody.classList.contains('is-active') === false) {
+				$bc.gsap.to(accordionBody, {height: accordionBody.scrollHeight + 'px'}).eventCallback('onComplete', () => {
+					accordionBody.classList.toggle('is-active');
+					if (typeof cb === 'function') {
+						cb();
+					}
+				});	
+			} else {
+				return;
+			}
+		}
+		function hideAccordionBody(accordionBody, cb) {
+			if (accordionBody.classList.contains('is-active')) {
+				$bc.gsap.to(accordionBody, {height: 0 + 'px'}).eventCallback('onComplete', () => {
+					accordionBody.classList.toggle('is-active');
+					if (typeof cb === 'function') {
+						cb();
+					}
+				});	
+			} else {
+				return;
+			}
+		}
+		if (document.querySelectorAll('.bc-accordion').length > 0) {
+			const accordions = document.querySelectorAll('.bc-accordion');
+			for (let $accordion of accordions) {
+				const accordionTriggers = $accordion.querySelectorAll('.bc-accordion__block-trigger');
+				for (let $accordionTrigger of accordionTriggers) {
+					$accordionTrigger.addEventListener('click', (evt) => {
+						evt.preventDefault();
+						const $accordionTriggerIcon = $accordionTrigger.querySelector('.bc-accordion__block-trigger__icon > .bc-svg-icon');
+						const $accordionBody = $accordionTrigger.closest('.bc-accordion__block-heading').nextElementSibling;
+						if ($accordionTrigger.classList.contains('is-active') === false) {
+							showAccordionBody($accordionBody);
+							$bc.gsap.to($accordionTriggerIcon, {rotate: '90deg', duration: 0.1}).eventCallback('onComplete', () => {
+								$accordionTrigger.classList.toggle('is-active');
+							});
+						} else {
+							hideAccordionBody($accordionBody);
+							$bc.gsap.to($accordionTriggerIcon, {rotate: '45deg', duration: 0.1}).eventCallback('onComplete', () => {
+								$accordionTrigger.classList.toggle('is-active');
+							});
+						}
+						
+					});	
+				}
+				const accordionCloseLinks = $accordion.querySelectorAll('.bc-accordion__block-body .bc-accordion__close > a');
+				for (let $accordionCloseLink of accordionCloseLinks) {
+					$accordionCloseLink.addEventListener('click', (evt) => {
+						evt.preventDefault();
+						const $thisBody = $accordionCloseLink.closest('.bc-accordion__block-body');
+						const $thisHeading = $thisBody.previousElementSibling;
+						const $accordionTrigger = $thisHeading.querySelector('.bc-accordion__block-trigger');
+						const $accordionTriggerIcon = $accordionTrigger.querySelector('.bc-accordion__block-trigger__icon > .bc-svg-icon');
+						hideAccordionBody($thisBody);
+						$bc.gsap.to($accordionTriggerIcon, {rotate: '45deg', duration: 0.1}).eventCallback('onComplete', () => {
+							$accordionTriggerIcon.classList.toggle('is-active');
+						});
+						
+					});
+				}
+				
+				
+			}
 		}
 	};/*** // window.onload Project scripts ***/
 	

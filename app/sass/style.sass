@@ -870,28 +870,33 @@ $waves-height: 50px
 	&__block-body
 		position: relative
 		padding-bottom: $vertical-unit * 0.125
+		border-bottom: 1px solid $brand-primary
 		&:after
 			content: ""
 			position: absolute
 			bottom: 0
 			right: 0
-			width: 5rem 
-			height: $vertical-unit * 0.125 
+			width: 12.94%  
+			height: $vertical-unit * 0.1125 
 			background-color: $brand-primary
 	&__block-body:nth-of-type(1n)
+		border-bottom: 1px solid $mid-green
 		&:after
 			background-color: $mid-green
 	&__block-body:nth-of-type(2n)
+		border-bottom: 1px solid $red
 		&:after
 			background-color: $red
 	&__block-body:nth-of-type(3n)
+		border-bottom: 1px solid $orange
 		&:after
 			background-color: $orange
 	&__block-body:nth-of-type(4n)
+		border-bottom: 1px solid $purple
 		&:after
 			background-color: $purple
 	
-	@media screen and (min-width: $large)
+	/*@media screen and (min-width: $large)
 		&__block-trigger
 			&__icon
-				margin-left: 2.8rem
+				margin-left: 2.8rem*/

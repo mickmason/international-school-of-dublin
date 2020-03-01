@@ -214,10 +214,36 @@
 			> a
 				font-size: 1rem
 				padding: 0.8rem $gutter
-			
-			
-			
+
+/* Breadcrumbs */
+.bc-breadcrumbs
+	padding-top: 		$vertical-unit /2
+	padding-bottom: $vertical-unit/2
+	&__wrap
+		@include makeContentFlexbox($direction: row, $justify: space-between, $align: center) 
+	&__links
+		margin: 0
+		padding: 0
+		display: flex
+		&__link
+			margin: 0
+			padding: 0
+			list-style: none
+			display: flex
+			align-items: center
+			margin-right: $gutter/6
+			> a 
+				font-size: $small-text
+				font-weight: 300
+	&__link-separator
+		max-height: $small-text
+		max-width: $small-text
+		margin-left: $gutter/6
+		fill: $brand-primary
 	
-				
+.bc-feature-page
+	.bc-breadcrumbs
+		padding-top: 		$vertical-unit * 1.25
+		padding-bottom: $vertical-unit
 		
 			

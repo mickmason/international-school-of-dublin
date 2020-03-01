@@ -1,6 +1,7 @@
 .bc-accordion
 	&__block-heading
 		flex: 1 1 100%
+		font-size: $h3
 		&.is-active
 			.bc-accordion__block-trigger		
 				.bc-svg-icon 
@@ -11,20 +12,26 @@
 		align-items: stretch
 		justify-content: space-between
 		&__icon
-			flex: 1 1 2.5rem
-			min-width: 2.5rem
-			max-width: 2.5rem
-			padding-top: $vertical-unit *0.25
+			flex: 1 1 12.94%
+			min-width: 12.94%
+			max-width: 12.94%
+			padding-bottom: $vertical-unit/2.25 
 			display: inline-flex
 			justify-content: center
+			align-items: flex-end 
 		.bc-svg-icon 
-			max-height: 1.25rem 
-			max-width: 	1.25rem
+			max-height: $h5 
+			max-width: 	$h5
 			transform: rotate(45deg)
 			transition: transform 380ms ease-out
 	&__block-body
 		height: 0
 		overflow: hidden
+	&__close
+		display: flex
+		justify-content: flex-end
+		align-items: center
+		padding-right: $gutter/2
 	@media screen and (min-width: $large)
 		&__block-trigger
 			&__icon
