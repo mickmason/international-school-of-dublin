@@ -9914,7 +9914,6 @@ return Flickity;
 					ease: 'power1.out'	
 				}, GSAPOptions);
 				opts.height = ($el.scrollHeight < opts.height) ? opts.height : '0px';
-				console.log(opts);
 				$gsap.to($el, opts).eventCallback('onComplete', cb, [$el]);
 				
 			} else {
@@ -9929,7 +9928,6 @@ return Flickity;
 				}, GSAPOptions);
 				
 				opts.height = height;
-				console.log(opts.height);
 				$gsap.to($el, opts).eventCallback('onComplete', cb, [$el]);
 				
 			} else {
@@ -10048,21 +10046,20 @@ return Flickity;
 		}//navTogglersFactory
 
 		/** Landing page navigation **/ 
-		const $landingPageToggle = (document.querySelector('.feature-page-navigation__toggle')) ? document.querySelector('.feature-page-navigation__toggle') : null;
+		let $landingPageToggle = (document.querySelector('.feature-page-navigation__toggle')) ? document.querySelector('.feature-page-navigation__toggle') : null;
 		const $landingPageNavList = (document.querySelector('.feature-page-navigation__list')) ? document.querySelector('.feature-page-navigation__list') : null;
 		
 		if ($landingPageNavList && $landingPageToggle) {
-			const $landingPageNav = $landingPageNavList.closest('.feature-page-navigation');
+			let $landingPageNav = $landingPageNavList.closest('.feature-page-navigation');
 			const targetHeight = $landingPageNavList.scrollHeight + 3;
 			
-			navTogglersFactory($landingPageToggle, {baseColor: '#017CC0', activeColor: '#F2EF11', baseStrokeColor: '#fff', activeStrokeColor: '#017CC0'});
+			$landingPageToggle = navTogglersFactory($landingPageToggle, {baseColor: '#017CC0', activeColor: '#F2EF11', baseStrokeColor: '#fff', activeStrokeColor: '#017CC0'});
 			
 			$landingPageToggle.addEventListener('click', (evt) => {
 				evt.preventDefault();
 				evt.stopPropagation();
 				const $thisWrapper =  $landingPageNav.querySelector('.feature-page-navigation__wrapper');
 				$thisWrapper.style.height = 0;
-				console.log($thisWrapper.classList);
 				if ($thisWrapper.classList.contains('is-active')) { 
 					$bc.gsapFns.hide($thisWrapper, {}, () => {
 						$thisWrapper.classList.toggle('is-active');
@@ -10078,9 +10075,12 @@ return Flickity;
 			if ($landingPageNavLinks) {
 				for (let $landingPageNavLink of $landingPageNavLinks) {
 					$landingPageNavLink.addEventListener('click', (evt) => {
-						evt.preventDefault();
-						let linkTarget = document.querySelector($landingPageNavLink.getAttribute('href'));
-						$bc.gsapFns.scrollTo({scrollTo: {y: linkTarget.offsetTop}, duration: 0.360});
+						/* If it is not a site quicklink */
+						if ($landingPageNavLink.classList.contains('.is-site-quicklink') === false) {
+							evt.preventDefault();
+							let linkTarget = document.querySelector($landingPageNavLink.getAttribute('href'));
+							$bc.gsapFns.scrollTo({scrollTo: {y: linkTarget.offsetTop}, duration: 0.360});
+						}
 					});
 				}
 			}
@@ -10109,15 +10109,12 @@ return Flickity;
 			$bc.gsap.set($floatingNav_nav, {opacity: 0, display: 'none'});  
 			
 			if (window.scrollY >= scrollThreshold && $floatingNav.classList.contains('is-visible') === false) {
-				console.log('Show floating nav');
 				toggleFloatingNav();
 			}
 			window.onscroll = () => {
 				if (window.scrollY >= scrollThreshold && $floatingNav.classList.contains('is-visible') === false) {
-					console.log(`Show ${window.scrollY} ${scrollThreshold}`);
 					toggleFloatingNav();
 				} else if (window.scrollY < scrollThreshold && $floatingNav.classList.contains('is-visible')) {
-					console.log(`Hide ${window.scrollY} ${scrollThreshold}`);
 					toggleFloatingNav();
 				}
 			};
@@ -10137,7 +10134,6 @@ return Flickity;
 			});
 			$floatingNav_toTop.addEventListener('click', (evt) => {
 				evt.stopPropagation();
-				console.log('click '+evt.currentTarget.classList);
 				$bc.gsapFns.scrollTo({scrollTo: {y: 0}, duration: 0.360});
 			});
 		}
@@ -10394,8 +10390,7 @@ return Flickity;
 							$bc.gsap.to($accordionTriggerIcon, {rotate: '45deg', duration: 0.1}).eventCallback('onComplete', () => {
 								$accordionTrigger.classList.toggle('is-active');
 							});
-						}
-						
+						}						
 					});	
 				}
 				const accordionCloseLinks = $accordion.querySelectorAll('.bc-accordion__block-body .bc-accordion__close > a');

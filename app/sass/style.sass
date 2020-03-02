@@ -121,7 +121,53 @@ img
 		&__hide
 			max-width: 	1.75rem
 			max-height: 1.75rem
-
+/* Navigation schemes overrides */
+.feature-page-navigation
+	&.feature-page-navigation--site-quicklinks
+		//.feature-page-navigation__content 
+		//	@media screen and (min-width: $med)
+		//		max-width: none
+		//	@media screen and (min-width: $large)
+		//		max-width: calc(100% - 8.888rem)
+		//		margin-left: 		4.444rem
+		//		margin-right: 	4.444rem
+		.feature-page-navigation__list
+			flex-direction: row
+			flex-wrap: wrap
+			padding-left: 	calc(#{$gutter/2} - 1%)
+			padding-right: 	calc(#{$gutter/2} - 1%)
+		.feature-page-navigation__item 
+			flex: 1 1 50%
+			max-width: 50%
+			padding-left: $gutter/2
+			padding-right: $gutter/2
+			height: #{(70/14)}rem
+			display: flex
+			align-items: flex-end 
+			margin-top: $vertical-unit/4 
+			margin-bottom: $vertical-unit/4 
+			> a 
+				background-color: $shade-01
+				height: 100%
+				flex: 1 1 100%
+				display: inline-flex
+				align-items: flex-end
+			&:nth-of-type(1n)
+				> a
+					color: $mid-green
+					border-bottom-color: $mid-green
+			&:nth-of-type(2n)
+				> a
+					color: $red
+					border-bottom-color: $red
+			&:nth-of-type(3n)
+				> a
+					color: $orange
+					border-bottom-color: $orange
+			&:nth-of-type(4n)
+				> a
+					color: $purple
+					border-bottom-color: $purple
 /* Project custom Heroes */
 .bc-hero
 	.media-overlay 
@@ -298,6 +344,8 @@ img
 
 	&.bc-one-col-feature
 		@include gradOverlay('grey-fill', 'to bottom right')
+		&.is-white
+			background-image: none
 		&.has-background-svg
 			.bc-feature-component__content, .bc-feature-component__cta, bc-feature-component__heading
 				z-index: 10
@@ -630,34 +678,61 @@ img
 .bc-feature-component
 	&.bc-cta-feature
 		min-height: 100vh
-		@include makeHighChroma() 
 		display: flex
 		flex-direction: column
 		justify-content: center
+		.bc-svg-icon
+			&.bc-svg-icon--admissions
+				max-width: 	2.0rem
+				max-height: 2.0rem
+				fill: $brand-primary
 		.bc-feature-component__cta
 			align-self: flex-start
 			margin-left: 0 
+			.bc-button
+				background-color: $dark-red
+				color: $white
+				border: none
+				.bc-svg-icon
+					fill: $white
+				&:hover, &:active, &:focus
+					background-color: darken($dark-red, 10%)
 		.bc-svg-icon
-			&.cta-arrow
-				display: none
+			&.isd-cta-arrow
 				margin-left: $gutter/2	
-				max-width: #{(100/14)}rem
-				max-height: 2.5rem 
+				flex: 0 1 auto
+				display: none
+				height: $h1*1.05 
+				max-width: none
+				max-height: none
+				fill: transparent
+				.isd-cta-arrow__circle
+					fill: transparent
+					
+				.isd-cta-arrow__circle, .isd-cta-arrow__line, .isd-cta-arrow__carat
+					stroke-width: #{(3/14)}rem
+					stroke: $brand-primary	
+				//.isd-cta-arrow__carat
+				//	stroke: $brand-secondary
 		.bc-feature-component__heading
 			display: flex
 			flex-wrap: wrap
 			align-items: center
+		&.has-high-chroma
+			.bc-svg-icon
+				&.isd-cta-arrow
+					.isd-cta-arrow__carat
+						stroke: $brand-secondary
+					.isd-cta-arrow__circle, .isd-cta-arrow__line
+						stroke: $white
 		@media screen and (min-width: $small)
 			.bc-svg-icon
-				&.cta-arrow
+				&.isd-cta-arrow
 					display: initial
 		@media screen and (min-width: $large)
 			.bc-feature-component__cta
 				margin-left: auto
-			.bc-svg-icon
-				&.cta-arrow
-					max-width: #{(200/14)}rem
-					max-height: 2.5rem 
+			
 			.bc-feature-component__heading
 				display: flex
 				align-items: center
@@ -735,6 +810,13 @@ img
 			.bc-svg-defs__linear-gradient__col-stop2
 				stop-color: darken($dark-red, 20%)
 				stop-opacity: 1
+	& .bc-svg-defs__linear-gradient--shade
+			.bc-svg-defs__linear-gradient__col-stop1 
+				stop-color: $shade-01
+				stop-opacity: 0.618  
+			.bc-svg-defs__linear-gradient__col-stop2
+				stop-color: darken($shade-04, 20%)
+				stop-opacity: 1
 .bc-elipses
 	position: absolute 
 	top: 0
@@ -774,7 +856,11 @@ img
 	.bc-elipses
 		&__elipse
 			fill: url(#linear-gradient--orange) 
-	
+.has-shade-gradient
+	.bc-elipses
+		&__elipse
+			fill: url(#linear-gradient--shade) 
+
 @media screen and (min-width: $med)
 	.bc-elipses
 		display: block
