@@ -1,6 +1,9 @@
 .bc-feature-component
 	&.bc-4-col-feature 
 		@include gradOverlay('grey-fill')
+		.bc-feature-component__content
+			@include makeContentGrid(4) 
+			max-width: none
 		.bc-card
 			&__heading
 				font-size: $h3
@@ -8,6 +11,10 @@
 		.bc-feature-component__intro
 			margin-bottom: 0
 		.bc-feature-component__cta
+			max-width: none
+			width: calc(100% - 8.888rem)
+			margin-left: 4.444rem
+			margin-right: 4.444rem
 			padding-bottom: $gutter
 
 @media screen and (min-width: $large)

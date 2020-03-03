@@ -264,7 +264,7 @@ img
 				@media screen and (min-width: $med) and (orientation: portrait)
 					background-size: 150%
 				@media screen and (min-width: $large)
-					background-position: 50% 85%
+					background-position: 50% 90%
 					
 			@media screen and (min-width: $large)
 				margin-left: auto
@@ -527,6 +527,9 @@ img
 	&.bc-expandible-blocks-component
 		+ .bc-feature-component.bc-expandible-blocks-component
 			padding-top: 0
+		.bc-feature-component__header, .bc-feature-component__content
+			max-width: none
+			width: 100%
 		.bc-feature-component__header
 			padding-bottom: 0
 			margin-bottom: $vertical-unit
@@ -550,7 +553,6 @@ img
 					font-size: $h3
 					margin-bottom: $vertical-unit
 			&__body
-				//padding-top: $vertical-unit * 0.5
 				overflow: hidden
 				height: 0;
 				h2
@@ -691,6 +693,9 @@ img
 				&__body
 					h2:first-child, h3:first-child, h4:first-child, h4:first-child, p, ul
 						margin-top: 0
+		@media screen and (min-width: $large)
+			.bc-feature-component__header, .bc-feature-component__content
+				width: calc(100% - 8.888rem)
 			
 /* CTA feature */
 .bc-feature-component

@@ -282,9 +282,11 @@
 		navTogglersFactory(document.querySelector('.bc-main-navigation-toggle .bc-navigation-toggle'), {baseColor: 'transparent', activeColor: '#fff', baseStrokeColor: '#fff', activeStrokeColor: '#303030'});
 		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
 			event.preventDefault();
-			let siteHeader = null;
-			siteHeader = event.currentTarget.closest('.bc-site-header');
-			siteHeader.classList.toggle('has-active-navigation');
+			let $siteHeader = null;
+			$siteHeader = event.currentTarget.closest('.bc-site-header');
+			requestAnimationFrame(() => {
+				$siteHeader.classList.toggle('has-active-navigation');	
+			});
 		}, true);
 		
 		if (document.querySelectorAll('.bc-expandible-block__expander__button').length > 0) {
@@ -293,10 +295,17 @@
 				const $expandableBlock = $btn.parentElement.parentElement;
 				const $expandableBody = $expandableBlock.querySelector('.bc-expandible-block__body'); 
 				$btn.addEventListener('click', () => {
-					$bc.showHide($expandableBody, 'is-active');		
-					requestAnimationFrame(() => {
-						$btn.classList.toggle('is-active');	
-					});
+					const duration = 0.618;
+					const ease = 'power1.in';
+					if ($btn.classList.contains('is-active')) {
+						$bc.gsap.to($expandableBody, {height: 0, duration: duration, ease: ease}).eventCallback('onComplete', () => {
+							$btn.classList.toggle('is-active');	
+						});	
+					} else {
+						$bc.gsap.to($expandableBody, {height: $expandableBody.scrollHeight, duration: duration, ease: ease}).eventCallback('onComplete', () => {
+							$btn.classList.toggle('is-active');	 
+						});
+					}
 				});
 			}
 		}
@@ -356,22 +365,18 @@
 			$landingPageToggle.addEventListener('click', (evt) => {
 				evt.preventDefault();
 				evt.stopPropagation();
+				const duration = 0.4;
+				const ease = 'ease.out';
 				const $thisWrapper =  $landingPageNav.querySelector('.feature-page-navigation__wrapper');
 				//$thisWrapper.style.height = 0;
-				if ($thisWrapper.classList.contains('is-active')) { 
-				
-					
-					$bc.gsap.to($thisWrapper, {autoAlpha: 0, display: 'none', duration: 0.3}).eventCallback('onComplete', () => {
+				if ($thisWrapper.classList.contains('is-active')) { 	
+					$bc.gsap.to($thisWrapper, {height: 0, duration: duration, ease: ease}).eventCallback('onComplete', () => {
 						$thisWrapper.classList.toggle('is-active'); 
-						//$bc.gsap.set($thisWrapper, {display: 'none'});
 					});
-					
 				} else {
-					//$bc.gsap.set($thisWrapper, {display: 'block'});
-					$bc.gsap.to($thisWrapper, {autoAlpha: 1, display: 'block', duration: 0.8}).eventCallback('onComplete', () => {
+					$bc.gsap.to($thisWrapper, {height: $thisWrapper.scrollHeight, duration: duration, ease: ease}).eventCallback('onComplete', () => {
 						$thisWrapper.classList.toggle('is-active');
 					});
-				
 				}
 			});
 			//set up links
@@ -483,16 +488,7 @@
 			rootMargin: '0% 0% 0% 0%',
 			threshold: [0.15, 0.20, 0.382, 0.5, 0.75, 0.95]
 		};
-		const bcHeaderObserver = new IntersectionObserver((entries, observer) => {
-			const target = entries[0].target;
-			if (target) {
-				$bc.gsap.to(target, {y: 0, opacity: 1, duration: 1.125, ease: 'power4.out'}).eventCallback('onComplete', () => {
-					target.dispatchEvent(bcIsVisibleEvt);	
-					observer.unobserve(target);
-				});	
-			}
-		});
-		bcHeaderObserver.observe(document.querySelectorAll('.bc-site-header')[0]);
+		
 		/* Observer for Features */
 		const bcFeaturesFadeInObserver = new IntersectionObserver((entries, observer) => {
 			const targets = entries.filter(entry => {
@@ -522,9 +518,9 @@
 					const $target = entry.target;
 					let yTarget = -30;
 					if (window.innerWidth >= 768 && window.innerHeight >= 600) {
-						yTarget = -80;
+						yTarget = -60;
 					}
-					if (window.innerWidth >= 1280) {
+					if (window.innerWidth >= 1600) {
 						yTarget = -110; 
 					}
 					$bc.gsapFns.fadeIn($target, {y: yTarget, opacity: 1, duration: 1.125, ease: 'power4.out'});
@@ -535,7 +531,7 @@
 				}
 			}
 		}, bcHeroesFadeInOptions);
-		const bcHeroesFadeInFeatures = document.querySelectorAll('.bc-hero .bc-fade-in-up--is-not-visible'); 
+		const bcHeroesFadeInFeatures = document.querySelectorAll('.bc-hero .bc-fade-in-up--is-not-visible:not(.bc-feature-component__next)'); 
 		
 		if (bcHeroesFadeInFeatures.length > 0) {			
 			for (let fadeInFeature of bcHeroesFadeInFeatures) {
