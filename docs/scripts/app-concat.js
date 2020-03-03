@@ -9942,7 +9942,6 @@ return Flickity;
 				}, GSAPOptions);
 				opts.height = 0;
 				$gsap.to($el, opts).eventCallback('onComplete', cb, [$el]);
-				
 			} else {
 				return new Error(`gsapHide requries a target DOMNode`);
 			}
@@ -10051,7 +10050,7 @@ return Flickity;
 		
 		if ($landingPageNavList && $landingPageToggle) {
 			let $landingPageNav = $landingPageNavList.closest('.feature-page-navigation');
-			const targetHeight = $landingPageNavList.scrollHeight + 3;
+			//const targetHeight = $landingPageNavList.scrollHeight + 3;
 			
 			$landingPageToggle = navTogglersFactory($landingPageToggle, {baseColor: '#017CC0', activeColor: '#F2EF11', baseStrokeColor: '#fff', activeStrokeColor: '#017CC0'});
 			
@@ -10059,15 +10058,21 @@ return Flickity;
 				evt.preventDefault();
 				evt.stopPropagation();
 				const $thisWrapper =  $landingPageNav.querySelector('.feature-page-navigation__wrapper');
-				$thisWrapper.style.height = 0;
+				//$thisWrapper.style.height = 0;
 				if ($thisWrapper.classList.contains('is-active')) { 
-					$bc.gsapFns.hide($thisWrapper, {}, () => {
-						$thisWrapper.classList.toggle('is-active');
-					});	
+				
+					
+					$bc.gsap.to($thisWrapper, {autoAlpha: 0, display: 'none', duration: 0.3}).eventCallback('onComplete', () => {
+						$thisWrapper.classList.toggle('is-active'); 
+						//$bc.gsap.set($thisWrapper, {display: 'none'});
+					});
+					
 				} else {
-					$bc.gsapFns.show($thisWrapper, targetHeight, {}, () => {
+					//$bc.gsap.set($thisWrapper, {display: 'block'});
+					$bc.gsap.to($thisWrapper, {autoAlpha: 1, display: 'block', duration: 0.8}).eventCallback('onComplete', () => {
 						$thisWrapper.classList.toggle('is-active');
-					});	
+					});
+				
 				}
 			});
 			//set up links
@@ -10216,7 +10221,14 @@ return Flickity;
 			for (let entry of entries) {
 				if (entry.intersectionRatio > 0) {
 					const $target = entry.target;
-					$bc.gsapFns.fadeIn($target, {y: -20, opacity: 1, duration: 1.125, ease: 'power4.out'});
+					let yTarget = -30;
+					if (window.innerWidth >= 768 && window.innerHeight >= 600) {
+						yTarget = -80;
+					}
+					if (window.innerWidth >= 1280) {
+						yTarget = -110; 
+					}
+					$bc.gsapFns.fadeIn($target, {y: yTarget, opacity: 1, duration: 1.125, ease: 'power4.out'});
 					if ($target.classList.contains('bc-feature-component__next')) {
 						$bc.gsap.to($target.querySelector('.bc-svg-icon'), {rotation: '90deg', duration: 1, ease: 'power4.out', delay: 0.4});
 					}
@@ -10224,8 +10236,9 @@ return Flickity;
 				}
 			}
 		}, bcHeroesFadeInOptions);
-		const bcHeroesFadeInFeatures = document.querySelectorAll('.bc-hero .bc-fade-in-up--is-not-visible');
-		if (bcFadeInFeatures.length > 0) {			
+		const bcHeroesFadeInFeatures = document.querySelectorAll('.bc-hero .bc-fade-in-up--is-not-visible'); 
+		
+		if (bcHeroesFadeInFeatures.length > 0) {			
 			for (let fadeInFeature of bcHeroesFadeInFeatures) {
 				bcHeroesFadeInObserver.observe(fadeInFeature);	
 			}

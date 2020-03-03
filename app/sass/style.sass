@@ -50,6 +50,7 @@ img
 
 .bc-content-label
 	font-size: $text--2
+	margin-top: 0
 	.bc-svg-icon, img
 		margin-right: $gutter/2
 		max-width: 	2.4rem
@@ -134,24 +135,32 @@ img
 		.feature-page-navigation__list
 			flex-direction: row
 			flex-wrap: wrap
+			
 			padding-left: 	calc(#{$gutter/2} - 1%)
+			padding-top: 		(($text-01*$line-height)*1.75)+$vertical-unit/2
 			padding-right: 	calc(#{$gutter/2} - 1%)
+			
 		.feature-page-navigation__item 
 			flex: 1 1 50%
 			max-width: 50%
 			padding-left: $gutter/2
 			padding-right: $gutter/2
-			height: #{(70/14)}rem
+			height: #{(80/14)}rem
 			display: flex
 			align-items: flex-end 
 			margin-top: $vertical-unit/4 
 			margin-bottom: $vertical-unit/4 
 			> a 
+				padding-left: 	$gutter/4
+				padding-right: 	$gutter/4
 				background-color: $shade-01
 				height: 100%
 				flex: 1 1 100%
 				display: inline-flex
 				align-items: flex-end
+			&:last-child
+				> a
+					border-bottom: 1px solid
 			&:nth-of-type(1n)
 				> a
 					color: $mid-green
@@ -168,6 +177,11 @@ img
 				> a
 					color: $purple
 					border-bottom-color: $purple
+		
+		@media screen and (min-width: $large)
+			.feature-page-navigation__item
+				flex: 1 1 33.333%
+				max-width: 33.333%
 /* Project custom Heroes */
 .bc-hero
 	.media-overlay 
@@ -200,6 +214,8 @@ img
 		.bc-hero__body
 			&__text
 				background-color: transparent
+				padding-left: 0
+				padding-right: 0
 				p 
 					margin-bottom: $vertical-unit/2
 		.bc-hero__heading
@@ -247,7 +263,9 @@ img
 					background-image: url(../media/kids-carefree--lines.svg)
 				@media screen and (min-width: $med) and (orientation: portrait)
 					background-size: 150%
-					background-position: 50% 105%
+				@media screen and (min-width: $large)
+					background-position: 50% 85%
+					
 			@media screen and (min-width: $large)
 				margin-left: auto
 				margin-right: auto
@@ -255,7 +273,6 @@ img
 				padding-left: (4.444rem + $gutter/2)
 				padding-right: (4.444rem + $gutter/2)
 		
-				
 
 /* Project custom bc-cards */
 .bc-card, .bc-two-col-card
@@ -355,9 +372,6 @@ img
 				transform: translate(-50%, 0)
 		&.isd-kids-feature, &.isd-about-dublin, &.isd-community
 			background-repeat: no-repeat
-		&.isd-about-dublin, &.isd-community
-			padding-top: 		$vertical-unit * 5
-			padding-bottom: $vertical-unit * 5
 			.bc-feature-component__grad-overlay 
 				position: absolute
 				top: 0
@@ -478,7 +492,7 @@ img
 		.bc-button
 			margin-top: 0
 	& &__next
-			display: inline-flex
+			display: none
 			justify-content: flex-end
 			align-items: center
 			font-size: $text--1
@@ -503,6 +517,10 @@ img
 					border: 1px solid $brand-primary
 					border-radius: 50%
 					fill: $brand-primary
+@media screen and (min-width: $med) 
+	.bc-feature-component, .bc-hero
+		& &__next
+			display: inline-flex
 		
 /* Expandible blocks - custom for ISD */
 .bc-feature-component
@@ -880,9 +898,6 @@ $waves-height: 50px
 	padding-top: 		calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
 	padding-bottom: calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
 	
-	&.bc-2-col-media-feature, &.bc-cta-feature
-		padding-top: 		calc(#{$vertical-unit} * 3.5 + (#{$waves-height} / 2))
-		padding-bottom: calc(#{$vertical-unit} * 3.5 + (#{$waves-height} / 2))
 	&.has-high-chroma
 		@include makeHighChroma
 		@include makeWhiteText
