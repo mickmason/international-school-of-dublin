@@ -64,6 +64,8 @@ img
 		@include makeWhiteText
 		.bc-elipses__elipse
 			fill: url(#linear-gradient--orange)
+.has-shade-gradient
+	@include gradOverlay('grey-fill')
 /* SVGs as background-images */
 .has-background-svg, .has-background-svg--centered
 	.bc-feature-svg
@@ -337,9 +339,19 @@ img
 			.bc-feature-component__content
 				grid-template: auto / repeat(4, 1fr)
 	&.bc-2-col-media-feature
+		.bc-content-label
+			margin-bottom: $vertical-unit
 		@media screen and (min-width: 880px)
+			.bc-content-label
+				grid-row-start: 1
+				grid-column: 2
+			.bc-2-col-media-feature__media
+				grid-row-start: 2
 			.bc-2-col-media-feature__text
-					margin-top: -$vertical-unit * 2.2
+				grid-row-start: 2
+				grid-column: 2
+			.bc-feature-component__content
+				grid-template: auto auto / repeat(2, 1fr)
 	&.has-high-chroma
 		@include makeWhiteText
 		.bc-card:nth-child(1)

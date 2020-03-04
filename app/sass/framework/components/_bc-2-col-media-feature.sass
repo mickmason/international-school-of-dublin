@@ -2,6 +2,7 @@
 	&.bc-2-col-media-feature
 		.bc-feature-component__content
 			@include makeContentGrid(2, 880px)
+			max-width: none
 		.bc-feature-component__header
 			padding-left: 0	
 			padding-right: 0
@@ -9,14 +10,11 @@
 			margin-left: 0
 			padding-left: 0
 			padding-right: 0
-		.bc-2-col-media-feature__heading
-			> h1 
-				margin-top: 0
+		.bc-feature-component__heading
+			margin-top: 0
 		.bc-2-col-media-feature__media
 			position: relative
-			grid-row-start: 1
 			align-self: start
-			margin-bottom: $gutter
 			.play-icon
 				@include absoluteCenter
 				z-index: 20
