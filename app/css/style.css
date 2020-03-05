@@ -240,7 +240,7 @@ body {
 
 h1, h2, h3, h4, h5 {
   color: #303030;
-  font-family: "Helvetica Neue", "Arial Narrow" sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   line-height: 1.3;
   margin-top: 1.5rem;
@@ -2286,5 +2286,3 @@ img {
     border-bottom: 1px solid #651A7B; }
     .bc-accordion__block-body:nth-of-type(4n):after {
       background-color: #651A7B; }
-
-/*# sourceMappingURL=style.css.map */
