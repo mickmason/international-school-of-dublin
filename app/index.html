@@ -22,10 +22,14 @@
 		.bc-site-index .bc-feature-component__content > ul {
 			padding-left: 1.6rem;
 			/*list-style: none;*/
+			display: flex;
+			flex-wrap: wrap;
 		}
 		.bc-site-index .bc-feature-component__content > ul > li {
-			margin-top: 	 1.5rem;
-			margin-bottom: 1.5rem;
+			margin-top: 	 0.75rem;
+			margin-bottom: 0.75rem;
+			flex: 1 1 50%;
+			padding-left: 0.75rem;  
 		}
 		.bc-site-index ul h3 {
 			margin-top: 	 0.75rem;
@@ -106,26 +110,34 @@
 		<article class="bc-feature-component__content">
 				<h1 class="bc-feature-component__heading">International School of Dublin Site code</h1>
 				<p class="bc-feature-component__intro">Site code and content type examples for the website.</p>
-				<p>Each of the page titles (eg &quot;<em>Landing page</em>&quot;) is a link to an example page. Below each heading is a list of the content types included in each page. </p>
+				<p>Each of the page titles (eg &quot;<em>Landing page</em>&quot;) is a link to an example page.</p>
 				<p>For the <b>main site navigaiton</b> click on the menu icon in the top right corner</p>
-				<h2>Example pages</h2>
+				<hr>
+				<h2>Static site build</h2>
+				<p class="bc-feature-component__intro">
+					Example pages for the site to test the content in each.
+				</p>
 				<ul>
 					<li>
-						<h3><a href="homepage.html" class="">Home</a></h3>
+						<h4><a href="homepage.html" class="">Home page</a></h4>
+					</li>
+				</ul>
+				<hr>
+				<h2>Example pages</h2>
+				<p class="bc-feature-component__intro">
+					These pages show each of the content types we have to work with. Below each heading is a list of the content types included in each page. 
+				</p>
+				<ul>
+					<li>
+						<h4><a href="feature-components.html" class="">All feature components</a></h4>
 						<p><b>Includes:</b></p>
 						<ul>
-							<li>Hero block</li>
-							<li>In-page Hero block</li>
-							<li>4 cards feature</li>
-							<li>4 cards feature with high-color background</li>
-							<li>Text only feature</li>
-							<li>2-col media feature</li>
-							<li>2-col features</li>
-							<li>Major call to action</li>
+							<li>All components which can be used on feature pages.</li>
+							<li>It also shows the navigation menu for finding content within pages and a scroll to top link. Look at the page, scroll down and watch the left bottom corner</li>
 						</ul>
 					</li>
 					<li>
-						<h3><a href="landing-page-2.html" class="">Landing page#2</a></h3>
+						<h4><a href="landing-page-2.html" class="">Landing page#2</a></h4>
 						<p><b>Includes:</b></p>
 						<ul>
 							<li>Hero block</li>
@@ -136,7 +148,7 @@
 						</ul>
 					</li>
 					<li>
-						<h3><a href="inner-content-page.html" class="">Inner content page</a></h3>
+						<h4><a href="inner-content-page.html" class="">Inner content page</a></h4>
 						<p><b>Includes:</b></p>
 						<ul>
 							<li>Inner page header</li>
@@ -152,13 +164,7 @@
 							<li>Full width image and video slider</li>
 						</ul>
 					</li>
-					<li>
-						<h3><a href="feature-components.html" class="">All feature components</a></h3>
-						<p><b>Includes:</b></p>
-						<ul>
-							<li>All components which can be used on feature pages.</li>
-						</ul>
-					</li>
+					
 				</ul>
 		</article><!-- // .bc-4-col-feature__content -->
 	</section><!-- // .bc-4-col-feature -->
