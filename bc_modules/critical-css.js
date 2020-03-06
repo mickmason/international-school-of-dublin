@@ -152,7 +152,7 @@
 					filesArray.push(file);
 				}
 			}
-			if (subdirs.length) {
+			if (subdirs.length > 0) {
 				for (subdir of subdirs) {
 					recursiveReadDirs(path.normalize(subdir));
 				}
@@ -173,6 +173,7 @@
 		}
 		const startSrc = criticalOptions.src;
 		for (let $i = 0; $i < files.length; $i++) {
+			console.log(`Critical on file ${$i} of ${files.length}`);
 			let htmlFile = files[$i];
 			htmlFile = htmlFile.slice(htmlFile.indexOf(startSrc));
 			options.src = htmlFile;

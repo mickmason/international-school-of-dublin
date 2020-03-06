@@ -10,8 +10,11 @@
 			margin-left: auto
 			margin-right: auto
 	& &__heading
-		font-size: $large-text 
+		
 		margin-top: 0
+		&--large
+			@extend .bc-inner-page-content__heading
+			font-size: $large-text 
 	& &__intro
 		font-size: $text-01
 		font-weight: 500

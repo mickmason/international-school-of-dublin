@@ -9978,40 +9978,10 @@ return Flickity;
 		
 		/* All feature content components - used through */
 		const $pageFeatures = (document.querySelectorAll('.bc-hero, .bc-feature-component').length > 0) ? document.querySelectorAll('.bc-hero, .bc-feature-component') : null;
-		
-		/** Main navigation **/
-		navTogglersFactory(document.querySelector('.bc-main-navigation-toggle .bc-navigation-toggle'), {baseColor: 'transparent', activeColor: '#fff', baseStrokeColor: '#fff', activeStrokeColor: '#303030'});
-		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
-			event.preventDefault();
-			let $siteHeader = null;
-			$siteHeader = event.currentTarget.closest('.bc-site-header');
-			requestAnimationFrame(() => {
-				$siteHeader.classList.toggle('has-active-navigation');	
-			});
-		}, true);
-		
-		if (document.querySelectorAll('.bc-expandible-block__expander__button').length > 0) {
-			const $expandButtons = document.querySelectorAll('.bc-expandible-block__expander__button');
-			for (let $btn of $expandButtons) {
-				const $expandableBlock = $btn.parentElement.parentElement;
-				const $expandableBody = $expandableBlock.querySelector('.bc-expandible-block__body'); 
-				$btn.addEventListener('click', () => {
-					const duration = 0.618;
-					const ease = 'power1.in';
-					if ($btn.classList.contains('is-active')) {
-						$bc.gsap.to($expandableBody, {height: 0, duration: duration, ease: ease}).eventCallback('onComplete', () => {
-							$btn.classList.toggle('is-active');	
-						});	
-					} else {
-						$bc.gsap.to($expandableBody, {height: $expandableBody.scrollHeight, duration: duration, ease: ease}).eventCallback('onComplete', () => {
-							$btn.classList.toggle('is-active');	 
-						});
-					}
-				});
-			}
-		}
-		/** end Main navigation **/
-		/** Nav icons **/
+		/*
+			** Navigation components **
+		*/
+		/** Make nav icons **/
 		function navTogglersFactory($navigationToggler, toggleColors = {baseColor: '#000', activeColor: '#fff', baseStrokeColor: '#030303', activeStrokeColor: '#030303'}, duration =  0.482) {
 			//Menu icon parts
 			const menuIcon = $navigationToggler.querySelector('.bc-menu-icon');
@@ -10052,6 +10022,20 @@ return Flickity;
 			
 			return $navigationToggler;
 		}//navTogglersFactory
+		
+		/** Main navigation **/
+		navTogglersFactory(document.querySelector('.bc-main-navigation-toggle .bc-navigation-toggle'), {baseColor: 'transparent', activeColor: '#fff', baseStrokeColor: '#fff', activeStrokeColor: '#303030'});
+		document.querySelector('.bc-main-navigation-toggle').addEventListener('click', (event) => {
+			event.preventDefault();
+			let $siteHeader = null;
+			$siteHeader = event.currentTarget.closest('.bc-site-header');
+			requestAnimationFrame(() => {
+				$siteHeader.classList.toggle('has-active-navigation');	
+			});
+		}, true);
+		
+		/** end Main navigation **/
+		
 
 		/** Landing page navigation **/ 
 		let $landingPageToggle = (document.querySelector('.feature-page-navigation__toggle')) ? document.querySelector('.feature-page-navigation__toggle') : null;
@@ -10147,6 +10131,31 @@ return Flickity;
 				$bc.gsapFns.scrollTo({scrollTo: {y: 0}, duration: 0.360});
 			});
 		}
+		/* Section subnavigation component */
+		const $sectionSubNav = (document.querySelector('.bc-inner-page-header__sub-nav')) ? document.querySelector('.bc-inner-page-header__sub-nav') : null;
+		if ($sectionSubNav) {
+			const $navToggle = $sectionSubNav.querySelector('.bc-inner-page-header__sub-nav__toggle__icon');
+			const $navToggleIcon = $navToggle.querySelector('.bc-inner-page-header__sub-nav__toggle__icon .bc-svg-icon');
+			const $navBody = $sectionSubNav.querySelector('.bc-inner-page-header__sub-nav__links');
+			$navToggle.addEventListener('click', (evt) => {
+				evt.preventDefault();
+				if ($navToggle.classList.contains('is-active')) {
+					$bc.gsap.to($navBody, {opacity: 0, duration: 0.328, display: 'none'}).eventCallback('onComplete', () => {
+						$navBody.classList.toggle('is-active');
+						$navToggle.classList.toggle('is-active');
+					});
+					$bc.gsap.to($navToggleIcon, {rotate: '90deg', duration: 0.180});	
+				} else {
+					$bc.gsap.to($navBody, {opacity: 1, duration: 0.328, display: 'block'}).eventCallback('onComplete', () => {
+						$navBody.classList.toggle('is-active');
+						$navToggle.classList.toggle('is-active');
+					});	
+					$bc.gsap.to($navToggleIcon, {rotate: '-90deg', duration: 0.180});
+				}
+			});
+			
+		}// Section subnavigation component
+		
 		/** 
 			*	Animate elements as they become visible
 			*	.bc-fade-in-up--is-not-visible has not been seen
@@ -10272,9 +10281,9 @@ return Flickity;
 				}
 			});
 		}
-		/* Flickty slider */
-		/*eslint no-undef: 1*/
-		/*eslint-env browser*/
+		/* 
+			** Flickty sliders 
+		*/
 		if (document.querySelector('.bc-flickty-slider')) {
 			const $sliderElement = document.querySelector('.bc-flickty-slider');
 			const $sliderNext = document.querySelector('.bc-flickty-slider__next');
@@ -10355,7 +10364,28 @@ return Flickity;
 				}
 			});
 		}// end if .bc-flickty-slider
-		/** Accordions **/ 
+		/* Expandible blocks */
+		if (document.querySelectorAll('.bc-expandible-block__expander__button').length > 0) {
+			const $expandButtons = document.querySelectorAll('.bc-expandible-block__expander__button');
+			for (let $btn of $expandButtons) {
+				const $expandableBlock = $btn.parentElement.parentElement;
+				const $expandableBody = $expandableBlock.querySelector('.bc-expandible-block__body'); 
+				$btn.addEventListener('click', () => {
+					const duration = 0.618;
+					const ease = 'power1.in';
+					if ($btn.classList.contains('is-active')) {
+						$bc.gsap.to($expandableBody, {height: 0, duration: duration, ease: ease}).eventCallback('onComplete', () => {
+							$btn.classList.toggle('is-active');	
+						});	
+					} else {
+						$bc.gsap.to($expandableBody, {height: $expandableBody.scrollHeight, duration: duration, ease: ease}).eventCallback('onComplete', () => {
+							$btn.classList.toggle('is-active');	 
+						});
+					}
+				});
+			}
+		}/* End Expandible blocks */
+		/** Accordion components **/ 
 		function showAccordionBody(accordionBody, cb) {
 			if (accordionBody.classList.contains('is-active') === false) {
 				$bc.gsap.to(accordionBody, {height: accordionBody.scrollHeight + 'px'}).eventCallback('onComplete', () => {
@@ -10417,10 +10447,8 @@ return Flickity;
 						
 					});
 				}
-				
-				
 			}
-		}
+		}// Accordion components
 	};/*** // window.onload Project scripts ***/
 	
 })();// bcScriptsWrap()
