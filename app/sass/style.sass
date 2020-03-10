@@ -27,6 +27,8 @@ picture
 img
 	display: block
 	max-width: 100% 
+figure
+	margin: 0
 
 /* Project custom utilities */
 .bc-svg-icon
@@ -47,7 +49,6 @@ img
 		color: $white
 		.bc-svg-icon
 			fill: $white
-
 .bc-content-label
 	font-size: $text--2
 	margin-top: 0
@@ -60,7 +61,6 @@ img
 	@include makeWhiteText
 	&--orange
 		@include makeHighChroma($start-colour: rgba($orange, 1), $end-colour: $dark-red)
-		//background-image: radial-gradient(ellipse at 100% 0%, $orange, $dark-red 80%) 
 		@include makeWhiteText
 		.bc-elipses__elipse
 			fill: url(#linear-gradient--orange)
@@ -127,17 +127,9 @@ img
 /* Navigation schemes overrides */
 .feature-page-navigation
 	&.feature-page-navigation--site-quicklinks
-		//.feature-page-navigation__content 
-		//	@media screen and (min-width: $med)
-		//		max-width: none
-		//	@media screen and (min-width: $large)
-		//		max-width: calc(100% - 8.888rem)
-		//		margin-left: 		4.444rem
-		//		margin-right: 	4.444rem
 		.feature-page-navigation__list
 			flex-direction: row
 			flex-wrap: wrap
-			
 			padding-left: 	calc(#{$gutter/2} - 1%)
 			padding-top: 		(($text-01*$line-height)*1.75)+$vertical-unit/2
 			padding-right: 	calc(#{$gutter/2} - 1%)
@@ -179,7 +171,6 @@ img
 				> a
 					color: $purple
 					border-bottom-color: $purple
-		
 		@media screen and (min-width: $large)
 			.feature-page-navigation__item
 				flex: 1 1 33.333%
@@ -275,7 +266,6 @@ img
 				padding-left: (4.444rem + $gutter/2)
 				padding-right: (4.444rem + $gutter/2)
 		
-
 /* Project custom bc-cards */
 .bc-card, .bc-two-col-card
 	display: 				flex  
@@ -284,11 +274,10 @@ img
 	justify-content: flex-start 
 	margin-bottom: $vertical-unit*1.5
 	&__heading
-		flex: 1 1 100%
-		display: flex
-		align-items: flex-end 
 		margin-bottom: $vertical-unit * 0.5
 		@include doFeatureHeading($font-size: $h2) 
+	&__sub-heading
+		margin-bottom: $vertical-unit * 0.5
 	&__media
 		display: 		block  
 	img
@@ -301,6 +290,34 @@ img
 		display: flex
 		justify-content: stretch
 		align-items: flex-end 
+	&--person
+		&--featured		
+			background-color: $shade-01
+			.bc-card__heading, .bc-card__sub-heading, p, .bc-card__cta
+				margin-top: 0
+				flex: 0 1 auto
+				width: 100%
+			.bc-card__text
+				flex: 1 1 auto
+				display: flex
+				flex-direction: column
+				justify-content: center
+				padding-top: 		$vertical-unit
+				padding-bottom: $vertical-unit
+			.bc-card__text
+				padding-left: 	$gutter/2
+				padding-right: 	$gutter/2
+			
+			@media screen and (min-width: $med)
+				flex-direction: row	
+				.bc-card__media
+					max-width: 41.4% 
+				.bc-card__text
+					padding-top: $vertical-unit/2
+					padding-bottom: $vertical-unit/2
+					pading-left: $gutter
+				.bc-card__heading
+					font-size: $text-02
 
 /* Project custom feature components */
 .bc-feature-component
@@ -535,8 +552,190 @@ img
 	.bc-feature-component, .bc-hero
 		& &__next
 			display: inline-flex
+.bc-featured-quote	
+	display: flex
+	flex-wrap: wrap
+	margin-bottom: $vertical-unit*1.5
+	.bc-svg-icon
+		fill: $orange
+	&__heading
+		width: 100%
+	&__icon
+		flex: 1 1 9%
+		max-width: 9%
+		display: flex
+		justify-content: center
+		padding-top: $vertical-unit/4
+		.bc-svg-icon
+			max-width: 1.5rem
+			max-height: 1.5rem
+	&__body
+		flex: 0 1 100% - 9%
+		max-width: 100% - 9%
+		padding-left: $gutter/2
+		
 		
 /* Expandible blocks - custom for ISD */
+.bc-expandible-block
+	margin-bottom: $vertical-unit * 2
+	display: flex
+	flex-direction: column
+	&__intro, &__body
+		display: grid
+		grid-template: auto auto / 1fr
+		&__intro
+			font-weight: 500
+		&__text
+			order: 1
+		&__media
+			order: 0
+			picture
+				margin-bottom: $vertical-unit
+	&__intro
+		&__heading
+			margin-bottom: $vertical-unit
+	&__body
+		overflow: hidden
+		height: 0;
+		h2
+			font-size: $h3
+		h3 
+			font-size: $h4
+		h4 
+			font-size: $h5
+		&__media
+			img
+				width: 100%
+	&__expander
+		&__button
+			display: inline-flex
+			align-items: stretch
+			color: lighten($text-black, 12.5%)
+			font-size: $text--2
+			font-weight: 300
+			text-transform: uppercase
+			border: 1px solid $text-black
+			border-radius: 1.125rem
+			background-color: $shade-01
+			transition: background-color 420ms ease-out
+			&:hover, &:active, &:focus
+				background-color: $white
+			&.is-active
+				.bc-expandible-block__expander__button__icon
+					.bc-svg-icon
+						transform: rotate(90deg) 
+				.bc-expandible-block__expander__button__text
+					.inactive-text
+						transform: translateY(-160%)	
+					.active-text
+						transform: translateY(-50%)	
+			&__text
+				position: relative
+				display: inline-flex
+				align-items: center
+				padding: $gutter/5 $gutter/3
+				padding-left: 5.2rem
+				padding-top: calc((#{$text--1} * #{$line-height}) + 0.125rem	)
+				overflow: hidden
+				.inactive-text, .active-text
+					width: 100%
+					position: absolute
+					left: $gutter/2 
+					top: 50%
+					transform: translateY(-50%)	
+					transition: transform 420ms ease-out
+				.active-text
+					transform: translateY(110%)
+			&__icon
+				display: inline-flex
+				justify-content: center
+				align-items: 			center
+				background-color: $shade-05
+				border-radius: 1.125rem
+				padding-left: 	$gutter/2
+				padding-right: 	$gutter/2
+				transition: background-color 420ms ease-out
+				.bc-svg-icon
+					transform: rotate(45deg)
+					fill: $white
+					max-width: 	$text--1
+					max-height: $text--1
+					transition: transform 380ms ease-out
+	&.is-active		
+		.bc-expandible-block__body
+			padding-top: $vertical-unit * 0.5  
+	&:nth-child(1n)
+		.bc-expandible-block__intro__heading
+			color: $mid-green
+		.bc-expandible-block__expander__button__icon 
+			background-color: darken($mid-green, 10%) 
+		.bc-expandible-block__expander__button
+				&:hover, &:active, &:focus
+					.bc-expandible-block__expander__button__icon
+						background-color: $mid-green
+	&:nth-child(2n)
+		.bc-expandible-block__intro__heading
+			color: $red
+		.bc-expandible-block__expander__button__icon
+			background-color: darken($red, 10%)
+		.bc-expandible-block__expander__button
+				&:hover, &:active, &:focus
+					.bc-expandible-block__expander__button__icon
+						background-color: $red
+	&:nth-child(3n)
+		.bc-expandible-block__intro__heading
+			color: $orange
+		.bc-expandible-block__expander__button__icon
+			background-color: darken($orange, 10%)
+		.bc-expandible-block__expander__button
+				&:hover, &:active, &:focus
+					.bc-expandible-block__expander__button__icon
+						background-color: $orange 
+	&:nth-child(4n)
+		.bc-expandible-block__intro__heading
+			color: $purple
+		.bc-expandible-block__expander__button__icon
+			background-color: darken($purple, 10%)
+		.bc-expandible-block__expander__button
+				&:hover, &:active, &:focus
+					.bc-expandible-block__expander__button__icon
+						background-color: $purple 
+		
+	@media screen and (max-width: #{$med - 1px})
+		&__body
+			&__media
+				width: 100%
+				display: flex
+				flex-wrap: wrap
+				picture
+					margin-bottom: 0
+					flex: 0 0 50%
+					@include mediaContainer()
+					padding-top: 50%
+	@media screen and (min-width: $small) and (max-width: #{$med - 1px})
+		&__body
+			&__media
+				picture
+					flex: 0 0 33.333%
+					padding-top: 33.333%
+	@media screen and (min-width: $med)
+		&__intro, &__body
+			grid-template: auto / 7fr 3fr
+			grid-column-gap: $gutter
+			&__media
+				grid-column: 2 / 3
+			&__text
+				order: 0
+			&__heading
+				//@include doFeatureHeading($font-size: $h2)
+				margin-top: 0
+		&__intro
+			&__heading
+				grid-column: span 2
+		&__body
+			h2:first-child, h3:first-child, h4:first-child, h4:first-child, p, ul
+				margin-top: 0
+
 .bc-feature-component
 	&.bc-expandible-blocks-component
 		+ .bc-feature-component.bc-expandible-blocks-component
@@ -547,170 +746,25 @@ img
 		.bc-feature-component__header
 			padding-bottom: 0
 			margin-bottom: $vertical-unit
-		.bc-expandible-block
-			margin-bottom: $vertical-unit * 2
-			display: flex
-			flex-direction: column
-			&__intro, &__body
-				display: grid
-				grid-template: auto auto / 1fr
-				&__intro
-					font-weight: 500
-				&__text
-					order: 1
-				&__media
-					order: 0
-					picture
-						margin-bottom: $vertical-unit
-			&__intro
-				&__heading
-					font-size: $h3
-					margin-bottom: $vertical-unit
-			&__body
-				overflow: hidden
-				height: 0;
-				h2
-					font-size: $h3
-				h3 
-					font-size: $h4
-				h4 
-					font-size: $h5
-				&__media
-					img
-						width: 100%
-			&__expander
-				&__button
-					display: inline-flex
-					align-items: stretch
-					color: lighten($text-black, 12.5%)
-					font-size: $text--2
-					font-weight: 300
-					text-transform: uppercase
-					border: 1px solid $text-black
-					border-radius: 1.125rem
-					background-color: $shade-01
-					transition: background-color 420ms ease-out
-					&:hover, &:active, &:focus
-						background-color: $white
-					&.is-active
-						.bc-expandible-block__expander__button__icon
-							.bc-svg-icon
-								transform: rotate(90deg) 
-						.bc-expandible-block__expander__button__text
-							.inactive-text
-								transform: translateY(-160%)	
-							.active-text
-								transform: translateY(-50%)	
-					&__text
-						position: relative
-						display: inline-flex
-						align-items: center
-						padding: $gutter/5 $gutter/3
-						padding-left: 5.2rem
-						padding-top: calc((#{$text--1} * #{$line-height}) + 0.125rem	)
-						overflow: hidden
-						.inactive-text, .active-text
-							width: 100%
-							position: absolute
-							left: $gutter/2 
-							top: 50%
-							transform: translateY(-50%)	
-							transition: transform 420ms ease-out
-						.active-text
-							transform: translateY(110%)
-					&__icon
-						display: inline-flex
-						justify-content: center
-						align-items: 			center
-						background-color: $shade-05
-						border-radius: 1.125rem
-						padding-left: 	$gutter/2
-						padding-right: 	$gutter/2
-						transition: background-color 420ms ease-out
-						.bc-svg-icon
-							transform: rotate(45deg)
-							fill: $white
-							max-width: 	$text--1
-							max-height: $text--1
-							transition: transform 380ms ease-out
-			&.is-active		
-				.bc-expandible-block__body
-					padding-top: $vertical-unit * 0.5  
-			&:nth-child(1n)
-				.bc-expandible-block__intro__heading
-					color: $mid-green
-				.bc-expandible-block__expander__button__icon 
-					background-color: darken($mid-green, 10%) 
-				.bc-expandible-block__expander__button
-						&:hover, &:active, &:focus
-							.bc-expandible-block__expander__button__icon
-								background-color: $mid-green
-			&:nth-child(2n)
-				.bc-expandible-block__intro__heading
-					color: $red
-				.bc-expandible-block__expander__button__icon
-					background-color: darken($red, 10%)
-				.bc-expandible-block__expander__button
-						&:hover, &:active, &:focus
-							.bc-expandible-block__expander__button__icon
-								background-color: $red
-			&:nth-child(3n)
-				.bc-expandible-block__intro__heading
-					color: $orange
-				.bc-expandible-block__expander__button__icon
-					background-color: darken($orange, 10%)
-				.bc-expandible-block__expander__button
-						&:hover, &:active, &:focus
-							.bc-expandible-block__expander__button__icon
-								background-color: $orange 
-			&:nth-child(4n)
-				.bc-expandible-block__intro__heading
-					color: $purple
-				.bc-expandible-block__expander__button__icon
-					background-color: darken($purple, 10%)
-				.bc-expandible-block__expander__button
-						&:hover, &:active, &:focus
-							.bc-expandible-block__expander__button__icon
-								background-color: $purple 
-				
-			@media screen and (max-width: #{$med - 1px})
-				&__body
-					&__media
-						width: 100%
-						display: flex
-						flex-wrap: wrap
-						picture
-							margin-bottom: 0
-							flex: 0 0 50%
-							@include mediaContainer()
-							padding-top: 50%
-			@media screen and (min-width: $small) and (max-width: #{$med - 1px})
-				&__body
-					&__media
-						picture
-							flex: 0 0 33.333%
-							padding-top: 33.333%
-			@media screen and (min-width: $med)
-				&__intro, &__body
-					grid-template: auto / 7fr 3fr
-					grid-column-gap: $gutter
-					&__media
-						grid-column: 2 / 3
-					&__text
-						order: 0
-					&__heading
-						//@include doFeatureHeading($font-size: $h2)
-						margin-top: 0
-				&__intro
-					&__heading
-						grid-column: span 2
-				&__body
-					h2:first-child, h3:first-child, h4:first-child, h4:first-child, p, ul
-						margin-top: 0
 		@media screen and (min-width: $large)
 			.bc-feature-component__header, .bc-feature-component__content
 				width: calc(100% - 8.888rem)
-			
+		
+.bc-inner-page-content
+	.bc-expandible-block
+		margin-top: $vertical-unit*1.5
+		&__body
+			display: initial
+		&__image
+			margin-bottom: $vertical-unit
+	@media screen and (min-width: $med)
+		.bc-expandible-block
+			&__image
+	@media screen and (min-width: $med)
+		.bc-expandible-block
+			&__image
+				
+		
 /* CTA feature */
 .bc-feature-component
 	&.bc-cta-feature

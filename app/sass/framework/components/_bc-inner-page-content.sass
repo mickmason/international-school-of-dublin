@@ -1,26 +1,93 @@
 .bc-inner-page-content
 	@include makeSection
-	padding-top: 		$vertical-unit * 2
-	padding-bottom: $vertical-unit * 2
-	&__content
-		padding-left: 	$gutter/2
-		padding-right: 	$gutter/2
-		@media screen and (min-width: $large)
-			max-width: $text-max-width
-			margin-left: auto
-			margin-right: auto
+	padding-top: 		$vertical-unit * 1
+	padding-bottom: $vertical-unit * 1
+	
 	& &__heading
-		
 		margin-top: 0
 		&--large
 			@extend .bc-inner-page-content__heading
+			margin-bottom: $vertical-unit
 			font-size: $large-text 
 	& &__intro
 		font-size: $text-01
 		font-weight: 500
+	&__header
+		grid-column: 1 / span 2
+	&__main
+		padding-right: 	$gutter
+	&__sidebar
+		padding-left: 	$gutter
+		border-left: 1px solid $shade-02
+	&__header, &__main, &__sidebar
+		padding-left: 	$gutter/2
+		padding-right: 	$gutter/2
+	&__main, &__sidebar
+		padding-bottom: $gutter
+		&__heading
+			font-size: $text-01
+			font-weight: 500
+			text-transform: uppercase
+			margin-bottom: $vertical-unit/2
+		h3
+			font-size: $text-00
 	&--minor-section
 		@extend .bc-inner-page-content
 		padding-top: 		$vertical-unit * 1
 		padding-bottom: $vertical-unit * 1
-	
+	@media screen and (min-width: $large)
+		&__content
+			max-width: calc(100% - 8.888rem)
+			margin-left: auto
+			margin-right: auto
+			display: grid
+			grid-template: auto / 1fr 0.414fr
+			.bc-inner-page-content__main
+				padding-right: 	$gutter
+			.bc-inner-page-content__sidebar
+				padding-left: 	$gutter
+.cta-arrow-head
+	&__circle
+		fill: none
+		stroke: $black
+		stroke-width: 4px
+.bc-sidebar-widget
+	margin-bottom: $vertical-unit*1.5
+	h3 
+		font-weight: 500 
+		text-transform: uppercase
+	h3, p, ul
+		margin-bottom: $vertical-unit/4
+	&__fig 
+		margin-bottom: $vertical-unit / 2
+	&.bc-enrolement-cta 
+		position: relative
+		margin-left: 	-$gutter/2
+		margin-right: -$gutter/2
+		padding: $vertical-unit $gutter/2
+		h3
+			font-weight: 300
+			text-transform: none
+			font-size: $text-04
+		p 
+			font-weight: 200
+			font-size: $text-01
+		h3, p
+			margin-bottom: $vertical-unit
+		h3, p, .bc-icon-link
+			position: relative
+			z-index: 10
+		.bc-svg-image
+			//@include absoluteCenter
+			position: absolute
+			z-index: 0
+			right: 0
+			top: 50%
+			transform: translateY(-50%)
+			height: 92%
+		
+		
+			
+		
+			
 		

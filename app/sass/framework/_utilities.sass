@@ -10,12 +10,22 @@
 .bc-icon-link 
 	display: flex
 	align-items: center
+	text-decoration: none
 	.bc-svg-icon
 		max-height: 1.4rem
 		fill: $link-color
 	@include linkHover
+		text-decoration: underline
 		.bc-svg-icon
 				fill: $link-active-color
+	&--featured
+		@extend .bc-icon-link
+		font-size: $text-02
+		
+		.bc-svg-icon
+			max-height: $text-02*$line-height
+		&:hover, &:active, &:focus
+			text-decoration: underline
 .bc-svg-icon
 	max-width: $vertical-unit * 2 
 	max-height: $vertical-unit * 2
@@ -31,7 +41,6 @@
 		left: 0
 		width: 100%
 		height: 100%
-		
 	transition: opacity 480ms ease-out
 	&.is-not-loaded
 		opacity: 0
@@ -71,11 +80,31 @@
 	&:after
 		bottom: -#{(10/14)}rem 
 		box-shadow: -#{(16/14)}rem 0px #{(16/14)}rem rgba($black, 0.16)
+
 /* Shading */
 @each $name, $shade in $shades	
 	.has-#{$name}
 		background-color: $shade
-
+.has-mark-right
+	position: relative
+	&:after
+		content: ""
+		height: 4px 
+		width: 9%
+		position: absolute
+		bottom: 1px
+		right: 0
+		background-color: $brand-secondary
+@mixin makeMarkRight($color)
+	position: relative
+	&:after
+		content: ""
+		height: 4px 
+		width: 9%
+		position: absolute
+		bottom: 0px
+		right: 0
+		background-color: $color
 /* Coloring */
 @each $name, $color in $colors	
 	$color-invert: nth($color, 2) 
@@ -84,6 +113,13 @@
 		background-color: $color
 		h1, h2, h3, h4, h5, h6, p, ul, li, blockquote, .bc-feature-component__heading, .bc-inner-page-content__heading
 			color: $color-invert
+	@if $name != 'secondary' and $name != 'yellow'
+		.is-#{$name}-text
+			color: $color
+	.has-mark-right--#{$name}
+		@include makeMarkRight($color)
+	
+	
 /* Sizing */
 .is-full-vh
 	min-height: 100vh !important

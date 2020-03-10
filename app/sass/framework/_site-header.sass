@@ -30,8 +30,10 @@ $desktop-break: $x-large
 		color: $white
 	a 
 		color: $brand-primary
+		text-decoration: none
 		@include linkHover
 			color: $brand-darker
+			text-decoration: underline
 	.bc-main-navigation-toggle
 		flex: 0 1 auto
 		justify-content: center 
@@ -180,7 +182,6 @@ $desktop-break: $x-large
 		.bc-main-navigation-toggle
 			margin-right: $gutter/2
 	.bc-main-navigation
-			
 		height: 100vh
 		min-height: 0
 		&__navs 
@@ -192,7 +193,7 @@ $desktop-break: $x-large
 			padding-bottom: $vertical-unit * 1
 		.bc-main-navigation__links
 			display: grid
-			grid-template: repeat(4, 20%) / repeat(2, 1fr)
+			grid-template: auto / repeat(2, 1fr)
 			grid-column-gap: 1.5rem
 			align-items: stretch
 			.bc-main-navigation__item
@@ -203,7 +204,7 @@ $desktop-break: $x-large
 							border-bottom: 1px solid $brand-primary
 		& &__sub-navigation
 			.bc-main-navigation__links
-				grid-template: repeat(3, 16%) / repeat(2, 1fr)
+				grid-template: auto / repeat(2, 1fr)
 @media screen and (min-width: $large)
 	.bc-site-header
 		& &__heading	
@@ -217,7 +218,7 @@ $desktop-break: $x-large
 		flex-direction: column
 		justify-content: stretch
 		& &__links
-			grid-template: repeat(4, 27%) / repeat(3, 1fr)
+			grid-template: auto / repeat(3, 1fr)
 		
 		&__navs 
 			flex: 1 0 100%
@@ -230,7 +231,7 @@ $desktop-break: $x-large
 			padding-right: 4.444rem + $gutter/2
 			margin-left: 0
 			.bc-main-navigation__links
-				grid-template: repeat(3, 20%) / repeat(3, 1fr)
+				grid-template: auto / repeat(3, 1fr)
 				margin-top: $gutter/2
 				
 
@@ -242,7 +243,7 @@ $desktop-break: $x-large
 			padding-right: $gutter/2
 			margin-right: 0
 		& &__links
-			grid-template: repeat(4, 16%) / repeat(2, 1fr)
+			grid-template: auto / repeat(2, 1fr)
 		& &__sub-navigation
 			padding-top: $vertical-unit + 0.25rem
 			padding-left: $gutter/2
@@ -254,7 +255,7 @@ $desktop-break: $x-large
 @media screen and (min-width: $xx-large)
 	.bc-main-navigation
 		& &__links
-			grid-template: repeat(4, 12.5%) / repeat(2, 1fr)	
+			grid-template: auto / repeat(2, 1fr)	
 		
 @media screen and (min-width: $xxx-large) 
 	.bc-main-navigation

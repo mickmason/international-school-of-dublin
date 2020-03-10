@@ -262,7 +262,7 @@
 	&__content
 		@include makeContentFlexbox(column)
 	&__heading
-		font-size: $h2
+		font-size: $h1
 		margin-top: 0
 		margin-bottom: $vertical-unit * 0.75 
 	&__links
@@ -274,8 +274,12 @@
 		flex: 1 1 auto
 		display: flex
 	&__link
+		flex: 1 1 auto
 		padding-top: 		$vertical-unit / 4
 		padding-bottom: $vertical-unit / 4
+		
+		@include linkHover
+			background-color: rgba($brand-primary, 0.24)
 	@media screen and (min-width: $med)
 		.bc-section-navigation__links
 			flex: 1 1 100%
@@ -295,6 +299,13 @@
 	@media screen and (min-width: $x-large)
 		.bc-section-navigation__links
 			grid-template: auto auto / repeat(3, 1fr)
+.bc-sidebar-widget
+	.bc-section-navigation__links 
+		padding-left: $gutter/2
+	.bc-section-navigation__link
+		color: $text-black
+		padding-top: 		$vertical-unit / 10
+		padding-bottom: $vertical-unit / 10	
 .bc-inner-page-header__sub-nav
 	position: relative
 	margin-top: 	 $vertical-unit*1

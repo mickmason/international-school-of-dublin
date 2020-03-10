@@ -46,6 +46,7 @@ $violet-invert:						invert($violet)
 
 $colors: ('primary': ($brand-primary, $brand-primary-invert), 'secondary': ($brand-secondary, $brand-secondary-invert), 'brand-darker': ($brand-darker, $brand-darker-invert), 'red':  ($red, $red-invert), 'orange': ($orange, $orange-invert), 'yellow': ($yellow, $yellow-invert), 'green': ($green, $green-invert), 'mid-green': ($mid-green, $mid-green-invert), 'blue': ($blue, $blue-invert), 'purple': ($purple, $purple-invert), 'violet': ($violet, $violet-invert))
 
+
 //** Typography
 $base-font-family: 			'Poppins', sans-serif
 $heading-font-family: 	$base-font-family 
@@ -56,5 +57,33 @@ $link-active-color:			darken($brand-primary, 20%)
 
 $text-line-height: $line-height
 $heading-font-weight: 300
+
+//* Pentatonic scale n = 5; r = 2
+$text--2:		0.758rem		!default
+$text--1:		0.8706rem		!default
+$text-00: 	1rem				!default
+$text-01: 	1.1487rem		!default
+$text-02: 	1.3195rem		!default
+$text-03: 	1.5157rem  	!default
+$text-04: 	1.7411rem		!default
+$text-10: 	2.0rem			!default
+$text-11: 	2.2974rem		!default 
+$text-12: 	2.6390rem		!default
+
+$small-text:				$text--1
+$regular-text: 			$text-00
+$h5-text: 					$text-00
+$h4-text: 					$text-00
+$h3-text: 					$text-01
+$h2-text: 					$text-03
+$h1-text: 					$text-10
+$large-text: 				$text-11
+$super-large-text: 	$text-12
+
+$h5:			$h5-text
+$h4:			$h4-text
+$h3:			$h3-text
+$h2:			$h2-text
+$h1:			$h1-text
 
 $feature-vertical-padding: $vertical-unit * 3
