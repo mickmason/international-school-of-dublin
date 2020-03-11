@@ -57,15 +57,12 @@ figure
 		max-width: 	2.4rem
 		max-height: 2.4rem
 .has-high-chroma
-	@include makeHighChroma
-	@include makeWhiteText
 	&--orange
 		@include makeHighChroma($start-colour: rgba($orange, 1), $end-colour: $dark-red)
 		@include makeWhiteText
 		.bc-elipses__elipse
 			fill: url(#linear-gradient--orange)
-.has-shade-gradient
-	@include gradOverlay('grey-fill')
+
 /* SVGs as background-images */
 .has-background-svg, .has-background-svg--centered
 	.bc-feature-svg
@@ -390,8 +387,7 @@ figure
 		.bc-2-col-media-feature__media
 			border: 2px solid $shade-01
 
-	&.bc-one-col-feature
-		@include gradOverlay('grey-fill', 'to bottom right')
+	&.bc-one-col-feature		
 		&.is-white
 			background-image: none
 		&.has-background-svg
@@ -607,6 +603,8 @@ figure
 			img
 				width: 100%
 	&__expander
+		display: flex
+		justify-content: flex-end
 		&__button
 			display: inline-flex
 			align-items: stretch
@@ -776,7 +774,6 @@ figure
 			&.bc-svg-icon--admissions
 				max-width: 	2.0rem
 				max-height: 2.0rem
-				fill: $brand-primary
 		.bc-feature-component__cta
 			align-self: flex-start
 			margin-left: 0 
@@ -968,16 +965,9 @@ $waves-height: 50px
 .bc-feature-component
 	padding-top: 		calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
 	padding-bottom: calc(#{$vertical-unit} * 2 + (#{$waves-height} / 2))
-	
-	&.has-high-chroma
-		@include makeHighChroma
-		@include makeWhiteText
-		&--orange
-			@include makeHighChroma($start-colour: rgba($orange, 1), $end-colour: $dark-red)
-			//background-image: radial-gradient(ellipse at 100% 0%, $orange, $dark-red 80%) 
-			@include makeWhiteText
-			.bc-elipses__elipse
-				fill: url(#linear-gradient--orange)
+
+
+
 .has-waves 
 	z-index: 10 
 	.wave-wrap

@@ -667,19 +667,28 @@
 		if (document.querySelectorAll('.bc-expandible-block__expander__button').length > 0) {
 			const $expandButtons = document.querySelectorAll('.bc-expandible-block__expander__button');
 			for (let $btn of $expandButtons) {
-				const $expandableBlock = $btn.parentElement.parentElement;
+				const $expandableBlock = $btn.closest('.bc-expandible-block');
 				const $expandableBody = $expandableBlock.querySelector('.bc-expandible-block__body'); 
 				$btn.addEventListener('click', () => {
-					const duration = 0.618;
-					const ease = 'power1.in';
+					/*const duration = 0.618;
+					const ease = 'power1.in';*/
 					if ($btn.classList.contains('is-active')) {
-						$bc.gsap.to($expandableBody, {height: 0, duration: duration, ease: ease}).eventCallback('onComplete', () => {
+						hideAccordionBody($expandableBody, () => {
 							$btn.classList.toggle('is-active');	
-						});	
-					} else {
-						$bc.gsap.to($expandableBody, {height: $expandableBody.scrollHeight, duration: duration, ease: ease}).eventCallback('onComplete', () => {
-							$btn.classList.toggle('is-active');	 
+							
 						});
+						/*$bc.gsap.to($expandableBody, {height: 0, duration: duration, ease: ease}).eventCallback('onComplete', () => {
+							$btn.classList.toggle('is-active');	
+						});	*/
+					} else {
+						showAccordionBody($expandableBody, () => {
+							$btn.classList.toggle('is-active');	
+							
+						});
+						$bc.gsapFns.scrollTo({scrollTo: {y: $expandableBlock.offsetTop}, duration: 0.2});
+						/*$bc.gsap.to($expandableBody, {height: $expandableBody.scrollHeight, duration: duration, ease: ease}).eventCallback('onComplete', () => {
+							$btn.classList.toggle('is-active');	 
+						});*/
 					}
 				});
 			}
@@ -692,7 +701,7 @@
 					if (typeof cb === 'function') {
 						cb();
 					}
-				});	
+				});
 			} else {
 				return;
 			}
@@ -718,16 +727,19 @@
 						evt.preventDefault();
 						const $accordionTriggerIcon = $accordionTrigger.querySelector('.bc-accordion__block-trigger__icon > .bc-svg-icon');
 						const $accordionBody = $accordionTrigger.closest('.bc-accordion__block-heading').nextElementSibling;
+						const $accordionHeading = $accordionBody.previousElementSibling;
 						if ($accordionTrigger.classList.contains('is-active') === false) {
 							showAccordionBody($accordionBody);
 							$bc.gsap.to($accordionTriggerIcon, {rotate: '90deg', duration: 0.1}).eventCallback('onComplete', () => {
 								$accordionTrigger.classList.toggle('is-active');
 							});
+							$bc.gsapFns.scrollTo({scrollTo: {y: $accordionHeading.offsetTop}, duration: 0.2});
 						} else {
 							hideAccordionBody($accordionBody);
 							$bc.gsap.to($accordionTriggerIcon, {rotate: '45deg', duration: 0.1}).eventCallback('onComplete', () => {
 								$accordionTrigger.classList.toggle('is-active');
 							});
+							$bc.gsapFns.scrollTo({scrollTo: {y: $accordionHeading.offsetTop}, duration: 0.2}); 
 						}						
 					});	
 				}
@@ -737,12 +749,14 @@
 						evt.preventDefault();
 						const $thisBody = $accordionCloseLink.closest('.bc-accordion__block-body');
 						const $thisHeading = $thisBody.previousElementSibling;
+						
 						const $accordionTrigger = $thisHeading.querySelector('.bc-accordion__block-trigger');
 						const $accordionTriggerIcon = $accordionTrigger.querySelector('.bc-accordion__block-trigger__icon > .bc-svg-icon');
 						hideAccordionBody($thisBody);
 						$bc.gsap.to($accordionTriggerIcon, {rotate: '45deg', duration: 0.1}).eventCallback('onComplete', () => {
 							$accordionTriggerIcon.classList.toggle('is-active');
 						});
+						$bc.gsapFns.scrollTo({scrollTo: {y: $thisHeading.offsetTop}, duration: 0.2, delay: 0.2}); 
 						
 					});
 				}

@@ -2,7 +2,7 @@
 /** * Project specific mixins * **/
 @mixin gradOverlay($type: 'main-hero', $direction: 'to bottom left', $start-colour: rgba($brand-primary, .618), $mid-colour: rgba($brand-primary, 0.618), $end-colour: $brand-primary, $stop: 61.8%)
 	@if $type == 'main-hero'
-		background-image: linear-gradient(to bottom, $start-colour 0%, $mid-colour 25%, $end-colour 100%)
+		background: linear-gradient(to bottom, $start-colour 0%, $mid-colour 25%, $end-colour 100%)
 	@else if $type == 'high-chroma'
 		background-image: linear-gradient(#{$direction}, $start-colour 0%, $end-colour $stop) 
 	@else if $type == 'grey-fill'
@@ -26,10 +26,28 @@
 		@include linkHover
 			.bc-svg-icon
 				fill: $white
+@mixin makeForgroundColour($color: $white, $opposite-color: $brand-primary)
+	h1, h2, h3, h4, h5, ul, li, p, a, bloquote, .bc-inner-page-content__heading, .bc-feature-component__heading 
+		color: $color	
+	.bc-svg-icon
+		fill: $color
+	.bc-button
+		border-color: $color
+		background-color: transparent
+		color: $white
+		@include linkHover
+			background-color: $color	
+			color: $opposite-color
+			.bc-svg-icon
+				fill: $opposite-color
+	.bc-icon-link
+		@include linkHover
+			.bc-svg-icon
+				fill: $white
 
-@mixin makeHighChroma($start-colour: rgba($brand-primary, .618), $end-colour:  $brand-darker) 
+@mixin makeHighChroma($start-colour: rgba($brand-primary, .618), $end-colour:  $brand-darker, $opposite: $white) 
 	@include gradOverlay('high-chroma', $start-colour: $start-colour, $end-colour: $end-colour)
-	@include makeWhiteText
+	@include makeForgroundColour($opposite, $start-colour)
 	.bc-feature-component__cta
 		.bc-feature-component__next
 			.bc-svg-icon

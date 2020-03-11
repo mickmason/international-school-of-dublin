@@ -1,7 +1,7 @@
 .bc-inner-page-content
 	@include makeSection
-	padding-top: 		$vertical-unit * 1
-	padding-bottom: $vertical-unit * 1
+	padding-top: $vertical-unit * 1.5
+	padding-bottom: 0
 	
 	& &__heading
 		margin-top: 0
@@ -16,9 +16,12 @@
 		grid-column: 1 / span 2
 	&__main
 		padding-right: 	$gutter
+		padding-bottom: $vertical-unit * 1.5
+
 	&__sidebar
 		padding-left: 	$gutter
 		border-left: 1px solid $shade-02
+		padding-bottom: $vertical-unit * 1.5 
 	&__header, &__main, &__sidebar
 		padding-left: 	$gutter/2
 		padding-right: 	$gutter/2

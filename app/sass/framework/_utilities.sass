@@ -85,6 +85,11 @@
 @each $name, $shade in $shades	
 	.has-#{$name}
 		background-color: $shade
+
+@each $name, $shade in $shades	
+	.has-#{$name}-gradient
+		@include gradOverlay($start-colour: $shade, $mid-colour: darken($shade, 6%), $end-colour: darken($shade, 12.5%), $stop: 100%)
+	
 .has-mark-right
 	position: relative
 	&:after
@@ -105,20 +110,33 @@
 		bottom: 0px
 		right: 0
 		background-color: $color
+
 /* Coloring */
 @each $name, $color in $colors	
 	$color-invert: nth($color, 2) 
 	$color: nth($color, 1)
 	.has-#{$name}-background 
 		background-color: $color
-		h1, h2, h3, h4, h5, h6, p, ul, li, blockquote, .bc-feature-component__heading, .bc-inner-page-content__heading
-			color: $color-invert
+		@include makeForgroundColour($color-invert, $color)
 	@if $name != 'secondary' and $name != 'yellow'
 		.is-#{$name}-text
 			color: $color
+	
+@each $name, $color in $colors
 	.has-mark-right--#{$name}
 		@include makeMarkRight($color)
-	
+.has-shade-gradient
+	@include gradOverlay('grey-fill')
+.has-high-chroma
+	@include makeHighChroma
+	@include makeWhiteText
+		
+@each $name, $color in $colors
+	$color-invert: nth($color, 2) 
+	$color: nth($color, 1)
+	.has-high-chroma--#{$name}
+		@include makeHighChroma($color, darken($color, 12%), $color-invert)
+
 	
 /* Sizing */
 .is-full-vh
