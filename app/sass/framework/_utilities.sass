@@ -15,9 +15,10 @@
 		max-height: 1.4rem
 		fill: $link-color
 	@include linkHover
+		background-color: transparent 
 		text-decoration: underline
 		.bc-svg-icon
-				fill: $link-active-color
+				fill: $link-color
 	&--featured
 		@extend .bc-icon-link
 		font-size: $text-02
@@ -25,6 +26,7 @@
 		.bc-svg-icon
 			max-height: $text-02*$line-height
 		&:hover, &:active, &:focus
+			background-color: transparent 
 			text-decoration: underline
 .bc-svg-icon
 	max-width: $vertical-unit * 2 
@@ -119,7 +121,7 @@
 		background-color: $color
 		@include makeForgroundColour($color-invert, $color)
 	@if $name != 'secondary' and $name != 'yellow'
-		.is-#{$name}-text
+		.has-#{$name}-text
 			color: $color
 	
 @each $name, $color in $colors

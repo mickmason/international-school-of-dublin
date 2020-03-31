@@ -275,8 +275,6 @@ figure
 		@include doFeatureHeading($font-size: $h2) 
 	&__sub-heading
 		margin-bottom: $vertical-unit * 0.5
-	&__media
-		display: 		block  
 	img
 		width: 100%
 	p 
@@ -293,7 +291,6 @@ figure
 			.bc-card__heading, .bc-card__sub-heading, p, .bc-card__cta
 				margin-top: 0
 				flex: 0 1 auto
-				width: 100%
 			.bc-card__text
 				flex: 1 1 auto
 				display: flex
@@ -387,7 +384,7 @@ figure
 		.bc-2-col-media-feature__media
 			border: 2px solid $shade-01
 
-	&.bc-one-col-feature		
+	&.bc-one-col-feature	
 		&.is-white
 			background-image: none
 		&.has-background-svg
@@ -436,6 +433,8 @@ figure
  *	2-column cards - they are pulled left and right consecutively into the page margin in larger screens 
  */ 
 /* Card wrapper - pulls into the left and right page margins */
+
+	
 .bc-two-col-card-wrap
 	background-color: $white
 	&:nth-child(1n)
@@ -481,11 +480,7 @@ figure
 		&:nth-child(even)
 			.bc-two-col-card
 				grid-template: auto / 3fr 7fr
-		
 .bc-two-col-card
-	display: grid
-	grid-template: auto / 100%
-	grid-column-gap: $gutter
 	margin-bottom: $vertical-unit * 2
 	&__body 
 		padding: $vertical-unit $gutter/2 
@@ -496,21 +491,8 @@ figure
 		flex: 0 1 auto
 		margin-top: 0
 		margin-bottom: $vertical-unit/2
-	@media screen and (min-width: 700px)
-		display: grid
-		grid-template: auto / 0.618fr 0.382fr
-		.bc-two-col-card__image
-			picture
-				@include mediaContainer
-	@media screen and (min-width: $med)
-		grid-template: auto / 2fr 1fr
-	@media screen and (min-width: $large)
-		grid-template: auto / 7fr 3fr
-		.bc-two-col-card__body
-			padding-left: 	0
-			padding-right: 	0
 
-	/* Heroes and content features next links */
+/* Heroes and content features next links */
 .bc-feature-component, .bc-hero
 	& &__cta
 		justify-content: space-between
